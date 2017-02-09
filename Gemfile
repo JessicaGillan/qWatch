@@ -36,6 +36,16 @@ gem 'jbuilder', '~> 2.5'
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
 
+gem 'angular_rails_csrf'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-angular'
+  gem 'rails-assets-ui-router'
+  gem 'rails-assets-lodash'
+  gem 'rails-assets-restangular'
+end
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
