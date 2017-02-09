@@ -1,1 +1,1 @@
-var qwatch = angular.module('QW', ['ui.router', 'restangular']);
+var qwatch = angular.module('qwatch', ['ui.router', 'restangular']);
