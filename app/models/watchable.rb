@@ -1,0 +1,2 @@
+class Watchable < ApplicationRecord
+end

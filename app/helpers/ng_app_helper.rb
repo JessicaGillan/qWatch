@@ -1,0 +1,2 @@
+module NgAppHelper
+end
