@@ -1,10 +1,7 @@
 <%= content_for :angular do %>
-  ng-app="qwatch"
+  ng-app="qWatch"
 <% end %>
-
-Hello Rails, from static_pages index!
-
-Bootstrap test:
-<a href="#" class="btn btn-success">Button</a>
-
-Angular test: {{ 2 + 2 }}
+<ui-view name="nav"></ui-view>
+<ui-view name="search"></ui-view>
+<ui-view></ui-view>
+<div class="expandable" ng-class="{expand: expanded, shrink: !expanded}" ui-view="show"></div>

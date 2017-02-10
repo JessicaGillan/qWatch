@@ -7,27 +7,39 @@ class Guidebox
 
   API_KEY = "?api_key=#{Rails.application.secrets.guidebox_api_key}"
   BASE_URL = 'https://api-public.guidebox.com/v2/'
+  LIMIT_MAX = 250
+  MAX_PER_MIN = 250
 
-  def pull_movies
-    response = HTTParty.get(build_url('movies'))
-    JSON.parse(response.body)["results"]
+  # GET https://api-public.guidebox.com/v2/movies?api_key=
+  def pull_movies(options = {})
+    response = HTTParty.get(build_url('movies', options))
+
+    JSON.parse(response.body)
   end
 
-  def movies
-    @movies = pull_movies.each do |movie|
-      watch = Watchable.find_by(gb_id: movie["id"], gb_type: "movie")
-      # if watch
-      #   watch.update(title: movie["title"], {poster_attributes: { thumbnail: movie["poster_120x171"], medium: movie["poster_240x342"], large: movie["poster_400x570"] }})
-      # else
-      #   Watchable.create(gb_id: movie["id"], gb_type: "movie", title: movie["title"], {poster_attributes: { thumbnail: movie["poster_120x171"], medium: movie["poster_240x342"], large: movie["poster_400x570"] }})
-      # end
-    end
+  # GET https://api-public.guidebox.com/v2/movies/:id?api_key=
+  def pull_movie_data(id, options = {})
+    response = HTTParty.get(build_url("movies/#{id}", options))
+
+    JSON.parse(response.body)
   end
 
   private
 
-    def build_url(product, query=nil)
-      "#{BASE_URL}#{product}#{API_KEY}#{query}"
+    def build_url(product, options = nil)
+      "#{BASE_URL}#{product}#{API_KEY}#{build_query_string(options)}"
+    end
+
+    # Format: &limit=10
+    def build_query_string(options)
+      return "" if !options || options.empty?
+
+      q_str = ""
+      options.each do |key, value|
+        q_str += "&#{key}=#{value}"
+      end
+
+      q_str
     end
 
   end
