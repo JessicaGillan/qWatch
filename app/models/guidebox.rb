@@ -3,8 +3,6 @@
 
 class Guidebox
 
-  # class << self
-
   API_KEY = "?api_key=#{Rails.application.secrets.guidebox_api_key}"
   BASE_URL = 'https://api-public.guidebox.com/v2/'
   LIMIT_MAX = 250
@@ -23,8 +21,6 @@ class Guidebox
 
   def save_movies(options = {})
     results = Guidebox.pull_movies(options)
-    puts "RESULTS"
-    p results
 
     @num_retrieved += results.length
 
@@ -49,6 +45,7 @@ class Guidebox
   end
 
   private
+
     def watchable_params(result, type)
       return {
         gb_id: result["id"],
@@ -78,7 +75,5 @@ class Guidebox
 
       q_str
     end
-
-  # end
 
 end
