@@ -1,16 +1,19 @@
 class Movie
 
   def initialize
-    @total_num_movies = nil
-    @num_retrieved = 0
+    @total_pages = nil
+    @pages_retrieved = 0
     @services = set_services
+  end
+
+  def ddos_protect
+    sleep(ceil((60 / Guidebox.MAX_PER_MIN) * 10)/10)
   end
 
   # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
   def save_all_movies
-    while !@total_num_movies || @num_retrieved < @total_num_movies
-      save_movies({ offset: @num_retrieved, limit: LIMIT_MAX })
-      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    while !@total_pages || @pages_retrieved < @total_pages
+      save_movies(set_discover)
     end
   end
 
@@ -18,10 +21,10 @@ class Movie
     response = Guidebox.pull_movies(options)
 
     @total_num_movies = @total_num_movies || response["total_results"]
-    @num_retrieved += response["results"].length
+    @num_retrieved += response["page"]
 
     response["results"].each do |movie|
-      watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
+      watch = Watchable.find_by(tmdb_id: movie["id"].to_i, tmdb_type: "movie")
 
       if watch
         watch.update(watchable_params(movie, "movie"))
@@ -49,6 +52,16 @@ class Movie
   end
 
   private
+
+      def set_discover
+        {
+          language: en-US,
+          sort_by: popularity.desc,
+          include_adult: false,
+          include_video: false,
+          page: @pages_retrieved + 1
+        }
+      end
 
       def set_services
         {
