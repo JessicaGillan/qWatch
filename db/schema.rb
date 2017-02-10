@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20170210220300) do
     t.string   "itunes"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "imdb_id",      null: false
+    t.integer  "imdb_id",
     t.index ["imdb_id"], name: "index_watchables_on_imdb_id", using: :btree
     t.index ["moviedb_id", "moviedb_type"], name: "index_watchables_on_moviedb_id_and_moviedb_type", unique: true, using: :btree
     t.index ["moviedb_type"], name: "index_watchables_on_moviedb_type", using: :btree

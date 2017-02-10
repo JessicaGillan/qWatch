@@ -24,6 +24,13 @@ class Guidebox
     JSON.parse(response.body)
   end
 
+  # GET /v2/search?type=movie&field=id&id_type=imdb&query=tt1826940
+  def search_for_movie(options)
+    response = HTTParty.get(build_url("search", options))
+
+    JSON.parse(response.body)
+  end
+
   private
 
     def build_url(product, options = nil)
