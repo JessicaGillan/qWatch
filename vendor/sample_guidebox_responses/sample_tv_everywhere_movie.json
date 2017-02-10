@@ -1,0 +1,664 @@
+{
+   "id":134758,
+   "title":"The Divergent Series: Allegiant",
+   "release_year":2016,
+   "themoviedb":262504,
+   "original_title":"The Divergent Series: Allegiant",
+   "alternate_titles":[
+      "The Divergent Series: Allegiant (Plus Bonus Features)",
+      "The Divergent Series: Allegiant + Bonus",
+      "The Divergent Series: Allegiant + New Bonus",
+      "Divergent Series, The: Allegiant",
+      "Allegiant",
+      "Allegiant: Part 1",
+      "Element",
+      "Divergent 3",
+      "The Divergent Series: Allegiant - Part 1",
+      "3. Allegiant"
+   ],
+   "imdb":"tt3410834",
+   "pre_order":false,
+   "in_theaters":false,
+   "release_date":"2016-03-09",
+   "rating":"NR",
+   "rottentomatoes":771378690,
+   "freebase":"",
+   "wikipedia_id":43117035,
+   "metacritic":"http:\/\/www.metacritic.com\/movie\/allegiant-part-1",
+   "common_sense_media":"https:\/\/www.commonsensemedia.org\/movie-reviews\/the-divergent-series-allegiant",
+   "overview":"In this exciting penultimate film in The Divergent Series, Tris (Shailene Woodley) and Four (Theo James) lead a team of rebels in a daring escape over the city wall\u2014into a strange new world where they face a threat more dangerous than they ever imagined. Together, Tris and Four wage a furious battle for survival, fighting not only for their factions and loved ones, but for the future of an entire city in this dynamic, action-packed adventure.",
+   "poster_120x171":"http:\/\/static-api.guidebox.com\/111615\/thumbnails_movies_small\/134758-6262275614-4153220500-7985544903-small-120x171-alt-.jpg",
+   "poster_240x342":"http:\/\/static-api.guidebox.com\/111615\/thumbnails_movies_medium\/134758-8053360614-7837684164-1822516341-medium-240x342-alt-.jpg",
+   "poster_400x570":"http:\/\/static-api.guidebox.com\/111615\/thumbnails_movies\/-alt--134758-9762317375-1080839397-4114103359-large-400x570-alt-.jpg",
+   "social":{
+      "facebook":{
+         "facebook_id":283106521816079,
+         "link":"https:\/\/www.facebook.com\/TheDivergentSeries"
+      }
+   },
+   "genres":[
+      {
+         "id":1,
+         "title":"Action"
+      },
+      {
+         "id":3,
+         "title":"Adventure"
+      },
+      {
+         "id":21,
+         "title":"Science-Fiction"
+      }
+   ],
+   "tags":[
+      {
+         "id":1515,
+         "tag":"dystopia"
+      },
+      {
+         "id":23470,
+         "tag":"based on young adult novel"
+      }
+   ],
+   "duration":7260,
+   "trailers":{
+      "web":[
+         {
+            "type":"Main Trailer",
+            "source":"guidebox",
+            "display_name":"Guidebox",
+            "link":"http:\/\/demo.guidebox.com\/watch-now.php?video=54218",
+            "embed":"http:\/\/api-widget.guidebox.com\/embed.php?video=54218"
+         }
+      ],
+      "ios":[
+         {
+            "type":"Main Trailer",
+            "source":"guidebox",
+            "display_name":"Guidebox",
+            "link":"http:\/\/demo.guidebox.com\/watch-now.php?video=54218",
+            "embed":"http:\/\/api-widget.guidebox.com\/embed.php?video=54218"
+         }
+      ],
+      "android":[
+         {
+            "type":"Main Trailer",
+            "source":"guidebox",
+            "display_name":"Guidebox",
+            "link":"http:\/\/demo.guidebox.com\/watch-now.php?video=54218",
+            "embed":"http:\/\/api-widget.guidebox.com\/embed.php?video=54218"
+         }
+      ]
+   },
+   "writers":[
+      {
+         "id":338218,
+         "name":"Stephen Chbosky",
+         "imdb":"nm0154716"
+      },
+      {
+         "id":160603,
+         "name":"Adam Cooper",
+         "imdb":"nm0177836"
+      },
+      {
+         "id":410902,
+         "name":"Bill Collage",
+         "imdb":"nm0171651"
+      },
+      {
+         "id":324221,
+         "name":"Noah Oppenheim",
+         "imdb":"nm3834300"
+      }
+   ],
+   "directors":[
+      {
+         "id":87251,
+         "name":"Robert Schwentke",
+         "imdb":"nm0777881"
+      }
+   ],
+   "cast":[
+      {
+         "id":350967,
+         "name":"Shailene Woodley",
+         "character_name":"Tris",
+         "imdb":"nm0940362"
+      },
+      {
+         "id":318647,
+         "name":"Theo James",
+         "character_name":"Four",
+         "imdb":"nm3772243"
+      },
+      {
+         "id":288251,
+         "name":"Zo\u00eb Kravitz",
+         "character_name":"Christina",
+         "imdb":"nm2368789"
+      },
+      {
+         "id":558469,
+         "name":"Miles Teller",
+         "character_name":"Peter",
+         "imdb":"nm1886602"
+      },
+      {
+         "id":300858,
+         "name":"Naomi Watts",
+         "character_name":"Evelyn",
+         "imdb":"nm0915208"
+      },
+      {
+         "id":501437,
+         "name":"Ansel Elgort",
+         "character_name":"Caleb Prior",
+         "imdb":"nm5052065"
+      },
+      {
+         "id":48125,
+         "name":"Maggie Q",
+         "character_name":"Tori",
+         "imdb":"nm0702572"
+      },
+      {
+         "id":59957,
+         "name":"Jeff Daniels",
+         "character_name":"David",
+         "imdb":"nm0001099"
+      },
+      {
+         "id":640798,
+         "name":"Bill Skarsg\u00e5rd",
+         "character_name":"Matthew",
+         "imdb":"nm0803889"
+      },
+      {
+         "id":129303,
+         "name":"Nadia Hilker",
+         "character_name":"Nita",
+         "imdb":"nm3758734"
+      },
+      {
+         "id":227131,
+         "name":"Keiynan Lonsdale",
+         "character_name":"Uriah",
+         "imdb":"nm2920533"
+      },
+      {
+         "id":447728,
+         "name":"Autumn Dial",
+         "character_name":"Groupie Babe #1",
+         "imdb":"nm3860085"
+      },
+      {
+         "id":802867,
+         "name":"Hannah Alligood",
+         "character_name":"Crush Girl #2",
+         "imdb":"nm6615590"
+      },
+      {
+         "id":364922,
+         "name":"Jonny Weston",
+         "character_name":"Edgar",
+         "imdb":"nm4103976"
+      },
+      {
+         "id":490848,
+         "name":"Courtney Hope",
+         "character_name":"Anna",
+         "imdb":"nm0393960"
+      },
+      {
+         "id":900584,
+         "name":"Joseph David-Jones",
+         "character_name":"Hollis",
+         "imdb":"nm4526565"
+      },
+      {
+         "id":444383,
+         "name":"Ray Stevenson",
+         "character_name":"Marcus",
+         "imdb":"nm0829032"
+      },
+      {
+         "id":300795,
+         "name":"Mekhi Phifer",
+         "character_name":"Max",
+         "imdb":"nm0001616"
+      },
+      {
+         "id":179422,
+         "name":"Xander Berkeley",
+         "character_name":"Phillip",
+         "imdb":"nm0075359"
+      },
+      {
+         "id":707191,
+         "name":"Parisa Johnston",
+         "character_name":"Regina",
+         "imdb":"nm3966712"
+      },
+      {
+         "id":544962,
+         "name":"Rebecca Pidgeon",
+         "character_name":"Sarah",
+         "imdb":"nm0682071"
+      },
+      {
+         "id":360794,
+         "name":"Daniel Dae Kim",
+         "character_name":"Jack Kang",
+         "imdb":"nm0196654"
+      },
+      {
+         "id":313900,
+         "name":"Octavia Spencer",
+         "character_name":"Johanna",
+         "imdb":"nm0818055"
+      },
+      {
+         "id":659743,
+         "name":"Thomas Blake Jr.",
+         "character_name":"Fringe Father",
+         "imdb":"nm1456412"
+      },
+      {
+         "id":32688,
+         "name":"Amy Parrish",
+         "character_name":"Zoe",
+         "imdb":"nm0663511"
+      },
+      {
+         "id":968535,
+         "name":"Ken DuBois",
+         "character_name":"Tom",
+         "imdb":"nm4516500"
+      },
+      {
+         "id":314562,
+         "name":"Janet McTeer",
+         "character_name":"Edith Prior",
+         "imdb":"nm0005216"
+      },
+      {
+         "id":968536,
+         "name":"Konrad Howard",
+         "character_name":"Jasper",
+         "imdb":""
+      },
+      {
+         "id":968537,
+         "name":"Theo Howard",
+         "character_name":"Eulis",
+         "imdb":""
+      },
+      {
+         "id":968538,
+         "name":"Lucella Costa",
+         "character_name":"Laura",
+         "imdb":""
+      },
+      {
+         "id":614487,
+         "name":"Julie Ivey",
+         "character_name":"Fringe Parent",
+         "imdb":"nm0412383"
+      },
+      {
+         "id":419971,
+         "name":"Kyle Russell Clements",
+         "character_name":"Factionless Guard",
+         "imdb":"nm2356797"
+      },
+      {
+         "id":656460,
+         "name":"Andy Bean",
+         "character_name":"Romit",
+         "imdb":"nm2811167"
+      },
+      {
+         "id":349795,
+         "name":"Ashley Judd",
+         "character_name":"Natalie Prior",
+         "imdb":"nm0000171"
+      }
+   ],
+   "free_web_sources":[
+
+   ],
+   "free_ios_sources":[
+
+   ],
+   "free_android_sources":[
+
+   ],
+   "tv_everywhere_web_sources":[
+      {
+         "source":"hbo",
+         "display_name":"HBO GO",
+         "tv_channel":"HBO",
+         "link":"http:\/\/www.hbogo.com\/#series\/video&assetID=GOROSTGP57090?videoMode=embeddedVideo\/"
+      }
+   ],
+   "tv_everywhere_ios_sources":[
+      {
+         "source":"hbo",
+         "display_name":"HBO GO",
+         "tv_channel":"HBO",
+         "link":"hbogo:\/\/deeplink\/MO.MO\/GOROSTGP57090",
+         "app_name":"HBO GO",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"itms-apps:\/\/itunes.apple.com\/app\/hbo-go\/id429775439"
+      }
+   ],
+   "tv_everywhere_android_sources":[
+      {
+         "source":"hbo",
+         "display_name":"HBO GO",
+         "tv_channel":"HBO",
+         "link":"hbogo:\/\/deeplink\/MO.MO\/GOROSTGP57090",
+         "app_name":"HBO GO",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"https:\/\/play.google.com\/store\/apps\/details?id=com.HBO"
+      }
+   ],
+   "subscription_web_sources":[
+      {
+         "source":"hbo_now",
+         "display_name":"HBO NOW",
+         "link":"https:\/\/www.hbonow.com\/movies\/PROD772119"
+      },
+      {
+         "source":"hbo_amazon_prime",
+         "display_name":"HBO (Via Amazon Prime)",
+         "link":"http:\/\/www.amazon.com\/gp\/product\/B01D0SVUFC?spp=hbo"
+      }
+   ],
+   "subscription_ios_sources":[
+      {
+         "source":"hbo_now",
+         "display_name":"HBO NOW",
+         "link":"hbonow:\/\/asset?id=PROD772119",
+         "app_name":"HBO NOW",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"itms-apps:\/\/itunes.apple.com\/app\/hbo-now\/id971265422"
+      },
+      {
+         "source":"hbo_amazon_prime",
+         "display_name":"HBO (Via Amazon Prime)",
+         "link":"aiv:\/\/aiv\/play?asin=B01D0SVUFC",
+         "app_name":"Amazon Prime",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"itms-apps:\/\/itunes.apple.com\/app\/amazon-instant-video\/id5455193"
+      }
+   ],
+   "subscription_android_sources":[
+      {
+         "source":"hbo_now",
+         "display_name":"HBO NOW",
+         "link":"hbonow:\/\/asset?id=PROD772119",
+         "app_name":"HBO NOW",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"https:\/\/play.google.com\/store\/apps\/details?id=com.hbo.hbonow"
+      },
+      {
+         "source":"hbo_amazon_prime",
+         "display_name":"HBO (Via Amazon Prime)",
+         "link":"http:\/\/www.amazon.com\/piv-apk-play?asin=B01D0SVUFC",
+         "app_name":"Amazon Prime",
+         "app_link":0,
+         "app_required":1,
+         "app_download_link":"http:\/\/amazon.com\/GetAndroidVideo"
+      }
+   ],
+   "purchase_web_sources":[
+      {
+         "source":"itunes",
+         "display_name":"iTunes",
+         "link":"https:\/\/itunes.apple.com\/us\/movie\/divergent-series-allegiant\/id1090135578?uo=4&at=10laHb",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"amazon_buy",
+         "display_name":"Amazon",
+         "link":"http:\/\/www.amazon.com\/gp\/product\/B01D0S1SL8",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"vudu",
+         "display_name":"VUDU",
+         "link":"http:\/\/click.linksynergy.com\/fs-bin\/click?id=Pz66xbzAbFo&subid=&offerid=251672.1&type=10&tmpid=9417&RD_PARM1=http%3A%2F%2Fwww.vudu.com%2Fmovies%2F%23%21content%2F744530%2FThe-Divergent-Series-Allegiant",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HDX",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"google_play",
+         "display_name":"Google Play",
+         "link":"https:\/\/play.google.com\/store\/movies\/details\/The_Divergent_Series_Allegiant?id=_FoYqsW1aaE",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"mgo",
+         "display_name":"FandangoNOW",
+         "link":"https:\/\/www.mgo.com\/details\/MMV9F3CB4368B08C8C2D52E007D2627BD10E",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"cinemanow",
+         "display_name":"CinemaNow",
+         "link":"http:\/\/www.cinemanow.com\/title\/667647",
+         "formats":[
+            {
+               "price":"15.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"15.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"youtube_purchase",
+         "display_name":"YouTube",
+         "link":"https:\/\/www.youtube.com\/watch?v=_FoYqsW1aaE",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"sony",
+         "display_name":"Sony Entertainment Network",
+         "link":"https:\/\/store.sonyentertainmentnetwork.com\/#!\/en-us\/movies\/cid=UV0002-NPVB24080_CN-0000000000312085",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"verizon_on_demand",
+         "display_name":"Verizon On Demand",
+         "link":"https:\/\/www.verizon.com\/Ondemand\/Movies\/MovieDetails\/movie\/VUBX0262972005071680",
+         "formats":[
+
+         ]
+      }
+   ],
+   "purchase_ios_sources":[
+      {
+         "source":"itunes",
+         "display_name":"iTunes",
+         "link":"itms:\/\/itunes.apple.com\/us\/movie\/divergent-series-allegiant\/id1090135578?uo=4&at=10laHb",
+         "app_name":"iTunes",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"itms-apps:\/\/",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"vudu",
+         "display_name":"VUDU",
+         "link":"http:\/\/click.linksynergy.com\/fs-bin\/click?id=Pz66xbzAbFo&subid=&offerid=251672.1&type=10&tmpid=9417&RD_PARM1=http%3A%2F%2Fwww.vudu.com%2Fmovies%2F%23%21content%2F744530%2FThe-Divergent-Series-Allegiant",
+         "app_name":"VUDU",
+         "app_link":0,
+         "app_required":0,
+         "app_download_link":"itms-apps:\/\/itunes.apple.com\/app\/vudu-player-movies-tv\/id487285735",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HDX",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      }
+   ],
+   "purchase_android_sources":[
+      {
+         "source":"vudu",
+         "display_name":"VUDU",
+         "link":"vuduapp:\/\/744530",
+         "app_name":"VUDU",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"https:\/\/play.google.com\/store\/apps\/details?id=air.com.vudu.air.DownloaderTablet",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"SD",
+               "type":"purchase",
+               "pre_order":false
+            },
+            {
+               "price":"14.99",
+               "format":"HDX",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      },
+      {
+         "source":"google_play",
+         "display_name":"Google Play",
+         "link":"https:\/\/play.google.com\/store\/movies\/details\/The_Divergent_Series_Allegiant?id=_FoYqsW1aaE",
+         "app_name":"Google Play",
+         "app_link":0,
+         "app_required":0,
+         "app_download_link":"https:\/\/play.google.com\/store",
+         "formats":[
+            {
+               "price":"14.99",
+               "format":"HD",
+               "type":"purchase",
+               "pre_order":false
+            }
+         ]
+      }
+   ],
+   "other_sources":[
+
+   ]
+}

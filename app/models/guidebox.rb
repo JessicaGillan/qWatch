@@ -6,6 +6,15 @@ class Guidebox
   API_KEY = "?api_key=#{Rails.application.secrets.guidebox_api_key}"
   BASE_URL = 'https://api-public.guidebox.com/v2/'
   LIMIT_MAX = 250
+  SERVICES = {
+    hulu:        hulu_sources,
+    amazon:      amazon_sources,
+    netflix:     source_obj("subscription_web_sources", "netflix"),
+    xfinity:     xfinity_sources,
+    amazon_buy:  [source_obj("purchase_web_sources", "amazon_buy")],
+    google_play: [source_obj("purchase_web_sources", "google_play")],
+    itunes:      [source_obj("purchase_web_sources", "itunes")]
+  }
 
   def initialize
     @total_num_movies = nil
@@ -35,6 +44,16 @@ class Guidebox
     end
   end
 
+  def save_movie_data(id)
+    movie = Guidebox.pull_movie_data(id)
+    watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
+
+    if watch
+      watch.update(watchable_source_params(movie))
+    end
+  end
+
+  # GET https://api-public.guidebox.com/v2/movies?api_key=
   def self.pull_movies(options = {})
     response = HTTParty.get(build_url('movies', options))
     json = JSON.parse(response.body)
@@ -44,10 +63,17 @@ class Guidebox
     json["results"]
   end
 
+  # GET https://api-public.guidebox.com/v2/movies/:id?api_key=
+  def self.pull_movie_data(id, options = {})
+    response = HTTParty.get(build_url("movies/#{id}", options))
+
+    JSON.parse(response.body)
+  end
+
   private
 
     def watchable_params(result, type)
-      return {
+      {
         gb_id: result["id"],
         gb_type: type,
         title: result["title"],
@@ -58,6 +84,48 @@ class Guidebox
           large: result["poster_400x570"]
         }
       }
+    end
+
+    def watchable_source_params(result)
+      {
+        hulu:        get_link_for :hulu,
+        amazon:      get_link_for :amazon,
+        netflix:     get_link_for :netflix,
+        xfinity:     get_link_for :xfinity,
+        amazon_buy:  get_link_for :amazon_buy,
+        google_play: get_link_for :google_play,
+        itunes:      get_link_for :itunes
+      }
+    end
+
+    def get_link_for(service)
+    end
+
+    def source_obj(source, name)
+      { type: source, name: name }
+    end
+
+    def hulu_sources
+      [
+        source_obj("free_web_sources", "hulu_free"),
+        source_obj("subscription_web_sources", "hulu_plus"),
+        source_obj("subscription_web_sources", "hulu_with_showtime")
+      ]
+    end
+
+    def amazon_sources
+      [
+        source_obj("free_web_sources", "amazon_prime_free"),
+        source_obj("subscription_web_sources", "amazon_prime")
+      ]
+    end
+
+    def xfinity_sources
+      [
+        source_obj("free_web_sources", "xfinity"),
+        source_obj("tv_everywhere_web_sources", "xfinity_tveverywhere"),
+        source_obj("purchase_web_sources", "xfinity_purchase")
+      ]
     end
 
     def self.build_url(product, options = nil)
