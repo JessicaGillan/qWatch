@@ -40,6 +40,8 @@ gem 'angular_rails_csrf'
 
 # Figaro
 gem 'figaro'
+gem 'devise'
+gem 'angular_rails_csrf'
 
 # HTTParty
 gem 'httparty'
@@ -49,6 +51,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ui-router'
   gem 'rails-assets-lodash'
   gem 'rails-assets-restangular'
+  gem 'rails-assets-angular-devise'
 end
 
 group :development, :test do
