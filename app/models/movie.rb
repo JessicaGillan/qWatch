@@ -21,7 +21,7 @@ class Movie
     @num_retrieved += response["results"].length
 
     response["results"].each do |movie|
-      watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
+      watch = Watchable.find_by(moviedb_id: movie["id"].to_i, moviedb_type: "movie")
 
       if watch
         watch.update(watchable_params(movie, "movie"))
@@ -64,8 +64,8 @@ class Movie
 
       def watchable_params(result, type)
         {
-          gb_id: result["id"],
-          gb_type: type,
+          moviedb_id: result["id"],
+          moviedb_type: type,
           title: result["title"],
           poster_attributes:
           {
