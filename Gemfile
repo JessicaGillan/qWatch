@@ -38,6 +38,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 # Angular Rails
 gem 'angular_rails_csrf'
 
+# Devise
+gem 'devise'
+
 # Figaro
 gem 'figaro'
 
@@ -49,6 +52,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ui-router'
   gem 'rails-assets-lodash'
   gem 'rails-assets-restangular'
+  gem 'rails-assets-angular-devise'
 end
 
 group :test do

@@ -1,0 +1,5 @@
+qWatch.factory('showItemService', [
+  function(){
+
+  }
+])
