@@ -1,27 +1,26 @@
 class Movie
 
-  SERVICES = {
-    hulu:        hulu_sources,
-    amazon:      amazon_sources,
-    netflix:     source_obj("subscription_web_sources", "netflix"),
-    xfinity:     xfinity_sources,
-    amazon_buy:  [source_obj("purchase_web_sources", "amazon_buy")],
-    google_play: [source_obj("purchase_web_sources", "google_play")],
-    itunes:      [source_obj("purchase_web_sources", "itunes")]
-  }
-
   def initialize
     @total_num_movies = nil
     @num_retrieved = 0
+    @services = set_services
   end
 
   # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
+  def save_all_movies
+    while !@total_num_movies || @num_retrieved < @total_num_movies
+      save_movies({ offset: @num_retrieved, limit: LIMIT_MAX })
+      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    end
+  end
+
   def save_movies(options = {})
-    results = Guidebox.pull_movies(options)
+    response = Guidebox.pull_movies(options)
 
-    @num_retrieved += results.length
+    @total_num_movies = @total_num_movies || response["total_results"]
+    @num_retrieved += response["results"].length
 
-    results.each do |movie|
+    response["results"].each do |movie|
       watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
 
       if watch
@@ -32,8 +31,16 @@ class Movie
     end
   end
 
-  def save_movie_data(id)
-    movie = Guidebox.pull_movie_data(id)
+  # Save Url data for an array of watchables
+  def save_movies_data(watchables)
+    watchables.each do |movie|
+      save_movie_data(movie.gb_id)
+      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    end
+  end
+
+  def save_movie_data(guidebox_id)
+    movie = Guidebox.pull_movie_data(guidebox_id)
     watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
 
     if watch
@@ -42,6 +49,18 @@ class Movie
   end
 
   private
+
+      def set_services
+        {
+          hulu:        hulu_sources,
+          amazon:      amazon_sources,
+          netflix:     [source_obj("subscription_web_sources", "netflix")],
+          xfinity:     xfinity_sources,
+          amazon_buy:  [source_obj("purchase_web_sources", "amazon_buy")],
+          google_play: [source_obj("purchase_web_sources", "google_play")],
+          itunes:      [source_obj("purchase_web_sources", "itunes")]
+        }
+      end
 
       def watchable_params(result, type)
         {
@@ -70,9 +89,9 @@ class Movie
       end
 
       def get_link_for(service, result)
-        Guidebox.SERVICES[service].each do |source_info|
-          result[source_info.type].each do |source_item|
-            if source_item["source"] == source_info.name
+        @services[service].each do |source_info|
+          result[source_info[:type]].each do |source_item|
+            if source_item["source"] == source_info[:name]
               return source_item["link"]
             end
           end
@@ -80,11 +99,11 @@ class Movie
         ""
       end
 
-      def self.source_obj(source, name)
+      def source_obj(source, name)
         { type: source, name: name }
       end
 
-      def self.hulu_sources
+      def hulu_sources
         [
           source_obj("free_web_sources", "hulu_free"),
           source_obj("subscription_web_sources", "hulu_plus"),
@@ -92,14 +111,14 @@ class Movie
         ]
       end
 
-      def self.amazon_sources
+      def amazon_sources
         [
           source_obj("free_web_sources", "amazon_prime_free"),
           source_obj("subscription_web_sources", "amazon_prime")
         ]
       end
 
-      def self.xfinity_sources
+      def xfinity_sources
         [
           source_obj("free_web_sources", "xfinity"),
           source_obj("tv_everywhere_web_sources", "xfinity_tveverywhere"),

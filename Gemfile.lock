@@ -261,6 +261,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   pg (~> 0.18)
+  pry-byebug
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.1)
@@ -277,4 +278,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.13.7
+   1.14.3
