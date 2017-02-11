@@ -1,6 +1,6 @@
 qWatch.controller('ListIndexCtrl',[
-  '$scope',
-  function($scope){
-
+  '$scope', '$stateParams',
+  function($scope, $stateParams){
+    
   }
 ])
