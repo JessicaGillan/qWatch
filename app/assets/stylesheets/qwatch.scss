@@ -6,6 +6,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Rationale', sans-serif;
 }
 
 body {
@@ -14,6 +15,20 @@ body {
 
 #search_panel {
   text-align: center;
+}
+
+.navbar-brand.logo {
+  background: rgb(1, 210, 119);
+  border-radius: 100%;
+  font-size: 50px;
+  letter-spacing: -8px;
+  color: #fff;
+  position: relative;
+  width: 50px;
+  span {
+    position: absolute;
+    left:0;
+  }
 }
 
 .form-flex {

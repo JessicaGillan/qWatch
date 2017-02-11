@@ -1,54 +1,101 @@
 class Movie
+  class << self
 
-  def initialize
-    @total_num_movies = nil
-    @num_retrieved = 0
-    @services = set_services
-  end
-
-  # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
-  def save_all_movies
-    while !@total_num_movies || @num_retrieved < @total_num_movies
-      save_movies({ offset: @num_retrieved, limit: LIMIT_MAX })
-      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    def movie_api
+      TMDB
     end
-  end
 
-  def save_movies(options = {})
-    response = Guidebox.pull_movies(options)
+    def url_api
+      Guidebox
+    end
 
-    @total_num_movies = @total_num_movies || response["total_results"]
-    @num_retrieved += response["results"].length
+    def services
+      @services = @services || set_services
+    end
 
-    response["results"].each do |movie|
-      watch = Watchable.find_by(moviedb_id: movie["id"].to_i, moviedb_type: "movie")
+    def setup
+      @total_pages = nil
+      @pages_retrieved = 0
+    end
 
-      if watch
-        watch.update(watchable_params(movie, "movie"))
-      else
-        Watchable.create(watchable_params(movie, "movie"))
+    def ddos_protect(max)
+      sleep(((60 / max) * 10).ceil/10)
+    end
+
+    # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
+
+    def populate_db_titles
+      setup
+      while !@total_pages || @pages_retrieved < @total_pages
+        response = movie_api.pull_movies(set_discover)
+        save_movies(response)
+        ddos_protect(movie_api::MAX_PER_MIN)
       end
     end
-  end
 
-  # Save Url data for an array of watchables
-  def save_movies_data(watchables)
-    watchables.each do |movie|
-      save_movie_data(movie.gb_id)
-      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    # Save Url data for an array of watchables
+    def populate_watchables_data(watchables)
+      watchables.each do |movie|
+        populate_watchable_data(movie.tmdb_id)
+        ddos_protect(url_api::MAX_PER_MIN)
+      end
     end
-  end
 
-  def save_movie_data(guidebox_id)
-    movie = Guidebox.pull_movie_data(guidebox_id)
-    watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
+    def populate_watchable_data(tmdb_id)
+      options = { type: "movie", field: 'id', id_type: 'themoviedb', query: tmdb_id }
 
-    if watch
-      watch.update(watchable_source_params(movie))
+      response = url_api.search_for_movie(options)
+      movie = url_api.pull_movie_data(response["id"])
+
+      watch = Watchable.find_by(tmdb_id: tmdb_id, tmdb_type: "movie")
+
+      if watch
+        watch.update(watchable_source_params(movie))
+      end
     end
-  end
 
-  private
+    private
+
+      def set_discover
+        {
+          language: "en-US",
+          sort_by: "popularity.desc",
+          include_adult: false,
+          include_video: false,
+          page: @pages_retrieved + 1
+        }
+      end
+
+      def services
+        {
+          hulu:        hulu_sources,
+          amazon:      amazon_sources,
+          netflix:     [source_obj("subscription_web_sources", "netflix")],
+          xfinity:     xfinity_sources,
+          amazon_buy:  [source_obj("purchase_web_sources", "amazon_buy")],
+          google_play: [source_obj("purchase_web_sources", "google_play")],
+          itunes:      [source_obj("purchase_web_sources", "itunes")]
+        }
+      end
+
+      def save_movies(response)
+        @total_pages = @total_pages || response["total_pages"]
+        if response["page"]
+          @pages_retrieved = response["page"]
+        else
+          @total_pages = @pages_retrieved
+        end
+
+        response["results"].each do |movie|
+          watch = Watchable.find_by(tmdb_id: movie["id"].to_i, tmdb_type: "movie")
+
+          if watch
+            watch.update(watchable_params(movie, "movie"))
+          else
+            Watchable.create(watchable_params(movie, "movie"))
+          end
+        end
+      end
 
       def set_services
         {
@@ -62,17 +109,13 @@ class Movie
         }
       end
 
+      # TODO: UPDATE THIS FOR MOVIE_DB, OR EDIT DATA RETURNED TO MATCH THIS
       def watchable_params(result, type)
         {
-          moviedb_id: result["id"],
-          moviedb_type: type,
+          tmdb_id: result["id"],
+          tmdb_type: type,
           title: result["title"],
-          poster_attributes:
-          {
-            thumbnail: result["poster_120x171"],
-            medium: result["poster_240x342"],
-            large: result["poster_400x570"]
-          }
+          poster: result["poster_path"]
         }
       end
 
@@ -88,8 +131,9 @@ class Movie
         }
       end
 
+      # GUIDEBOX SPECIFIC
       def get_link_for(service, result)
-        @services[service].each do |source_info|
+        services[service].each do |source_info|
           result[source_info[:type]].each do |source_item|
             if source_item["source"] == source_info[:name]
               return source_item["link"]
@@ -103,6 +147,7 @@ class Movie
         { type: source, name: name }
       end
 
+      # GUIDEBOX SPECIFIC
       def hulu_sources
         [
           source_obj("free_web_sources", "hulu_free"),
@@ -111,6 +156,7 @@ class Movie
         ]
       end
 
+      # GUIDEBOX SPECIFIC
       def amazon_sources
         [
           source_obj("free_web_sources", "amazon_prime_free"),
@@ -118,6 +164,7 @@ class Movie
         ]
       end
 
+      # GUIDEBOX SPECIFIC
       def xfinity_sources
         [
           source_obj("free_web_sources", "xfinity"),
@@ -125,5 +172,5 @@ class Movie
           source_obj("purchase_web_sources", "xfinity_purchase")
         ]
       end
-
+  end
 end
