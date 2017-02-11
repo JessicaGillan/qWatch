@@ -10,24 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209224329) do
+ActiveRecord::Schema.define(version: 20170210232707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "posters", force: :cascade do |t|
-    t.integer  "watchable_id", null: false
-    t.string   "thumbnail"
-    t.string   "medium"
-    t.string   "large"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["watchable_id"], name: "index_posters_on_watchable_id", using: :btree
-  end
-
   create_table "watchables", force: :cascade do |t|
-    t.integer  "gb_id",       null: false
-    t.string   "gb_type",     null: false
+    t.integer  "tmdb_id",     null: false
+    t.string   "tmdb_type",   null: false
     t.string   "title",       null: false
     t.string   "hulu"
     t.string   "amazon"
@@ -38,8 +28,9 @@ ActiveRecord::Schema.define(version: 20170209224329) do
     t.string   "itunes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["gb_id", "gb_type"], name: "index_watchables_on_gb_id_and_gb_type", unique: true, using: :btree
-    t.index ["gb_type"], name: "index_watchables_on_gb_type", using: :btree
+    t.string   "poster"
+    t.index ["tmdb_id", "tmdb_type"], name: "index_watchables_on_tmdb_id_and_tmdb_type", unique: true, using: :btree
+    t.index ["tmdb_type"], name: "index_watchables_on_tmdb_type", using: :btree
   end
 
 end

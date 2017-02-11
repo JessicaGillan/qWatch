@@ -1,10 +1,10 @@
 class TMDB
-  class << self
+  MAX_PER_MIN = 240
 
+  class << self
     API_KEY = "?api_key=#{Rails.application.secrets.tmdb_key_v3}"
     API_HEADER_KEY = Rails.application.secrets.tmdb_key_v4
     BASE_URL = 'https://api.themoviedb.org/3/discover/'
-    MAX_PER_MIN = 240
     HEADERS = {"Authorization" => "Bearer #{API_HEADER_KEY}", "Content-Type": "application/json;charset=utf-8" }
 
     def pull_config
@@ -18,7 +18,7 @@ class TMDB
     private
 
     def build_url(product, options = nil, discover = nil)
-      "#{BASE_URL}#{product}#{build_query_string(options)}#{DISCOVER_OPTIONS}"
+      "#{BASE_URL}#{product}#{build_query_string(options)}"
     end
 
     # Format: &limit=10
