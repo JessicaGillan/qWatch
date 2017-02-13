@@ -30,7 +30,7 @@ RSpec.describe Guidebox, type: :model do
   #     end
   #   end
   #
-  # end
+  end
   #
   # describe '.pull_movie_data' do
   #   let(:id) { 602 }
