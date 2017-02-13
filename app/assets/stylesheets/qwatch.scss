@@ -3,12 +3,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Bootstrap - remove gutter
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 // Font Awesome
 @import "font-awesome";
 
 // Colors
-$galaxy-black: #222A30;
-$moviedb-green: #01D277;
+$base: #222A30;
+$accent: #01D277;
 
 // Properties
 $share-button-width: 150px;
@@ -28,10 +34,10 @@ body {
 
 // Navbar
 .navbar-inverse {
-  background-color: $galaxy-black;
+  background-color: $base;
 }
 .navbar-brand.logo {
-  background: $moviedb-green;
+  background: $accent;
   border-radius: 100%;
   font-size: 50px;
   letter-spacing: -8px;
@@ -76,7 +82,7 @@ body {
 
 // Title & logo on splash page
 #header-wrapper {
-  background-color: $galaxy-black;
+  background-color: $base;
   // max-width: $search-bar-max-width;
   margin: 0 auto;
   padding: 5px;
@@ -118,14 +124,14 @@ body {
   margin: 0 auto;
 
   .search-box {
-    border: 5px solid $galaxy-black;
+    border: 5px solid $base;
     border-radius: 0;
     height: $search-bar-height;
     font-size: 1.5em;
     font-family: 'Roboto', sans-serif;
   }
   .fa-search {
-    background-color: $galaxy-black;
+    background-color: $base;
     color: white;
     height: $search-bar-height;
     width: $search-bar-height;
@@ -135,12 +141,34 @@ body {
   }
 }
 
-// Show section
+
+// Search results
+.watchable-search {
+  margin-top: $search-bar-height;
+}
+.watchable-search-result {
+  background-color: $base;
+  padding: 0;
+  border-color: $base;
+  border-style: solid;
+  border-width: 3px 3px 0 3px;
+  img {
+    width: 100%;
+  }
+  p {
+    text-align: center;
+    color: white;
+    font-size: 1.7em;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+}
+
+// Show watchable
 .watchable-show {
   width: 550px;
   margin: 0 auto;
   text-align: center;
-  background-color: $galaxy-black;
+  background-color: $base;
   color: white;
   font-family: 'Roboto', sans-serif;
   padding-bottom: 30px;
@@ -170,7 +198,7 @@ body {
   }
 
   .share-button {
-    background-color: $moviedb-green;
+    background-color: $accent;
     color: white;
     border: none;
     border-radius: 0;

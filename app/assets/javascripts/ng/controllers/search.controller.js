@@ -3,7 +3,7 @@ qWatch.controller('SearchCtrl',[
   function($scope, $rootScope, $timeout){
     var _handler;
     $scope.search = {term: ""};
-    
+
     var searchFor = function searchFor(term){
       if(_handler) $timeout.cancel(_handler);
 
@@ -24,5 +24,6 @@ qWatch.controller('SearchCtrl',[
     })
 
     $scope.$watch('search.term', searchFor)
+
   }
 ])
