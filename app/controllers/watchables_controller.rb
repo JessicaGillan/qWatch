@@ -1,4 +1,6 @@
 class WatchablesController < ApplicationController
+
+  #
   def show
     @watchable = Watchable.find_by(id: params[:id])
 

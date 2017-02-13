@@ -32,7 +32,7 @@ RSpec.describe Guidebox, type: :model do
   #
   end
   #
-  # describe '.pull_movie_data' do
+  describe '.pull_movie_data' do
   #   let(:id) { 602 }
   #   let(:invalid_id) { "sad602" }
   #
