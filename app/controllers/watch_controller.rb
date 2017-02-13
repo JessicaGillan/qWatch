@@ -5,6 +5,7 @@ class WatchController < ApplicationController
 
   def show
     watch = Watchable.find_by(id: params[:id])
-    render json: watch.as_json(methods: [:full_details])
+    watch.full_details
+    render json: watch
   end
 end

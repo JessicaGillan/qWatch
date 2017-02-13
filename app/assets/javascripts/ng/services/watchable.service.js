@@ -22,7 +22,7 @@ qWatch.factory('watchableService', [
     var index = function index(next_page){
       if(!_watchables.length || next_page){
         return restangular
-          .all('watchable')
+          .all('watch')
           .getList({start: _paginate})
           .then(function(results){
             _denormalize(results, _watchables, _paginate);
@@ -37,7 +37,7 @@ qWatch.factory('watchableService', [
       var watchable = _watchables[idx];
       if(!watchable.complete){
         return restangular
-          .one('watchable', watchable.id)
+          .one('watch', watchable.id)
           .get()
           .then(function(result){
             _complete(watchable, result)

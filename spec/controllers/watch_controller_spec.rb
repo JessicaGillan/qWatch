@@ -15,11 +15,10 @@ RSpec.describe WatchController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'returns an array of all Watchables' do
-      process :show
+    it 'returns a watchable with full details' do
+      process :show, params: {id: Watchable.first.id}
 
-      expect(JSON.parse(response.body).length).to eq(1)
-      expect(JSON.parse(response.body)).to eq(JSON.parse(Watchable.all.to_json))
+      expect(JSON.parse(response.body)).to eq(JSON.parse(Watchable.first.to_json))
     end
   end
 
