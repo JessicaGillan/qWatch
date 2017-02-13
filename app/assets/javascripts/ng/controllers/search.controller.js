@@ -29,7 +29,9 @@ qWatch.controller('SearchCtrl',[
     // slide form upwards.
     $scope.$watch('titleSearch.$pristine', function(newVal) {
       if (!$scope.titleSearch.$pristine) {
-        angular.element('#header-wrapper').css("display", "none"); 
+        angular.element('#header-wrapper').css("display", "none");
+        angular.element('.title-search').css("margin-top", "100px");
+        // TODO: animate? requires adding ngAnimate module
       }
     })
   }
