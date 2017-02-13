@@ -69,6 +69,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'jazz_fingers'
+  gem 'faker'
 end
 
 group :development do
