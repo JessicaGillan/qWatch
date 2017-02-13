@@ -23,6 +23,8 @@ class Movie
       if watch
         watch.update(watchable_source_params(movie_data))
       end
+
+      watch
     end
 
     private
@@ -54,7 +56,7 @@ class Movie
       # TODO: UPDATE THIS FOR MOVIE_DB, OR EDIT DATA RETURNED TO MATCH THIS
       def watchable_params(result, type)
         {
-          tmdb_id: result["id"],
+          tmdb_id: result["id"].to_i,
           tmdb_type: type,
           title: result["title"],
           poster: result["poster_path"]
