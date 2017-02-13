@@ -4,7 +4,7 @@
 @import "bootstrap";
 
 // Font Awesome
-@import "font-awesome"
+@import "font-awesome";
 
 // Colors
 $galaxy-black: #222A30;
@@ -13,27 +13,32 @@ $moviedb-green: #01D277;
 // Properties
 $share-button-width: 150px;
 $show-opacity: 0.9;
+$search-bar-height: 60px;
+$search-bar-max-width: 800px;
 
 // Overall layout
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Rationale', sans-serif;
 }
 body {
   padding-top: 51px;
 }
 
 // Navbar
+.navbar-inverse {
+  background-color: $galaxy-black;
+}
 .navbar-brand.logo {
-  background: rgb(1, 210, 119);
+  background: $moviedb-green;
   border-radius: 100%;
   font-size: 50px;
   letter-spacing: -8px;
   color: #fff;
   position: relative;
   width: 50px;
+  font-family: 'Rationale', sans-serif;
   span {
     position: absolute;
     left:0;
@@ -64,25 +69,29 @@ body {
   }
 }
 
-// Search bar
-#search-wrapper {
-  position: relative;
-  top: 300px;
-  background-color: $galaxy-black;
-  max-width:  800px;
-  margin: 0 auto;
+// Title & logo on splash page
+#header-wrapper {
   height: 250px;
+  background-color: $galaxy-black;
+  max-width: calc(#{$search-bar-max-width}-30px); // 30px offset for Bootstrap
+  margin: 0 auto;
 }
+
+// Search bar
 #search-panel {
-  text-align: center;
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  margin: none;
+  max-width: $search-bar-max-width;
+  margin: 0 auto;
 }
 #search-box {
+  border: 5px solid $galaxy-black;
   border-radius: 0;
-  height: 50px;
+  height: $search-bar-height;
+}
+.fa-search {
+  background-color: $galaxy-black;
+  color: white;
+  height: $search-bar-height;
 }
 
 // Show section
