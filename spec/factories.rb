@@ -2,21 +2,10 @@ FactoryGirl.define do
 
   factory :watchable do
 
-    sequence(:gb_id) do |n|
-      n
-    end
+    sequence(:tmdb_id) { |n| n }
 
-    gb_type "movie"
-    title "Title"
-
-  end
-
-  factory :poster do
-
-    watchable
-    thumbnail "thumbnail"
-    medium "medium"
-    large "large"
+    tmdb_type "movie"
+    sequence(:title) { |n| "Title #{n}" }
 
   end
 
