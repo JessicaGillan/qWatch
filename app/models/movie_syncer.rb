@@ -41,8 +41,6 @@ class MovieSyncer
     # Save Url data for an array of watchables
     # Defaults to all Watchables in DB if not set
     def populate_watchables_data(watchables = nil)
-      watchables = watchables || Watchable.all
-
       watchables.each do |movie|
         populate_watchable_data(movie.tmdb_id)
         ddos_protect(url_api::MAX_PER_MIN)
