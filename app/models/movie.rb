@@ -26,9 +26,7 @@ class Movie
 
     def populate_db_titles
       setup
-      # while !@total_pages || @pages_retrieved < @total_pages
-      i = 1
-      while i
+      while !@total_pages || @pages_retrieved < @total_pages
         response = movie_api.pull_movies(set_discover)
 
         unless response["success"] || response["results"]
@@ -38,7 +36,6 @@ class Movie
 
         save_movies(response)
         ddos_protect(movie_api::MAX_PER_MIN)
-        i -= 1
       end
     end
 
