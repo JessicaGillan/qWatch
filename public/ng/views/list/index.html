@@ -6,5 +6,8 @@
         <p>{{ result.title }}</p>
       </div>
     </div>
+    <div class="col-xs-12" ng-show="searchResults.length === 0">
+      <p class="watchable-search-empty">Sorry, no results were found!</p>
+    </div>
   </div>
 </div>

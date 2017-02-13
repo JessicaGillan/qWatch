@@ -162,6 +162,18 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
   }
 }
+.watchable-search-empty {
+  text-align: center;
+  border: 3px solid $base;
+  background-color: white;
+  color: $base;
+  font-size: 20px;
+  font-style: italic;
+  padding: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
 
 // Show watchable
 .watchable-show {
