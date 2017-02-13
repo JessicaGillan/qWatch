@@ -47,6 +47,9 @@ gem 'figaro'
 # HTTParty
 gem 'httparty'
 
+# Font Awesome
+gem 'font-awesome-rails'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular'
   gem 'rails-assets-ui-router'
