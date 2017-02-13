@@ -3,6 +3,7 @@ qWatch.factory('watchableService', [
   function(restangular){
     var _watchables = [],
         _searchResults = [],
+        _publicResults = [],
         _paginate = 0;
 
     var _denormalize = function _denormalize(arr, newArr, offset){
