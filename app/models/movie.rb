@@ -54,7 +54,7 @@ class Movie
       options = { type: "movie", field: 'id', id_type: 'themoviedb', query: tmdb_id }
 
       response = url_api.search_for_movie(options)
-      return false unless response["id"]
+      return false unless response["themoviedb"] == tmdb_id
 
       movie = url_api.pull_movie_data(response["id"])
       return false unless movie["id"]
