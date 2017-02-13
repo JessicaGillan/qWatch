@@ -9,7 +9,6 @@ RSpec.describe TMDB, type: :model do
     end
 
     it 'should have response["results"] when it is successful, indicated by response["success"]' do
-      expect(TMDB.pull_movies["success"]).to be true
       expect(TMDB.pull_movies["results"]).to be_truthy
     end
 
