@@ -26,15 +26,27 @@ class Movie
 
     def populate_db_titles
       setup
-      while !@total_pages || @pages_retrieved < @total_pages
+      # while !@total_pages || @pages_retrieved < @total_pages
+      i = 1
+      while i
         response = movie_api.pull_movies(set_discover)
+
+        unless response["success"] || response["results"]
+          puts "Request Error: #{response["status_message"]}, #{response["status_code"]}"
+          break
+        end
+
         save_movies(response)
         ddos_protect(movie_api::MAX_PER_MIN)
+        i -= 1
       end
     end
 
     # Save Url data for an array of watchables
-    def populate_watchables_data(watchables)
+    # Defaults to all Watchables in DB if not set
+    def populate_watchables_data(watchables = nil)
+      watchables = watchables || Watchable.all
+
       watchables.each do |movie|
         populate_watchable_data(movie.tmdb_id)
         ddos_protect(url_api::MAX_PER_MIN)
@@ -45,7 +57,10 @@ class Movie
       options = { type: "movie", field: 'id', id_type: 'themoviedb', query: tmdb_id }
 
       response = url_api.search_for_movie(options)
+      return false unless response["id"]
+
       movie = url_api.pull_movie_data(response["id"])
+      return false unless movie["id"]
 
       watch = Watchable.find_by(tmdb_id: tmdb_id, tmdb_type: "movie")
 
