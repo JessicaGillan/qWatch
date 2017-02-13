@@ -53,7 +53,6 @@ class Movie
         }
       end
 
-      # TODO: UPDATE THIS FOR MOVIE_DB, OR EDIT DATA RETURNED TO MATCH THIS
       def watchable_params(result, type)
         {
           tmdb_id: result["id"].to_i,
