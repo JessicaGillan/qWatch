@@ -4,7 +4,8 @@ qWatch.factory('watchableService', [
     var _watchables = [],
         _searchResults = [],
         _publicResults = [],
-        _paginate = 0;
+        _page = 1,
+        _limit = 100;
 
     var _denormalize = function _denormalize(arr, newArr, offset){
       offset = offset || 0;
@@ -19,14 +20,18 @@ qWatch.factory('watchableService', [
       watchable.complete = true;
     }
 
+    var _offset = function _offset(){
+      return (_page - 1) * _limit
+    }
+
     var index = function index(next_page){
       if(!_watchables.length || next_page){
         return restangular
           .all('watch')
-          .getList({start: _paginate})
+          .getList({page: _page, limit: _limit})
           .then(function(results){
-            _denormalize(results, _watchables, _paginate);
-            _paginate += results.length;
+            _denormalize(results, _watchables, _offset());
+            _page += results.length;
             return _watchables;
           });
       }
