@@ -16,13 +16,23 @@ qWatch.controller('SearchCtrl',[
       }, 300)
     };
 
-    $rootScope.$on('searchSet', function(event, term){
-      console.log(term)
-    })
-    $rootScope.$on('searchClear', function(event){
-      console.log("cleared")
-    })
+    // $rootScope.$on('searchSet', function(event, term){
+    //   console.log(term)
+    // })
+    // $rootScope.$on('searchClear', function(event){
+    //   console.log("cleared")
+    // })
+    //
+    // $scope.$watch('search.term', searchFor)
 
-    $scope.$watch('search.term', searchFor)
+    // When search bar is no longer pristine, remove title/logo and
+    // slide form upwards.
+    $scope.$watch('titleSearch.$pristine', function(newVal) {
+      if (!$scope.titleSearch.$pristine) {
+        angular.element('#header-wrapper').css("display", "none");
+        angular.element('.title-search').css("margin-top", "100px");
+        // TODO: animate? requires adding ngAnimate module
+      }
+    })
   }
 ])
