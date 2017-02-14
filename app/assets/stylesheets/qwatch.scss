@@ -3,12 +3,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Bootstrap - remove gutter
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 // Font Awesome
 @import "font-awesome";
 
 // Colors
-$galaxy-black: #222A30;
-$moviedb-green: #01D277;
+$base: #222A30;
+$accent: #01D277;
 
 // Properties
 $share-button-width: 150px;
@@ -28,10 +34,10 @@ body {
 
 // Navbar
 .navbar-inverse {
-  background-color: $galaxy-black;
+  background-color: $base;
 }
 .navbar-brand.logo {
-  background: $moviedb-green;
+  background: $accent;
   border-radius: 100%;
   font-size: 50px;
   letter-spacing: -8px;
@@ -71,12 +77,12 @@ body {
 
 // Title, logo, search bar
 .title-search {
-  margin-top: 300px;
+  margin-top: 200px;
 }
 
 // Title & logo on splash page
 #header-wrapper {
-  background-color: $galaxy-black;
+  background-color: $base;
   // max-width: $search-bar-max-width;
   margin: 0 auto;
   padding: 5px;
@@ -116,30 +122,78 @@ body {
   width: 100%;
   // max-width: $search-bar-max-width;
   margin: 0 auto;
-}
-#search-box {
-  border: 5px solid $galaxy-black;
-  border-radius: 0;
-  height: $search-bar-height;
-  font-size: 1.5em;
-  font-family: 'Roboto', sans-serif;
-}
-.fa-search {
-  background-color: $galaxy-black;
-  color: white;
-  height: $search-bar-height;
-  width: $search-bar-height;
-  text-align: center;
-  font-size: 2.3em;
-  line-height: $search-bar-height;
+
+  .search-box {
+    border: 5px solid $base;
+    border-radius: 0;
+    height: $search-bar-height;
+    font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
+  }
+  .fa-search {
+    background-color: $base;
+    color: white;
+    height: $search-bar-height;
+    width: $search-bar-height;
+    text-align: center;
+    font-size: 2.3em;
+    line-height: $search-bar-height;
+  }
 }
 
-// Show section
+
+// Search results
+.watchable-search {
+  margin-top: $search-bar-height;
+}
+.watchable-search-result {
+  background-color: $base;
+  padding: 0;
+  border-color: $base;
+  border-style: solid;
+  border-width: 3px 3px 0 3px;
+  img {
+    width: 100%;
+  }
+  p {
+    text-align: center;
+    color: white;
+    font-size: 1.7em;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+}
+.page-nav {
+  text-align: center;
+  margin-top: $search-bar-height;
+}
+.page-button {
+  border: none;
+  border-radius: 0;
+  background-color: $base;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.7em;
+  width: 150px;
+}
+.watchable-search-empty {
+  text-align: center;
+  border: 3px solid $base;
+  background-color: white;
+  color: $base;
+  font-size: 20px;
+  font-style: italic;
+  padding: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+// Show watchable
 .watchable-show {
   width: 550px;
   margin: 0 auto;
   text-align: center;
-  background-color: $galaxy-black;
+  background-color: $base;
   color: white;
   font-family: 'Roboto', sans-serif;
   padding-bottom: 30px;
@@ -150,26 +204,34 @@ body {
     text-align: center;
     margin: 30px 0;
   }
-
   .logo-wrapper {
     width: 120px;
     height: 120px;
     display: inline-block;
     margin: 10px;
   }
-
   .logo-wrapper img {
     width: 100%;
     height: auto;
   }
-
+  .service-empty {
+    text-align: center;
+    // border: 3px solid $base;
+    background-color: white;
+    color: $base;
+    font-size: 16px;
+    font-style: italic;
+    padding: 10px;
+    max-width: 350px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+  }
   .share-wrapper {
     width: calc(#{$share-button-width} + 30px);
     margin: 0 auto;
   }
-
   .share-button {
-    background-color: $moviedb-green;
+    background-color: $accent;
     color: white;
     border: none;
     border-radius: 0;
