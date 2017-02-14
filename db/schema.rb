@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213162249) do
+ActiveRecord::Schema.define(version: 20170213221917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 20170213162249) do
   enable_extension "btree_gin"
 
   create_table "watchables", force: :cascade do |t|
-    t.integer  "tmdb_id",     null: false
-    t.string   "tmdb_type",   null: false
-    t.string   "title",       null: false
+    t.integer  "tmdb_id",                     null: false
+    t.string   "tmdb_type",                   null: false
+    t.string   "title",                       null: false
     t.string   "hulu"
     t.string   "amazon"
     t.string   "netflix"
@@ -28,9 +28,10 @@ ActiveRecord::Schema.define(version: 20170213162249) do
     t.string   "amazon_buy"
     t.string   "google_play"
     t.string   "itunes"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "poster"
+    t.boolean  "requested",   default: false
     t.index "title gin_trgm_ops", name: "watchables_search_idx", using: :gin
     t.index ["tmdb_id", "tmdb_type"], name: "index_watchables_on_tmdb_id_and_tmdb_type", unique: true, using: :btree
     t.index ["tmdb_type"], name: "index_watchables_on_tmdb_type", using: :btree

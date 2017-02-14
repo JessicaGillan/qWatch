@@ -1,70 +1,33 @@
 class Movie
   class << self
 
-    def movie_api
-      TMDB
-    end
-
-    def url_api
-      Guidebox
-    end
-
     def services
       @services = @services || set_services
     end
 
-    def setup
-      @total_pages = nil
-      @pages_retrieved = 0
-    end
+    def save_movies(movies)
+      movies.each do |movie|
+        watch = Watchable.find_by(tmdb_id: movie["id"].to_i, tmdb_type: "movie")
 
-    def ddos_protect(max)
-      sleep(((60 / max) * 10).ceil/10)
-    end
-
-    # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
-
-    def populate_db_titles
-      setup
-      while !@total_pages || @pages_retrieved < @total_pages
-        response = movie_api.pull_movies(set_discover)
-        save_movies(response)
-        ddos_protect(movie_api::MAX_PER_MIN)
+        if watch
+          watch.update(watchable_params(movie, "movie"))
+        else
+          Watchable.create(watchable_params(movie, "movie"))
+        end
       end
     end
 
-    # Save Url data for an array of watchables
-    def populate_watchables_data(watchables)
-      watchables.each do |movie|
-        populate_watchable_data(movie.tmdb_id)
-        ddos_protect(url_api::MAX_PER_MIN)
-      end
-    end
-
-    def populate_watchable_data(tmdb_id)
-      options = { type: "movie", field: 'id', id_type: 'themoviedb', query: tmdb_id }
-
-      response = url_api.search_for_movie(options)
-      movie = url_api.pull_movie_data(response["id"])
-
+    def add_third_party_sources(tmdb_id, movie_data)
       watch = Watchable.find_by(tmdb_id: tmdb_id, tmdb_type: "movie")
 
       if watch
-        watch.update(watchable_source_params(movie))
+        watch.update(watchable_source_params(movie_data))
       end
+
+      watch
     end
 
     private
-
-      def set_discover
-        {
-          language: "en-US",
-          sort_by: "popularity.desc",
-          include_adult: false,
-          include_video: false,
-          page: @pages_retrieved + 1
-        }
-      end
 
       def services
         {
@@ -76,25 +39,6 @@ class Movie
           google_play: [source_obj("purchase_web_sources", "google_play")],
           itunes:      [source_obj("purchase_web_sources", "itunes")]
         }
-      end
-
-      def save_movies(response)
-        @total_pages = @total_pages || response["total_pages"]
-        if response["page"]
-          @pages_retrieved = response["page"]
-        else
-          @total_pages = @pages_retrieved
-        end
-
-        response["results"].each do |movie|
-          watch = Watchable.find_by(tmdb_id: movie["id"].to_i, tmdb_type: "movie")
-
-          if watch
-            watch.update(watchable_params(movie, "movie"))
-          else
-            Watchable.create(watchable_params(movie, "movie"))
-          end
-        end
       end
 
       def set_services
@@ -109,10 +53,9 @@ class Movie
         }
       end
 
-      # TODO: UPDATE THIS FOR MOVIE_DB, OR EDIT DATA RETURNED TO MATCH THIS
       def watchable_params(result, type)
         {
-          tmdb_id: result["id"],
+          tmdb_id: result["id"].to_i,
           tmdb_type: type,
           title: result["title"],
           poster: result["poster_path"]

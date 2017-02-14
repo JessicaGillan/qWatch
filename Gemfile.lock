@@ -71,6 +71,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.3)
     erubis (2.7.0)
+    ethon (0.10.1)
+      ffi (>= 1.3.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -245,11 +247,14 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.6)
+    typhoeus (1.1.2)
+      ethon (>= 0.9.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
+    vcr (3.0.3)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.4.0)
@@ -295,8 +300,10 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
+  typhoeus
   tzinfo-data
   uglifier (>= 1.3.0)
+  vcr
   web-console (>= 3.3.0)
 
 BUNDLED WITH
