@@ -204,24 +204,32 @@ body {
     text-align: center;
     margin: 30px 0;
   }
-
   .logo-wrapper {
     width: 120px;
     height: 120px;
     display: inline-block;
     margin: 10px;
   }
-
   .logo-wrapper img {
     width: 100%;
     height: auto;
   }
-
+  .service-empty {
+    text-align: center;
+    // border: 3px solid $base;
+    background-color: white;
+    color: $base;
+    font-size: 16px;
+    font-style: italic;
+    padding: 10px;
+    max-width: 350px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+  }
   .share-wrapper {
     width: calc(#{$share-button-width} + 30px);
     margin: 0 auto;
   }
-
   .share-button {
     background-color: $accent;
     color: white;
