@@ -1,9 +1,9 @@
 qWatch.factory('watchableService', [
-  'Restangular',
-  function(restangular){
+  'Restangular', 'showItemService',
+  function(restangular, showItem){
     var _watchables = [],
+        _watchable = {},
         _searchResults = [],
-        _publicResults = [],
         _page = 1,
         _limit = 100;
 
@@ -17,8 +17,11 @@ qWatch.factory('watchableService', [
 
     var _complete = function _complete(watchable, result){
       angular.copy(result, watchable);
+      showItem.combineUrls(watchable);
       watchable.complete = true;
-      return watchable
+
+      angular.copy(watchable, _watchable);
+      return _watchable;
     }
 
     var _offset = function _offset(){
@@ -51,7 +54,22 @@ qWatch.factory('watchableService', [
             return _complete(this, result)
           })
       }
-      return $q.resolve(this);
+      angular.copy(this, _watchable)
+      return $q.resolve(_watchable);
+    }
+
+    var get = function get(id){
+      if(!_watchable.id || _watchable.id !== id){
+        return restangular
+          .one('watch', id)
+          .get()
+          .then(function(result){
+            showItem.combineUrls(result)
+            angular.copy(result, _watchable);
+            return _watchable;
+          })
+      }
+      return $q.resolve(_watchable);
     }
 
     var search = function search(term){
@@ -66,7 +84,8 @@ qWatch.factory('watchableService', [
     }
 
     return {
-      index: index
+      index: index,
+      show: get
     }
   }
 ]);

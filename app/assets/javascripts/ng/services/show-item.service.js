@@ -1,29 +1,13 @@
 qWatch.factory('showItemService', [
   'Restangular',
-  function(Restangular){
-    var _watchable = {};
+  function(restangular){
     var SERVICES = [
                     "hulu", "amazon", "netflix", "xfinity", "amazon_buy",
                     "google_play", "itunes"
                    ]
 
-    var get = function get(id){
-      if(!_watchable.id || _watchable.id !== id){
-        return Restangular
-          .one('watchables', id)
-          .get()
-          .then(function(result){
-            _combineUrls(_watchable, result)
-            return _watchable;
-          })
-      }
-      return $q.resolve(_watchable)
-    }
-
     // PRIVATE
-
-    var _combineUrls = function _combineUrls (watchable, result) {
-      angular.copy(result, watchable);
+    var combineUrls = function combineUrls (watchable) {
 
       var services = []
       for (var i = 0; i < SERVICES.length; i++) {
@@ -43,7 +27,7 @@ qWatch.factory('showItemService', [
     }
 
     return {
-      get: get
+      combineUrls: combineUrls
     }
   }
 ])

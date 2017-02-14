@@ -1,14 +1,10 @@
 qWatch.controller('ListShowCtrl',[
-  '$scope', '$stateParams', 'showItemService',
-  function($scope, $stateParams, showItemService){
-
-    showItemService.get($stateParams.id)
-    .then( function (watchable) {
-      $scope.watchable = watchable;
-    })
-
-    $scope.copyLink = function() {
-      return 'http://localhost:3000/#!/watch/' + $stateParams.id
-    }
+  '$scope', '$stateParams', 'watchableService',
+  function($scope, $stateParams, watchableService){
+    console.log("shown");
+    watchableService.show($stateParams.id)
+      .then( function (watchable) {
+        $scope.watchable = watchable;
+      });
   }
 ])
