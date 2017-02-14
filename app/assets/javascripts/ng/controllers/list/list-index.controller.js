@@ -1,6 +1,6 @@
 qWatch.controller('ListIndexCtrl',[
-  '$scope', '$rootScope', '$stateParams', 'watchableService',
-  function($scope, $root, $params, watchable){
+  '$scope', '$rootScope', '$stateParams', 'watchableService', 'tmdbConfigService',
+  function($scope, $root, $params, watchable, tmdbConfig){
     var setToIndex = function setToIndex(){
       $scope.list = $scope.watchables;
     }
@@ -17,5 +17,14 @@ qWatch.controller('ListIndexCtrl',[
     });
 
     $root.$on('searchClear', setToIndex);
+
+    $scope.posterUrl = function(poster) {
+      var url;
+      tmdbConfig.configUrl()
+        .then(function(config) {
+          url = config + poster;
+        })
+      return url;
+    }
   }
 ])
