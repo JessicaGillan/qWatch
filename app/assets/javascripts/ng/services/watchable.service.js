@@ -36,7 +36,6 @@ qWatch.factory('watchableService', [
           .then(function(results){
             _denormalize(results, _watchables, _offset());
             _page += 1;
-            console.log(_watchables);
             return _watchables;
           })
           .catch(function(err){

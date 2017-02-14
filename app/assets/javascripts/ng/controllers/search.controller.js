@@ -9,7 +9,7 @@ qWatch.controller('SearchCtrl',[
       if(_handler) $timeout.cancel(_handler);
 
       _handler = $timeout(function(){
-        if(!term){
+        if(!term || term.length < 3){
           $rootScope.$emit('searchClear')
         } else {
           $rootScope.$emit('searchSet', term)
@@ -26,7 +26,7 @@ qWatch.controller('SearchCtrl',[
       _slideUp();
       searchBar = searchBar || angular.element('.title-search');
       var rect = searchBar.get(0).getBoundingClientRect();
-      searchBar.css({position: "fixed", left: rect.left, top: rect.top, width: rect.width})
+      searchBar.css({position: "fixed", top: rect.top, width: rect.width})
       $timeout(function(){
         searchBar.css({top: "51px"})
       })

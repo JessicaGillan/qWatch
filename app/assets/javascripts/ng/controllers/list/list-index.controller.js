@@ -6,6 +6,12 @@ qWatch.controller('ListIndexCtrl',[
         rowHeight = 37,
         div;
 
+    $scope.rows = {
+      length: 0,
+      arr: []
+    };
+
+
     $scope.offset = {
       new: 0,
       last: 0,
@@ -78,7 +84,7 @@ qWatch.controller('ListIndexCtrl',[
 
     var _slideUp = function _slideUp(){
       var rect = div.get(0).getBoundingClientRect();
-      div.css({position: "fixed", left: rect.left, top: rect.top})
+      div.css({position: "fixed", left: rect.left, top: rect.top, width: rect.width})
       $timeout(function(){
         div.addClass("expanded");
       })
@@ -89,6 +95,7 @@ qWatch.controller('ListIndexCtrl',[
       $timeout(function(){
         div.css({position: "", left: "", top: ""})
         div = void(0)
+        $scope.currentItem = void(0);
       })
     }
 
@@ -97,6 +104,7 @@ qWatch.controller('ListIndexCtrl',[
       watchable.show().then(function(){
         $root.$emit("showItem")
         div = angular.element(e.currentTarget);
+        $scope.currentItem = watchable.id
         _slideUp();
       })
     }
@@ -114,5 +122,6 @@ qWatch.controller('ListIndexCtrl',[
     });
 
     $root.$on('searchClear', setToIndex);
+
   }
 ])
