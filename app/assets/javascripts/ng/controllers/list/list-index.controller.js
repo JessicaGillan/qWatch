@@ -17,7 +17,5 @@ qWatch.controller('ListIndexCtrl',[
     });
 
     $root.$on('searchClear', setToIndex);
-
-    $scope.posterUrl = tmdbConfig.posterUrl; 
   }
 ])
