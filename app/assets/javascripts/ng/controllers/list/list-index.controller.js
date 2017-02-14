@@ -1,14 +1,16 @@
 qWatch.controller('ListIndexCtrl',[
-  '$scope', '$rootScope', '$stateParams', 'watchableService',
-  function($scope, $root, $params, watchable){
+  '$scope', '$rootScope', '$stateParams', '$timeout', 'watchableService',
+  function($scope, $root, $params, $timeout, watchable){
 
     var el = document.getElementById('stock-data-body'),
-        rowHeight = 37;
-        $scope.offset = {
-          new: 0,
-          last: 0,
-          begin: 0
-        }
+        rowHeight = 37,
+        div;
+
+    $scope.offset = {
+      new: 0,
+      last: 0,
+      begin: 0
+    }
 
     var _resetOffset = function _resetOffset(){
       angular.copy({
@@ -49,10 +51,20 @@ qWatch.controller('ListIndexCtrl',[
     });
 
 
-    angular.element(el).on('scroll', function (e) {
-      $scope.offset.new = e.target.scrollTop;
-      _debouncer()
-    });
+    // angular.element(el).on('scroll', function (e) {
+    //   $scope.offset.new = e.target.scrollTop;
+    //   _debouncer()
+    // });
+
+    $scope.next = function next(){
+      watchable.index(true);
+      $scope.offset.begin += 100;
+    }
+
+    $scope.previous = function previous(){
+      watchable.index(true);
+      $scope.offset.begin -= 100;
+    }
 
 
     var setToIndex = function setToIndex(){
@@ -64,7 +76,38 @@ qWatch.controller('ListIndexCtrl',[
       setToIndex();
     });
 
+    var _slideUp = function _slideUp(){
+      var rect = div.get(0).getBoundingClientRect();
+      div.css({position: "fixed", left: rect.left, top: rect.top})
+      $timeout(function(){
+        div.addClass("expanded");
+      })
+    }
+
+    var _slideDown = function _slideDown(){
+      div.removeClass("expanded");
+      $timeout(function(){
+        div.css({position: "", left: "", top: ""})
+        div = void(0)
+      })
+    }
+
+    $scope.show = function show(e, watchable) {
+
+      watchable.show().then(function(){
+        $root.$emit("showItem")
+        div = angular.element(e.currentTarget);
+        _slideUp();
+      })
+    }
+
+    $scope.hide = function hide() {
+      $root.$emit("hideItem");
+      _slideDown();
+    }
+
     $root.$on('searchSet', function(event, term){
+      if(div) _slideDown();
       watchable.search(term).then(function(searchResults){
         $scope.list = searchResults
       })

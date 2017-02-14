@@ -35,7 +35,8 @@ qWatch.factory('watchableService', [
           .getList({page: _page, limit: _limit})
           .then(function(results){
             _denormalize(results, _watchables, _offset());
-            _page += results.length;
+            _page += 1;
+            console.log(_watchables);
             return _watchables;
           })
           .catch(function(err){
@@ -46,15 +47,17 @@ qWatch.factory('watchableService', [
     }
 
     var _show = function _show(){
-      if(!this.complete){
+      console.log(this)
+      var self = this;
+      if(!self.complete){
         return restangular
-          .one('watch', this.id)
+          .one('watch', self.id)
           .get()
           .then(function(result){
-            return _complete(this, result)
+            return _complete(self, result)
           })
       }
-      angular.copy(this, _watchable)
+      angular.copy(self, _watchable)
       return $q.resolve(_watchable);
     }
 
@@ -85,7 +88,8 @@ qWatch.factory('watchableService', [
 
     return {
       index: index,
-      show: get
+      show: get,
+      search: search
     }
   }
 ]);
