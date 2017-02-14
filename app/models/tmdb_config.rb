@@ -8,8 +8,10 @@ class TmdbConfig < ApplicationRecord
     def get
       if first.nil? || first.updated_at < 3.days.ago
         response = HTTParty.get(BASE_URL)
-        destroy_all
-        create(url: response["images"]["base_url"])
+        if response["images"]["base_url"] != first.url
+          destroy_all
+          create(url: response["images"]["base_url"])
+        end
       end
 
       first.url
