@@ -8,6 +8,9 @@
           <img src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
         </a>
       </div>
+      <p class="service-empty" ng-show="services.length === 0">
+        Sorry, {{ title }} isn't available for streaming...yet!
+      </p>
     </div>
     <div class="share-wrapper">
       <button type="button" class="btn btn-default share-button">Share Link</button>

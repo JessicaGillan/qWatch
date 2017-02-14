@@ -9,7 +9,13 @@ class MovieSyncer
       Guidebox
     end
 
-    def setup
+    def destroy_data
+      # ActiveRecord::Base.connection.execute("DELETE FROM watchables")
+    end
+
+    def setup_population
+      destroy_data
+      reindex
       @total_pages = nil
       @pages_retrieved = 0
     end
@@ -21,7 +27,7 @@ class MovieSyncer
     # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
 
     def populate_db_titles
-      setup
+      setup_population
       while !@total_pages || @pages_retrieved < @total_pages
         response = movie_api.pull_movies(set_discover)
 
@@ -36,6 +42,10 @@ class MovieSyncer
 
         ddos_protect(movie_api::MAX_PER_MIN)
       end
+    end
+
+    def reindex
+      Watchable.reindex
     end
 
     # Save Url data for an array of watchables
