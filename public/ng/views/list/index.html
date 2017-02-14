@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="watchable in watchables">
       <div class="watchable-search-result">
         <a ui-sref="list.show({ id: watchable.id })">
-          <img src="{{ posterUrl(watchable.poster) }}">
+          <img ng-src="{{ watchable.poster }}">
           <p>{{ watchable.title }}</p>
         </a>
       </div>

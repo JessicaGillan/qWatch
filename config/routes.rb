@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :search, only: [:index]
       resources :watch, only: [:index, :show]
+      resources :tmdb_config, only: [:index]
     end
   end
 end

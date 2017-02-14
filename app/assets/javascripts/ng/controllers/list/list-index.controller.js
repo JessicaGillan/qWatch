@@ -18,13 +18,6 @@ qWatch.controller('ListIndexCtrl',[
 
     $root.$on('searchClear', setToIndex);
 
-    $scope.posterUrl = function(poster) {
-      var url;
-      tmdbConfig.configUrl()
-        .then(function(config) {
-          url = config + poster;
-        })
-      return url;
-    }
+    $scope.posterUrl = tmdbConfig.posterUrl; 
   }
 ])
