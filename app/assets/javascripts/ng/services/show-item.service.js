@@ -1,6 +1,6 @@
 qWatch.factory('showItemService', [
   'Restangular',
-  function(restangular){
+  function(Restangular){
     var _watchable = {};
     var SERVICES = [
                     "hulu", "amazon", "netflix", "xfinity", "amazon_buy",
@@ -9,7 +9,7 @@ qWatch.factory('showItemService', [
 
     var get = function get(id){
       if(!_watchable.id || _watchable.id !== id){
-        return restangular
+        return Restangular
           .one('watchables', id)
           .get()
           .then(function(result){

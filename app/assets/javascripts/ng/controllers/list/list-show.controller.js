@@ -1,6 +1,7 @@
 qWatch.controller('ListShowCtrl',[
-  '$scope', $stateParams, showItemService,
+  '$scope', '$stateParams', 'showItemService',
   function($scope, $stateParams, showItemService){
+
     showItemService.get($stateParams.id)
     .then( function (watchable) {
       $scope.watchable = watchable;
