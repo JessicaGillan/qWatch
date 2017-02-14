@@ -3,16 +3,19 @@ qWatch.controller('ListIndexCtrl',[
   function($scope, $stateParams){
     $scope.searchResults = [ // TODO: replace with live data
       {
+        id: 1,
         title: "The Dark Knight",
-        posterURL: "http://www.geek.com/wp-content/uploads/2016/02/batmans.jpg"
+        poster: "http://www.geek.com/wp-content/uploads/2016/02/batmans.jpg"
       },
       {
+        id: 2,
         title: "Finding Dory",
-        posterURL: "https://i.ytimg.com/vi/AMjMFbhyhwY/maxresdefault.jpg"
+        poster: "https://i.ytimg.com/vi/AMjMFbhyhwY/maxresdefault.jpg"
       },
       {
+        id: 3,
         title: "Eternal Sunshine of the Spotless Mind",
-        posterURL: "http://popcornsushi.com/wp-content/uploads/2016/08/eternal-sunshine-of-the-spotless-mind-6.jpg"
+        poster: "http://popcornsushi.com/wp-content/uploads/2016/08/eternal-sunshine-of-the-spotless-mind-6.jpg"
       }
     ]
   }

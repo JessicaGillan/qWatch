@@ -162,6 +162,19 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
   }
 }
+.page-nav {
+  text-align: center;
+  margin-top: $search-bar-height;
+}
+.page-button {
+  border: none;
+  border-radius: 0;
+  background-color: $base;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.7em;
+  width: 150px;
+}
 .watchable-search-empty {
   text-align: center;
   border: 3px solid $base;
