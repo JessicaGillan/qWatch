@@ -5,13 +5,15 @@ qWatch.controller('ListIndexCtrl',[
       $scope.list = $scope.watchables;
     }
 
-    watchable.index().then(watchables => {
+    watchable.index().then(function setWatchable(watchables) {
       $scope.watchables = watchables;
-      setToIndex()
+      setToIndex();
     });
 
     $root.$on('searchSet', function(event, term){
-      watchable.search(term).then(searchResults => $scope.list = searchResults);
+      watchable.search(term).then(function(searchResults){
+        $scope.list = searchResults
+      })
     });
 
     $root.$on('searchClear', setToIndex);

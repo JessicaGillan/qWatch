@@ -10,7 +10,7 @@ qWatch.factory('watchableService', [
     var _denormalize = function _denormalize(arr, newArr, offset){
       offset = offset || 0;
       for(var i = 0; i < arr.length; i++){
-        arr[i].idx = i + offset;
+        arr[i].show = _show;
         newArr.push(arr[i]);
       }
     }
@@ -18,6 +18,7 @@ qWatch.factory('watchableService', [
     var _complete = function _complete(watchable, result){
       angular.copy(result, watchable);
       watchable.complete = true;
+      return watchable
     }
 
     var _offset = function _offset(){
@@ -33,23 +34,24 @@ qWatch.factory('watchableService', [
             _denormalize(results, _watchables, _offset());
             _page += results.length;
             return _watchables;
+          })
+          .catch(function(err){
+            console.log(err)
           });
       }
       return $q.resolve(_watchables)
     }
 
-    var show = function show(idx){
-      var watchable = _watchables[idx];
-      if(!watchable.complete){
+    var _show = function _show(){
+      if(!this.complete){
         return restangular
-          .one('watch', watchable.id)
+          .one('watch', this.id)
           .get()
           .then(function(result){
-            _complete(watchable, result)
-            return watchable;
+            return _complete(this, result)
           })
       }
-      return $q.resolve(watchable);
+      return $q.resolve(this);
     }
 
     var search = function search(term){
@@ -64,8 +66,7 @@ qWatch.factory('watchableService', [
     }
 
     return {
-      index: index,
-      show: show
+      index: index
     }
   }
 ]);
