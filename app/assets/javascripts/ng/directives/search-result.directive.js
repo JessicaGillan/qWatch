@@ -18,7 +18,7 @@ qWatch.directive('searchResult', [
         $state.go('show', {id: scope.item.id}, {notify: false})
         scope.current.id = scope.item.id;
         el.addClass("expanded");
-        $root.$emit("showItem")
+        $root.$emit("showItem");
       })
     }
 
@@ -34,6 +34,7 @@ qWatch.directive('searchResult', [
     }
 
     var link = function link(scope, el){
+
       scope.show = function show(e, watchable) {
         if(scope.current.id !== scope.item.id){
           e.stopPropagation();
@@ -47,13 +48,18 @@ qWatch.directive('searchResult', [
         $root.$emit("hideItem");
         _slideDown(scope, el);
       }
+
+      if(scope.prefetched){
+        _slideUp(scope, el);
+      }
     }
 
     return {
       scope: {
         item: '=',
         current: '=',
-        images: '='
+        images: '=',
+        prefetched: '@'
       },
       restrict: 'E',
       link: link,
