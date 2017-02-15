@@ -1,7 +1,7 @@
 qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
-
+    console.log("list index ctrl")
     $root.showPage = false;
 
     var el = angular.element('#watchable-search'),
@@ -148,8 +148,7 @@ qWatch.controller('ListIndexCtrl',[
       $root.$emit("fillSearch", $stateParams.searchSet)
       watchable.search($stateParams.search).then(function(searchResults){
         $scope.list = searchResults;
-        $stateParams.searchSet = null
-        // $state.go('list', {}, {inherit: false, notify: false})
+        $stateParams.searchSet = null;
       })
     }
 

@@ -2,6 +2,10 @@ qWatch.directive('searchResult', [
   '$rootScope', '$timeout', '$window', '$state',
   function($root, $timeout, $window, $state){
 
+    var _toggleShareIcons = function _toggleShareIcons(scope) {
+      scope.showShare = !scope.showShare;
+    }
+
     var _setPosition = function _setPosition(el){
       var rect = el.get(0).getBoundingClientRect();
       el.css({transitionDuration: "0s", left: rect.left, top: rect.top, width: rect.width, position: "fixed", })
@@ -52,6 +56,11 @@ qWatch.directive('searchResult', [
       if(scope.prefetched){
         _slideUp(scope, el);
       }
+
+      scope.showShare = false;
+      scope.toggleShareIcons = function () {
+        _toggleShareIcons(scope);
+      };
     }
 
     return {

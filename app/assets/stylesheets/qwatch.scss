@@ -15,10 +15,13 @@
 // Colors
 $base: #222A30;
 $accent: #01D277;
+$twitter: #55acee;
+$facebook: #3b5998;
+$email: #ffbd00;
 
 // Properties
-$share-button-width: 150px;
-$show-opacity: 0.9;
+$share-button-width: 250px;
+$show-opacity: 0.95;
 $search-bar-height: 60px;
 // $search-bar-max-width: 740px;
 
@@ -341,17 +344,17 @@ body {
 
 // Social Share Buttons
 .btn-social {
-  height: 34px;
+  font-size: 20px;
   border-radius: 0;
   color: white;
-  margin-right: 5px;
+  margin-right: 8px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
 .btn-social:hover {
   color: white;
-  box-shadow: 4px 4px 2px #aaa;
+  box-shadow: 3px 3px 2px #bbb;
 }
 
 .btn-social:focus {
@@ -359,11 +362,11 @@ body {
 }
 
 #btn-twitter {
-  background-color: #55acee;
+  background-color: $twitter;
 }
 #btn-facebook {
-  background-color: #3b5998;
+  background-color: $facebook;
 }
 #btn-email {
-  background-color: #ffbd00;
+  background-color: $email;
 }
