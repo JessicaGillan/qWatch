@@ -13,8 +13,9 @@ qWatch.controller('ListShowCtrl',[
         $scope.currentItem.id = watchable.id
       });
 
-    $scope.$on('searchSet', function(event, term){
-      $state.go('list', {searchSet: term})
+    var _onHandler = $root.$on('searchSet', function(event, term){
+      _onHandler();
+      $state.go('list', {searchSet: term}, {inherit: false})
     })
   }
 ])

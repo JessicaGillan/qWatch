@@ -16,7 +16,7 @@ qWatch.controller('SearchCtrl',[
         if(_handler) $timeout.cancel(_handler);
 
         _handler = $timeout(function(){
-          if(term.length < 3){
+          if(term.length === 0){
             $rootScope.$emit('searchClear')
           } else if(term.length > 2) {
             $rootScope.$emit('searchSet', term)
@@ -73,15 +73,6 @@ qWatch.controller('SearchCtrl',[
 
     $rootScope.$on('searchClear', _slideDown);
     $rootScope.$on('hideItem', _slideDown);
-
-    // $rootScope.$on('fillSearch', function(event, term){
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    //   initial = true
-    //   console.log('filled', event, term)
-    //   $scope.search.term = term;
-    //   _slideUp();
-    // })
 
     angular.element(document).on('scroll', function (e) {
 
