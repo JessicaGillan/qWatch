@@ -1,9 +1,26 @@
-qWatch.directive('copyLink', function() {
+qWatch.directive('copyLink', function () {
 
   var flash = function flash(msg) {
     var flash = document.createElement("DIV")
     flash.classList.add("flash", msg.type);
-    flash.textContent(msg.text)
+    flash.textContent = msg.text;
+
+    document.body.appendChild(flash);
+
+    setTimeout(function(){ fade(flash); }, 500)
+  }
+
+  function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
   }
 
   //  A work around to copy text to the clipboard without displaying
@@ -52,9 +69,10 @@ qWatch.directive('copyLink', function() {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
       console.log('Copying text command was ' + msg);
-      flash({ type: "success", text: ""})
+      flash({ type: "success", text: "✓ Copied to clipboard"})
     } catch (err) {
       console.log('Oops, unable to copy');
+      flash({ type: "error", text: "Oops, unable to copy"})
     }
 
     document.body.removeChild(textArea);
