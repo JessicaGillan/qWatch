@@ -1,8 +1,8 @@
-<div class="mini" style="background-image: url({{ images.small + item.poster }})" ng-click="show($event, item)">
+<div class="mini" style="background-image: url({{ images.small + item.poster }})" ng-click="show($event)">
   <p class="title">{{ item.title }}</p>
 </div>
 <div class="full" style="background-image: url({{ images.large + item.poster }})" ng-if="current.id === item.id">
-  <a class="exit" ng-click="hide($event, item)" ng-if="prefetched !== 'true' && current.id === item.id ">X</a>
+  <a class="exit" ng-click="hide($event)" ng-if="prefetched !== 'true' && current.id === item.id ">X</a>
   <h1 class="title">{{ item.title }}</h1>
 
   <div class="watchable-show">
@@ -33,7 +33,7 @@
             share-img="{{ images.large + item.poster }}">
           </share-buttons>
         </div>
-        
+
         <button type="button" class="btn btn-default share-button" copy-link>Copy Link to Clipboard</button>
       </div>
     </div>

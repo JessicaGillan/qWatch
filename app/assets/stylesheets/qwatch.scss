@@ -35,6 +35,16 @@ body {
   padding-top: 51px;
 }
 
+.no-animate {
+  transition: all 0s !important;
+}
+.no-height {
+  max-height: 0 !important;
+  padding: 0!important;
+  border: 0!important;
+  margin: 0!important;
+}
+
 // Navbar
 .navbar-inverse {
   background-color: $base;
