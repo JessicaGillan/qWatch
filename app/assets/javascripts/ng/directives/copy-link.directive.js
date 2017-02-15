@@ -53,17 +53,23 @@ qWatch.directive('copyLink', function() {
     document.body.removeChild(textArea);
   }
 
-  var copyLink = function copyLink(e) {
-    e.preventDefault();
+  var copyLink = function copyLink(text) {
+    text = text || location.href;
 
-    copyTextToClipboard(location.href);
+    copyTextToClipboard(text);
   }
 
   return {
     restrict: 'A',
-    scope: {},
+    scope: {
+      linkUrl: '@'
+    },
     link: function(scope, element, attrs) {
-      element.on('click', copyLink)
+      element.on('click', function (e) {
+        e.preventDefault();
+
+        copyLink(scope.linkUrl);
+      })
     }
   };
 });
