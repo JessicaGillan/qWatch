@@ -62,13 +62,23 @@ qWatch.controller('SearchCtrl',[
       if(_checkSearchElPosition()) _setSearchElFixed();
     }
 
-    $scope.$watch('search.term', searchFor)
+    // Do Not call searchFor on page load
+    var initializing = true
+
+    $scope.$watch('search.term', function () {
+      if (initializing) {
+        initializing = false;
+      } else {
+        searchFor
+      }
+    });
 
     $rootScope.$on('searchSet', _slideUp);
     $rootScope.$on('showItem', _slideUpFixed);
 
     $rootScope.$on('searchClear', _slideDown);
     $rootScope.$on('hideItem', _slideDown);
+
 
     angular.element(document).on('scroll', function (e) {
 
