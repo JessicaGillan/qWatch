@@ -15,10 +15,13 @@
 // Colors
 $base: #222A30;
 $accent: #01D277;
+$twitter: #55acee;
+$facebook: #3b5998;
+$email: #ffbd00;
 
 // Properties
-$share-button-width: 150px;
-$show-opacity: 0.9;
+$share-button-width: 280px;
+$show-opacity: 0.95;
 $search-bar-height: 60px;
 // $search-bar-max-width: 740px;
 
@@ -283,13 +286,12 @@ body {
         }
         .service-empty {
           text-align: center;
-          // border: 3px solid $base;
-          background-color: white;
-          color: $base;
-          font-size: 16px;
+          background: none;
+          color: white;
+          font-size: 20px;
           font-style: italic;
           padding: 10px;
-          max-width: 350px;
+          letter-spacing: .1em;
           margin: 0 auto;
           font-family: 'Roboto', sans-serif;
         }
@@ -298,15 +300,16 @@ body {
           margin: 0 auto;
         }
         .share-button {
+          display: inline-block;
           background-color: $accent;
           color: white;
           border: none;
           border-radius: 0;
           display: black;
           width: $share-button-width;
-          height: 50px;
           font-size: 20px;
           margin: 10px;
+          padding: 10px;
         }
       }
     }
@@ -341,17 +344,17 @@ body {
 
 // Social Share Buttons
 .btn-social {
-  height: 34px;
+  font-size: 20px;
   border-radius: 0;
   color: white;
-  margin-right: 5px;
+  margin-right: 8px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
 .btn-social:hover {
   color: white;
-  box-shadow: 4px 4px 2px #aaa;
+  box-shadow: 4px 4px 4px #555;
 }
 
 .btn-social:focus {
@@ -359,11 +362,11 @@ body {
 }
 
 #btn-twitter {
-  background-color: #55acee;
+  background-color: $twitter;
 }
 #btn-facebook {
-  background-color: #3b5998;
+  background-color: $facebook;
 }
 #btn-email {
-  background-color: #ffbd00;
+  background-color: $email;
 }
