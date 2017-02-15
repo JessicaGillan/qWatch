@@ -16,6 +16,7 @@
 //= require angular-devise
 //= require ui-router
 //= require ui-bootstrap
+//= require angular-socialshare
 //= require lodash
 //= require restangular
 //= require_tree .

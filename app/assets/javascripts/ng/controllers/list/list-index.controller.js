@@ -1,11 +1,12 @@
 qWatch.controller('ListIndexCtrl',[
-  '$scope', '$state', '$rootScope', '$timeout', '$window', 'watchableService', "tmdbConfigService",
-  function($scope, $state, $root, $timeout, $window, watchable, tmdbConfig){
+  '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
+  function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
 
+    $root.showPage = false;
     var el = angular.element('#watchable-search'),
         scroll = 0,
         angWindow = angular.element($window),
-        rowHeight = 530;
+        rowHeight;
 
     $scope.currentItem = {};
 
@@ -37,8 +38,8 @@ qWatch.controller('ListIndexCtrl',[
     var delayedExec = function(after, fn) {
       var timer;
       return function() {
-          timer && $timeout.cancel(timer);
-          timer = $timeout(fn, after);
+        timer && $timeout.cancel(timer);
+        timer = $timeout(fn, after);
       };
     };
 
@@ -93,7 +94,11 @@ qWatch.controller('ListIndexCtrl',[
         angWindow.scrollTop(scroll);
       } else {
         $scope.offset.new = angWindow.scrollTop() - $scope.offset.firstEl;
-        _debouncer()
+        if(rowHeight){
+          _debouncer();
+        } else {
+          _onResize();
+        }
       }
     });
 
@@ -139,6 +144,16 @@ qWatch.controller('ListIndexCtrl',[
         }
       })
     });
+
+    if($stateParams.searchSet){
+      console.log('if statement', $stateParams)
+      $root.$emit("fillSearch", $stateParams.searchSet)
+      watchable.search($stateParams.search).then(function(searchResults){
+        $scope.list = searchResults;
+        $stateParams.searchSet = null
+        // $state.go('list', {}, {inherit: false, notify: false})
+      })
+    }
 
     $root.$on('searchClear', setToIndex);
 

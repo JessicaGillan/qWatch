@@ -1,5 +1,5 @@
 var qWatch = angular
-    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise'])
+    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare'])
     .constant('_', window._)
     .config([
       'RestangularProvider',
@@ -60,6 +60,9 @@ var qWatch = angular
           .state('list', {
             parent: 'main',
             url: 'watch',
+            params: {
+              searchSet: null
+            },
             templateUrl: 'ng/views/list/index.html',
             controller: 'ListIndexCtrl'
           })
