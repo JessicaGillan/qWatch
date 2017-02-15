@@ -1,6 +1,7 @@
 qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
+    console.log("init")
 
     $root.showPage = false;
 
@@ -144,12 +145,9 @@ qWatch.controller('ListIndexCtrl',[
     });
 
     if($stateParams.searchSet){
-      console.log('if statement', $stateParams)
-      $root.$emit("fillSearch", $stateParams.searchSet)
-      watchable.search($stateParams.search).then(function(searchResults){
+      watchable.search($stateParams.searchSet).then(function(searchResults){
         $scope.list = searchResults;
-        $stateParams.searchSet = null
-        // $state.go('list', {}, {inherit: false, notify: false})
+        $stateParams.searchSet = null;
       })
     }
 

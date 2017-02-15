@@ -2,7 +2,7 @@ qWatch.controller('ListShowCtrl',[
   '$scope', '$state', '$stateParams', '$rootScope', 'watchableService', 'tmdbConfigService',
   function($scope, $state, $stateParams, $root, watchableService, tmdbConfig){
     $root.showPage = true;
-    
+
     $scope.currentItem = {};
     tmdbConfig().then(function(sizes){
       $scope.imageSizes = sizes;
@@ -13,7 +13,8 @@ qWatch.controller('ListShowCtrl',[
         $scope.currentItem.id = watchable.id
       });
 
-    $root.$on('searchSet', function(event, term){
+    var _onHandler = $root.$on('searchSet', function(event, term){
+      _onHandler();
       $state.go('list', {searchSet: term}, {inherit: false})
     })
 
