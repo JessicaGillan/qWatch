@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214182602) do
+ActiveRecord::Schema.define(version: 20170215004156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,11 @@ ActiveRecord::Schema.define(version: 20170214182602) do
   enable_extension "btree_gin"
 
   create_table "tmdb_configs", force: :cascade do |t|
-    t.string   "url",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "url",                     null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "secure_url"
+    t.string   "sizes",      default: [],              array: true
   end
 
   create_table "watchables", force: :cascade do |t|

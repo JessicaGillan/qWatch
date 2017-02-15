@@ -9,9 +9,11 @@ FactoryGirl.define do
 
   end
 
-  factory :tmdb_config do
+  factory :tmdb_config, class: TMDBConfig do
 
     url "http://image.tmdb.org/t/p/"
+    secure_url "https://image.tmdb.org/t/p/"
+    sizes ["h632", "original", "w1280", "w154", "w185", "w300", "w342", "w45", "w500", "w780", "w92"]
 
   end
 

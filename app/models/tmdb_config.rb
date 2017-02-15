@@ -1,11 +1,25 @@
-class TmdbConfig < ApplicationRecord
+class TMDBConfig < ApplicationRecord
 
   def self.get
     if first.nil? || first.updated_at < 3.days.ago
       response = HTTParty.get(base_url)
       if first.nil? || response["images"]["base_url"] != first.url
-        destroy_all
-        create(url: response["images"]["base_url"])
+        ActiveRecord::Base.connection.execute("DELETE FROM tmdb_configs")
+        arr = [
+          response["images"]["backdrop_sizes"],
+          response["images"]["logo_sizes"],
+          response["images"]["poster_sizes"],
+          response["images"]["profile_sizes"],
+          response["images"]["still_sizes"]
+        ]
+        arr.flatten!
+        arr.uniq!
+        arr.sort!
+        create(
+               url: response["images"]["base_url"],
+               secure_url: response["images"]["secure_base_url"],
+               sizes: arr
+              )
       end
     end
 

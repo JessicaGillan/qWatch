@@ -1,18 +1,16 @@
-<div class="container watchable-search">
+<div class="container watchable-search" id="watchable-search">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="watchable in watchables">
-      <div class="watchable-search-result">
-        <a ui-sref="list.show({ id: watchable.id })">
-          <!-- <img ng-src="{{ watchable.poster }}"> -->
-          <p>{{ watchable.title }}</p>
-        </a>
-      </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="item in list | limitTo:100:offset.begin">
+      <search-result item="item" current="currentItem" images="imageSizes"></search-result>
+      <div class="filler" ng-if="currentItem.id === item.id"></div>
     </div>
-    <div class="col-xs-12 page-nav" ng-hide="watchables.length === 0">
-      <input type="button" class="btn btn-default page-button page-prev" value="<< Previous">
-      <input type="button" class="btn btn-default page-button page-next" value="Next >>">
-    </div>
-    <div class="col-xs-12" ng-show="watchables.length === 0">
+  </div>
+  <div class="row">
+    <!-- <div class="col-xs-12 page-nav" ng-hide="searchResults.length === 0">
+      <button type="button" class="btn btn-default page-button page-prev" ng-click="previous()"><< Previous</button>
+      <button type="button" class="btn btn-default page-button page-next" ng-click="next()">Next >></button>
+    </div> -->
+    <div class="col-xs-12" ng-show="list.length === 0">
       <p class="watchable-search-empty">Sorry, no results were found!</p>
     </div>
   </div>

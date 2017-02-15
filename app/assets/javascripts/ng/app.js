@@ -40,10 +40,6 @@ var qWatch = angular
                 templateUrl: 'ng/views/nav.html',
                 controller: 'NavCtrl'
               },
-              'show': {
-                template: '<ui-view="show-item"></ui-view>',
-                controller: 'ShowCtrl'
-              },
               '': {
                 template: '<ui-view/>'
               }
@@ -55,21 +51,19 @@ var qWatch = angular
             templateUrl: 'ng/views/user.html',
             controller: 'UserCtrl'
           })
+          .state('show', {
+            url: 'watch/:id',
+            parent: 'main',
+            templateUrl: 'ng/views/list/show.html',
+            controller: 'ListShowCtrl'
+          })
           .state('list', {
             parent: 'main',
             url: 'watch',
             templateUrl: 'ng/views/list/index.html',
             controller: 'ListIndexCtrl'
           })
-          .state('list.show', {
-            url: '/:id',
-            views: {
-              'show-item@main': {
-                templateUrl: 'ng/views/list/show.html',
-                controller: 'ListShowCtrl'
-              }
-            }
-          })
+
 
       }
     ]);

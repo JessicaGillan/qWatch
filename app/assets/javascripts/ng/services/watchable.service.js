@@ -1,11 +1,11 @@
 qWatch.factory('watchableService', [
-  'Restangular', 'showItemService',
-  function(restangular, showItem){
+  '$q', 'Restangular', 'showItemService',
+  function($q, restangular, showItem){
     var _watchables = [],
         _watchable = {},
         _searchResults = [],
         _page = 1,
-        _limit = 10;
+        _limit = 100;
 
     var _denormalize = function _denormalize(arr, newArr, offset){
       offset = offset || 0;
@@ -20,6 +20,7 @@ qWatch.factory('watchableService', [
       showItem.combineUrls(watchable);
       watchable.complete = true;
 
+      watchable.show = _show;
       angular.copy(watchable, _watchable);
       return _watchable;
     }
@@ -35,7 +36,7 @@ qWatch.factory('watchableService', [
           .getList({page: _page, limit: _limit})
           .then(function(results){
             _denormalize(results, _watchables, _offset());
-            _page += results.length;
+            _page += 1;
             return _watchables;
           })
           .catch(function(err){
@@ -46,15 +47,16 @@ qWatch.factory('watchableService', [
     }
 
     var _show = function _show(){
-      if(!this.complete){
+      var self = this;
+      if(!self.complete){
         return restangular
-          .one('watch', this.id)
+          .one('watch', self.id)
           .get()
           .then(function(result){
-            return _complete(this, result)
+            return _complete(self, result)
           })
       }
-      angular.copy(this, _watchable)
+      angular.copy(self, _watchable)
       return $q.resolve(_watchable);
     }
 
@@ -85,7 +87,8 @@ qWatch.factory('watchableService', [
 
     return {
       index: index,
-      show: get
+      show: get,
+      search: search
     }
   }
 ]);
