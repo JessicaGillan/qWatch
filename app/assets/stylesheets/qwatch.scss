@@ -175,6 +175,8 @@ body {
     -moz-transition: all 0.5s ease;
     transition: all 0.5s ease;
     position: relative;
+    color: white;
+    font-family: 'Roboto', sans-serif;
 
     &.expanded {
       z-index: 500 !important;
@@ -194,7 +196,7 @@ body {
       background-position: center;
       background-size: cover;
       position: relative;
-      p.title {
+      .title {
         background-color: $base;
         padding: 0;
         margin: 0;
@@ -207,7 +209,7 @@ body {
     .mini {
       margin: auto;
       position: relative;
-      p.title {
+      .title {
         position: absolute;
         bottom:0;
         font-size: 1.7em;
@@ -218,28 +220,94 @@ body {
       top:50%;
       left:50%;
       transform:translate(-50%, -50%);
-      a.exit {
-        display: block;
-        position: absolute;
-        top:-3px;
-        right:-3px;
+      .title, .exit {
         background: $base;
         border: $accent solid 3px;
-        font-size: 3em;
         color: #fff;
-        text-align: center;
-        z-index:2;
-        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index:1;
+        height: 60px;
         margin: 0;
-        padding: 0 15px;
+        padding: 0;
+        font-size: 3em;
+      }
+      a.exit {
+        z-index:2;
+        top:-3px;
+        right:-3px;
+
+        cursor: pointer;
+        width: 60px;
         &:hover {
           text-decoration: none;
         }
       }
-
-      .watchable-show, .title {
+      .title {
+        top: -3px;
+        left: -3px;
+        padding: 0 60px;
+        width: calc(100% + 6px);
+      }
+      // Show watchable
+      .watchable-show {
         position: relative;
         top: 200px;
+        height: calc(100vh - 293px);
+        overflow: auto;
+        width: 100%;
+        border: none;
+        margin: 0;
+        text-align: center;
+        background-color: $base;
+
+        padding: 30px 15px;
+        opacity: $show-opacity;
+        filter: alpha(opacity=calc(#{$show-opacity} * 100)); // IE8 or earlier
+
+        .service-wrapper {
+          text-align: center;
+          margin: 30px 0;
+        }
+        .logo-wrapper {
+          width: 120px;
+          height: 120px;
+          display: inline-block;
+          margin: 10px;
+        }
+        .logo-wrapper img {
+          width: 100%;
+          height: auto;
+        }
+        .service-empty {
+          text-align: center;
+          // border: 3px solid $base;
+          background-color: white;
+          color: $base;
+          font-size: 16px;
+          font-style: italic;
+          padding: 10px;
+          max-width: 350px;
+          margin: 0 auto;
+          font-family: 'Roboto', sans-serif;
+        }
+        .share-wrapper {
+          width: calc(#{$share-button-width} + 30px);
+          margin: 0 auto;
+        }
+        .share-button {
+          background-color: $accent;
+          color: white;
+          border: none;
+          border-radius: 0;
+          display: black;
+          width: $share-button-width;
+          height: 50px;
+          font-size: 20px;
+          margin: 10px;
+        }
       }
     }
 
@@ -269,59 +337,4 @@ body {
   max-width: 400px;
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
-}
-
-// Show watchable
-.watchable-show {
-  width: 550px;
-  margin: 0 auto;
-  text-align: center;
-  background-color: $base;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  padding-bottom: 30px;
-  opacity: $show-opacity;
-  filter: alpha(opacity=calc(#{$show-opacity} * 100)); // IE8 or earlier
-
-  .service-wrapper {
-    text-align: center;
-    margin: 30px 0;
-  }
-  .logo-wrapper {
-    width: 120px;
-    height: 120px;
-    display: inline-block;
-    margin: 10px;
-  }
-  .logo-wrapper img {
-    width: 100%;
-    height: auto;
-  }
-  .service-empty {
-    text-align: center;
-    // border: 3px solid $base;
-    background-color: white;
-    color: $base;
-    font-size: 16px;
-    font-style: italic;
-    padding: 10px;
-    max-width: 350px;
-    margin: 0 auto;
-    font-family: 'Roboto', sans-serif;
-  }
-  .share-wrapper {
-    width: calc(#{$share-button-width} + 30px);
-    margin: 0 auto;
-  }
-  .share-button {
-    background-color: $accent;
-    color: white;
-    border: none;
-    border-radius: 0;
-    display: black;
-    width: $share-button-width;
-    height: 50px;
-    font-size: 20px;
-    margin: 10px;
-  }
 }

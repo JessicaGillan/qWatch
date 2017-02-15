@@ -60,6 +60,9 @@ var qWatch = angular
           .state('list', {
             parent: 'main',
             url: 'watch',
+            params: {
+              searchSet: null
+            },
             templateUrl: 'ng/views/list/index.html',
             controller: 'ListIndexCtrl'
           })

@@ -6,20 +6,24 @@ qWatch.controller('SearchCtrl',[
         searchElFiller = angular.element('#search-panel-filler'),
         rect = searchEl.get(0).getBoundingClientRect(),
         offset = searchEl.offset().top - rect.height,
-        showing = false;
+        showing = false,
+        initial = true;
 
     $scope.search = {term: ""};
 
     var searchFor = function searchFor(term){
-      if(_handler) $timeout.cancel(_handler);
+      if(!initial){
+        if(_handler) $timeout.cancel(_handler);
 
-      _handler = $timeout(function(){
-        if(!term || term.length < 3){
-          $rootScope.$emit('searchClear')
-        } else {
-          $rootScope.$emit('searchSet', term)
-        }
-      }, 300)
+        _handler = $timeout(function(){
+          if(term.length < 3){
+            $rootScope.$emit('searchClear')
+          } else if(term.length > 2) {
+            $rootScope.$emit('searchSet', term)
+          }
+        }, 300)
+      }
+      initial = false;
     };
 
     var _resetSearchEl = function _resetSearchEl(){
@@ -69,6 +73,15 @@ qWatch.controller('SearchCtrl',[
 
     $rootScope.$on('searchClear', _slideDown);
     $rootScope.$on('hideItem', _slideDown);
+
+    // $rootScope.$on('fillSearch', function(event, term){
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   initial = true
+    //   console.log('filled', event, term)
+    //   $scope.search.term = term;
+    //   _slideUp();
+    // })
 
     angular.element(document).on('scroll', function (e) {
 
