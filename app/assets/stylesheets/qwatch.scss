@@ -316,6 +316,10 @@ body {
 
   }
 }
+
+.btn:hover {
+  box-shadow: 4px 4px 4px #999;
+}
 .page-nav {
   text-align: center;
   margin-top: $search-bar-height;

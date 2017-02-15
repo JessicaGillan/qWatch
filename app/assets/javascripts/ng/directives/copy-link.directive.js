@@ -1,5 +1,11 @@
 qWatch.directive('copyLink', function() {
 
+  var flash = function flash(msg) {
+    var flash = document.createElement("DIV")
+    flash.classList.add("flash", msg.type);
+    flash.textContent(msg.text)
+  }
+
   //  A work around to copy text to the clipboard without displaying
   // an input / textarea element.
   // (basically insert element, copy to clipboard, remove element):
@@ -46,6 +52,7 @@ qWatch.directive('copyLink', function() {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
       console.log('Copying text command was ' + msg);
+      flash({ type: "success", text: ""})
     } catch (err) {
       console.log('Oops, unable to copy');
     }
