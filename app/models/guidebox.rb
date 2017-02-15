@@ -2,13 +2,13 @@
 # Get movie responses - /*https://api-public.guidebox.com/v2/movies/135934?api_key= */
 
 class Guidebox
+  MAX_PER_MIN = 250
 
   class << self
 
   API_KEY = "?api_key=#{Rails.application.secrets.guidebox_api_key}"
   BASE_URL = 'https://api-public.guidebox.com/v2/'
   LIMIT_MAX = 250
-  MAX_PER_MIN = 250
 
   # GET https://api-public.guidebox.com/v2/movies?api_key=
   def pull_movies(options = {})
@@ -20,6 +20,13 @@ class Guidebox
   # GET https://api-public.guidebox.com/v2/movies/:id?api_key=
   def pull_movie_data(id, options = {})
     response = HTTParty.get(build_url("movies/#{id}", options))
+
+    JSON.parse(response.body)
+  end
+
+  # GET /v2/search?type=movie&field=id&id_type=themoviedb&query=328111
+  def search_for_movie(options)
+    response = HTTParty.get(build_url("search", options))
 
     JSON.parse(response.body)
   end

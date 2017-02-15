@@ -1,11 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <form class="form-flex" id="search_panel">
-        <label for="search-box" >Search: </label>
-        <input type="text" class="form-control search-box flex-10" id="search-box" placeholder="e.g. Finding Nemo" ng-model="search.term">
-        <button type="submit" class="btn btn-default">Search</button>
-      </form>
+      <div class="title-search">
+        <div id="header-wrapper" ng-hide="showPage">
+          <h1 class="header-title">qWatch<span class="navbar-brand logo"><span>qW</span></span></h1>
+          <h2 class="header-slogan">All of your movie and TV streams, right in one place.</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div style="width: 1px; height: 60px;" ng-if="showFiller"></div>
+        <form name="titleSearch" class="form-flex" id="search-panel">
+          <input type="text" class="form-control search-box flex-10" placeholder="Find a movie or TV show..." ng-model="search.term">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </form>
+      </div>
     </div>
   </div>
 </div>

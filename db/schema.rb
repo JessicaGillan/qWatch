@@ -10,25 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210220300) do
+ActiveRecord::Schema.define(version: 20170215004156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "btree_gin"
 
-  create_table "posters", force: :cascade do |t|
-    t.integer  "watchable_id", null: false
-    t.string   "thumbnail"
-    t.string   "medium"
-    t.string   "large"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["watchable_id"], name: "index_posters_on_watchable_id", using: :btree
+  create_table "tmdb_configs", force: :cascade do |t|
+    t.string   "url",                     null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "secure_url"
+    t.string   "sizes",      default: [],              array: true
   end
 
   create_table "watchables", force: :cascade do |t|
-    t.integer  "moviedb_id",   null: false
-    t.string   "moviedb_type", null: false
-    t.string   "title",        null: false
+    t.integer  "tmdb_id",                     null: false
+    t.string   "tmdb_type",                   null: false
+    t.string   "title",                       null: false
     t.string   "hulu"
     t.string   "amazon"
     t.string   "netflix"
@@ -36,12 +36,13 @@ ActiveRecord::Schema.define(version: 20170210220300) do
     t.string   "amazon_buy"
     t.string   "google_play"
     t.string   "itunes"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "imdb_id",      null: false
-    t.index ["imdb_id"], name: "index_watchables_on_imdb_id", using: :btree
-    t.index ["moviedb_id", "moviedb_type"], name: "index_watchables_on_moviedb_id_and_moviedb_type", unique: true, using: :btree
-    t.index ["moviedb_type"], name: "index_watchables_on_moviedb_type", using: :btree
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "poster"
+    t.boolean  "requested",   default: false
+    t.index "title gin_trgm_ops", name: "watchables_search_idx", using: :gin
+    t.index ["tmdb_id", "tmdb_type"], name: "index_watchables_on_tmdb_id_and_tmdb_type", unique: true, using: :btree
+    t.index ["tmdb_type"], name: "index_watchables_on_tmdb_type", using: :btree
   end
 
 end

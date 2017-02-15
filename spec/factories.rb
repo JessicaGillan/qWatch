@@ -2,21 +2,18 @@ FactoryGirl.define do
 
   factory :watchable do
 
-    sequence(:gb_id) do |n|
-      n
-    end
+    sequence(:tmdb_id) { |n| n }
 
-    gb_type "movie"
-    title "Title"
+    tmdb_type "movie"
+    sequence(:title) { |n| "Title #{n}" }
 
   end
 
-  factory :poster do
+  factory :tmdb_config, class: TMDBConfig do
 
-    watchable
-    thumbnail "thumbnail"
-    medium "medium"
-    large "large"
+    url "http://image.tmdb.org/t/p/"
+    secure_url "https://image.tmdb.org/t/p/"
+    sizes ["h632", "original", "w1280", "w154", "w185", "w300", "w342", "w45", "w500", "w780", "w92"]
 
   end
 

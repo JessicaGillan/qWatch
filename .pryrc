@@ -23,3 +23,7 @@ if defined? Hirb
 
   Hirb.enable
 end
+
+Pry::Commands.delete 'c'
+Pry::Commands.delete 'n'
+Pry::Commands.delete 's'

@@ -1,0 +1,27 @@
+<div class="mini" style="background-image: url({{ images.small + item.poster }})" ng-click="show($event, item)">
+  <p class="title">{{ item.title }}</p>
+</div>
+<div class="full" style="background-image: url({{ images.large + item.poster }})" ng-if="current.id === item.id">
+  <a class="exit" ng-click="hide($event, item)" ng-if="current.id === item.id">X</a>
+
+  <div class="watchable-show panel panel-default">
+    <div class="panel-body">
+      <h1 class="title">{{ item.title }}</h1>
+      <h2>Watch on...</h2>
+      <div class="service-wrapper">
+        <div class="logo-wrapper" ng-repeat="service in item.services">
+          <a href="{{ service.link }}">
+            <img src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
+          </a>
+        </div>
+        <p class="service-empty" ng-show="services.length === 0">
+          Sorry, {{ item.title }} isn't available for streaming...yet!
+        </p>
+      </div>
+      <div class="share-wrapper">
+        <button type="button" class="btn btn-default share-button">Share Link</button>
+        <button type="button" class="btn btn-default share-button" copy-link>Copy Link</button>
+      </div>
+    </div>
+  </div>
+</div>

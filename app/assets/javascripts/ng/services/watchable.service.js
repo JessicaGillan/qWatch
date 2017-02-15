@@ -1,49 +1,77 @@
 qWatch.factory('watchableService', [
-  'Restangular',
-  function(restangular){
+  '$q', 'Restangular', 'showItemService',
+  function($q, restangular, showItem){
     var _watchables = [],
+        _watchable = {},
         _searchResults = [],
-        _paginate = 0;
+        _page = 1,
+        _limit = 100;
 
     var _denormalize = function _denormalize(arr, newArr, offset){
       offset = offset || 0;
       for(var i = 0; i < arr.length; i++){
-        arr[i].idx = i + offset;
+        arr[i].show = _show;
         newArr.push(arr[i]);
       }
     }
 
     var _complete = function _complete(watchable, result){
       angular.copy(result, watchable);
+      showItem.combineUrls(watchable);
       watchable.complete = true;
+
+      watchable.show = _show;
+      angular.copy(watchable, _watchable);
+      return _watchable;
+    }
+
+    var _offset = function _offset(){
+      return (_page - 1) * _limit
     }
 
     var index = function index(next_page){
       if(!_watchables.length || next_page){
         return restangular
-          .all('watchable')
-          .getList({start: _paginate})
+          .all('watch')
+          .getList({page: _page, limit: _limit})
           .then(function(results){
-            _denormalize(results, _watchables, _paginate);
-            _paginate += results.length;
+            _denormalize(results, _watchables, _offset());
+            _page += 1;
             return _watchables;
+          })
+          .catch(function(err){
+            console.log(err)
           });
       }
       return $q.resolve(_watchables)
     }
 
-    var show = function show(idx){
-      var watchable = _watchables[idx];
-      if(!watchable.complete){
+    var _show = function _show(){
+      var self = this;
+      if(!self.complete){
         return restangular
-          .one('watchable', watchable.id)
+          .one('watch', self.id)
           .get()
           .then(function(result){
-            _complete(watchable, result)
-            return watchable;
+            return _complete(self, result)
           })
       }
-      return $q.resolve(watchable);
+      angular.copy(self, _watchable)
+      return $q.resolve(_watchable);
+    }
+
+    var get = function get(id){
+      if(!_watchable.id || _watchable.id !== id){
+        return restangular
+          .one('watch', id)
+          .get()
+          .then(function(result){
+            showItem.combineUrls(result)
+            angular.copy(result, _watchable);
+            return _watchable;
+          })
+      }
+      return $q.resolve(_watchable);
     }
 
     var search = function search(term){
@@ -59,7 +87,8 @@ qWatch.factory('watchableService', [
 
     return {
       index: index,
-      show: show
+      show: get,
+      search: search
     }
   }
 ]);

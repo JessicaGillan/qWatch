@@ -47,6 +47,9 @@ gem 'figaro'
 # HTTParty
 gem 'httparty'
 
+# Font Awesome
+gem 'font-awesome-rails'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular'
   gem 'rails-assets-ui-router'
@@ -57,6 +60,8 @@ end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'vcr'
+  gem 'typhoeus'
 end
 
 group :development, :test do
@@ -66,6 +71,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'jazz_fingers'
+  gem 'faker'
 end
 
 group :development do

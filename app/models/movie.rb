@@ -1,54 +1,45 @@
 class Movie
+  class << self
 
-  def initialize
-    @total_num_movies = nil
-    @num_retrieved = 0
-    @services = set_services
-  end
-
-  # DO NOT CALL UNLESS INTEND TO UPDATE ENTIRE DATABASE
-  def save_all_movies
-    while !@total_num_movies || @num_retrieved < @total_num_movies
-      save_movies({ offset: @num_retrieved, limit: LIMIT_MAX })
-      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    def services
+      @services = @services || set_services
     end
-  end
 
-  def save_movies(options = {})
-    response = Guidebox.pull_movies(options)
+    def save_movies(movies)
+      movies.each do |movie|
+        watch = Watchable.find_by(tmdb_id: movie["id"].to_i, tmdb_type: "movie")
 
-    @total_num_movies = @total_num_movies || response["total_results"]
-    @num_retrieved += response["results"].length
-
-    response["results"].each do |movie|
-      watch = Watchable.find_by(moviedb_id: movie["id"].to_i, moviedb_type: "movie")
-
-      if watch
-        watch.update(watchable_params(movie, "movie"))
-      else
-        Watchable.create(watchable_params(movie, "movie"))
+        if watch
+          watch.update(watchable_params(movie, "movie"))
+        else
+          Watchable.create(watchable_params(movie, "movie"))
+        end
       end
     end
-  end
 
-  # Save Url data for an array of watchables
-  def save_movies_data(watchables)
-    watchables.each do |movie|
-      save_movie_data(movie.gb_id)
-      sleep((60 / Guidebox.MAX_PER_MIN) + 0.1)
+    def add_third_party_sources(tmdb_id, movie_data)
+      watch = Watchable.find_by(tmdb_id: tmdb_id, tmdb_type: "movie")
+
+      if watch
+        watch.update(watchable_source_params(movie_data))
+      end
+
+      watch
     end
-  end
 
-  def save_movie_data(guidebox_id)
-    movie = Guidebox.pull_movie_data(guidebox_id)
-    watch = Watchable.find_by(gb_id: movie["id"].to_i, gb_type: "movie")
+    private
 
-    if watch
-      watch.update(watchable_source_params(movie))
-    end
-  end
-
-  private
+      def services
+        {
+          hulu:        hulu_sources,
+          amazon:      amazon_sources,
+          netflix:     [source_obj("subscription_web_sources", "netflix")],
+          xfinity:     xfinity_sources,
+          amazon_buy:  [source_obj("purchase_web_sources", "amazon_buy")],
+          google_play: [source_obj("purchase_web_sources", "google_play")],
+          itunes:      [source_obj("purchase_web_sources", "itunes")]
+        }
+      end
 
       def set_services
         {
@@ -64,15 +55,10 @@ class Movie
 
       def watchable_params(result, type)
         {
-          moviedb_id: result["id"],
-          moviedb_type: type,
+          tmdb_id: result["id"].to_i,
+          tmdb_type: type,
           title: result["title"],
-          poster_attributes:
-          {
-            thumbnail: result["poster_120x171"],
-            medium: result["poster_240x342"],
-            large: result["poster_400x570"]
-          }
+          poster: result["poster_path"]
         }
       end
 
@@ -88,8 +74,9 @@ class Movie
         }
       end
 
+      # GUIDEBOX SPECIFIC
       def get_link_for(service, result)
-        @services[service].each do |source_info|
+        services[service].each do |source_info|
           result[source_info[:type]].each do |source_item|
             if source_item["source"] == source_info[:name]
               return source_item["link"]
@@ -103,6 +90,7 @@ class Movie
         { type: source, name: name }
       end
 
+      # GUIDEBOX SPECIFIC
       def hulu_sources
         [
           source_obj("free_web_sources", "hulu_free"),
@@ -111,6 +99,7 @@ class Movie
         ]
       end
 
+      # GUIDEBOX SPECIFIC
       def amazon_sources
         [
           source_obj("free_web_sources", "amazon_prime_free"),
@@ -118,6 +107,7 @@ class Movie
         ]
       end
 
+      # GUIDEBOX SPECIFIC
       def xfinity_sources
         [
           source_obj("free_web_sources", "xfinity"),
@@ -125,5 +115,5 @@ class Movie
           source_obj("purchase_web_sources", "xfinity_purchase")
         ]
       end
-
+  end
 end

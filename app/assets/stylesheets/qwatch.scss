@@ -1,21 +1,57 @@
+
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Bootstrap - remove gutter
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+// Font Awesome
+@import "font-awesome";
+
+// Colors
+$base: #222A30;
+$accent: #01D277;
+
+// Properties
+$share-button-width: 150px;
+$show-opacity: 0.9;
+$search-bar-height: 60px;
+// $search-bar-max-width: 740px;
+
+// Overall layout
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
-
 body {
   padding-top: 51px;
 }
 
-#search_panel {
-  text-align: center;
+// Navbar
+.navbar-inverse {
+  background-color: $base;
+}
+.navbar-brand.logo {
+  background: $accent;
+  border-radius: 100%;
+  font-size: 50px;
+  letter-spacing: -8px;
+  color: #fff;
+  position: relative;
+  width: 50px;
+  font-family: 'Rationale', sans-serif;
+  span {
+    position: absolute;
+    left:0;
+  }
 }
 
+// Flex form
 .form-flex {
   display: flex;
   flex-flow: row nowrap;
@@ -27,14 +63,265 @@ body {
 	align-items: center;
 
   .flex-1 {
-    margin:0 15px;
+    // margin:0 15px;
     flex:1;
   }
   .flex-10 {
-    margin:0 15px;
+    // margin:0 15px;
     flex:10
   }
   .flex-right {
     text-align: right;
+  }
+}
+
+// Title, logo, search bar
+.title-search {
+  margin-top: 100px;
+  position: relative;
+  z-index: 750;
+  &, * {
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+}
+
+// Title & logo on splash page
+#header-wrapper {
+  background-color: $base;
+  // max-width: $search-bar-max-width;
+  margin: 0 auto;
+  padding: 5px;
+  overflow: hidden;
+
+  max-height: 200px;
+
+  .header-title {
+    text-align: center;
+    font-family: 'Rationale', sans-serif;
+    font-size: 6em;
+    color: white;
+    width: 375px;
+    margin: 0 auto;
+    padding: 5px;
+  }
+
+  .navbar-brand.logo { // TODO: replace with an image of the logo?
+    font-size: 85px;
+    width: 85px;
+    height: 85px;
+    letter-spacing: -14px;
+    float: right;
+
+    span {
+      top: 35px;
+    }
+  }
+
+  .header-slogan {
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.4em;
+    color: white;
+  }
+}
+
+// Search bar
+#search-panel {
+  width: 100%;
+  // max-width: $search-bar-max-width;
+  margin: 0 auto;
+
+  .search-box {
+    border: 5px solid $base;
+    border-radius: 0;
+    height: $search-bar-height;
+    font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
+  }
+  .fa-search {
+    background-color: $base;
+    color: white;
+    height: $search-bar-height;
+    width: $search-bar-height;
+    text-align: center;
+    font-size: 2.3em;
+    line-height: $search-bar-height;
+  }
+}
+
+
+// Search results
+.watchable-search {
+  margin-top: $search-bar-height;
+
+  .filler, search-result {
+    display: block;
+    background-color: $base;
+    height: 300px;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 100%;
+    @media screen and (min-width: 1024px) {
+      height: 500px;
+    }
+  }
+
+  search-result {
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    position: relative;
+
+    &.expanded {
+      z-index: 500 !important;
+      width: 100% !important;
+      height: calc(100% - 50px) !important;
+      top: 50px !important;
+      left: 0 !important;
+      margin: 0 !important;
+    }
+
+    .mini, .full {
+      width: 100%;
+      height: 100%;
+      max-width: 1140px;
+      border: $accent solid 3px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      p.title {
+        background-color: $base;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-family: 'Roboto Condensed', sans-serif;
+      }
+    }
+    .mini {
+      margin: auto;
+      position: relative;
+      p.title {
+        position: absolute;
+        bottom:0;
+        font-size: 1.7em;
+      }
+    }
+    .full {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      a.exit {
+        display: block;
+        position: absolute;
+        top:-3px;
+        right:-3px;
+        background: $base;
+        border: $accent solid 3px;
+        font-size: 3em;
+        color: #fff;
+        text-align: center;
+        z-index:2;
+        cursor: pointer;
+        margin: 0;
+        padding: 0 15px;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      .watchable-show, .title {
+        position: relative;
+        top: 200px;
+      }
+    }
+
+  }
+}
+.page-nav {
+  text-align: center;
+  margin-top: $search-bar-height;
+}
+.page-button {
+  border: none;
+  border-radius: 0;
+  background-color: $base;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.7em;
+  width: 150px;
+}
+.watchable-search-empty {
+  text-align: center;
+  border: 3px solid $base;
+  background-color: white;
+  color: $base;
+  font-size: 20px;
+  font-style: italic;
+  padding: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+// Show watchable
+.watchable-show {
+  width: 550px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: $base;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  padding-bottom: 30px;
+  opacity: $show-opacity;
+  filter: alpha(opacity=calc(#{$show-opacity} * 100)); // IE8 or earlier
+
+  .service-wrapper {
+    text-align: center;
+    margin: 30px 0;
+  }
+  .logo-wrapper {
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    margin: 10px;
+  }
+  .logo-wrapper img {
+    width: 100%;
+    height: auto;
+  }
+  .service-empty {
+    text-align: center;
+    // border: 3px solid $base;
+    background-color: white;
+    color: $base;
+    font-size: 16px;
+    font-style: italic;
+    padding: 10px;
+    max-width: 350px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+  }
+  .share-wrapper {
+    width: calc(#{$share-button-width} + 30px);
+    margin: 0 auto;
+  }
+  .share-button {
+    background-color: $accent;
+    color: white;
+    border: none;
+    border-radius: 0;
+    display: black;
+    width: $share-button-width;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px;
   }
 }
