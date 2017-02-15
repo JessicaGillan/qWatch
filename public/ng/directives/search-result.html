@@ -7,18 +7,24 @@
 
   <div class="watchable-show">
     <div class="panel-body">
-      <h2>Watch on...</h2>
       <div class="service-wrapper">
-        <div class="logo-wrapper" ng-repeat="service in item.services">
-          <a href="{{ service.link }}">
-            <img ng-src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
-          </a>
+
+        <div ng-hide="item.services.length === 0">
+          <h2>Watch on...</h2>
+          <div class="logo-wrapper" ng-repeat="service in item.services">
+            <a href="{{ service.link }}">
+              <img ng-src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
+            </a>
+          </div>
         </div>
-        <p class="service-empty" ng-show="services.length === 0">
+
+        <p class="service-empty" ng-show="item.services.length === 0">
           Sorry, {{ item.title }} isn't available for streaming...yet!
         </p>
+
       </div>
       <div class="share-wrapper">
+
         <div class="share-button">
           Share qWatch Link on...
           <share-buttons id="share-buttons"
@@ -27,6 +33,7 @@
             share-img="{{ images.large + item.poster }}">
           </share-buttons>
         </div>
+        
         <button type="button" class="btn btn-default share-button" copy-link>Copy Link to Clipboard</button>
       </div>
     </div>
