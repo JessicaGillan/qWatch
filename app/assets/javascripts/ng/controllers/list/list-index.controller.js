@@ -1,6 +1,7 @@
 qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
+    $scope.searchResultTracker = {};
 
     $root.showPage = false;
     var el = angular.element('#watchable-search'),
@@ -134,20 +135,25 @@ qWatch.controller('ListIndexCtrl',[
       $scope.currentItem.div = void(0)
     }
 
+    var _setSearch = function _setSearch(term) {
+      return watchable.search(term).then(function(searchResults){
+        $scope.list = searchResults
+        if(searchResults[0].title.toLowerCase() === term.toLowerCase()){
+          $timeout(function(){
+            console.log($scope.searchResultTracker[searchResults[0].id](void(0)))
+          })
+        }
+      })
+    }
+
 
     $root.$on('searchSet', function(event, term){
       if($scope.currentItem.id) _slideDown();
-      watchable.search(term).then(function(searchResults){
-        $scope.list = searchResults
-        if (searchResults.length === 1) {
-          $scope.currentItem.id = searchResults[0].id;
-        }
-      })
+      _setSearch(term)
     });
 
     if($stateParams.searchSet){
-      watchable.search($stateParams.searchSet).then(function(searchResults){
-        $scope.list = searchResults;
+      _setSearch($stateParams.searchSet).then(function(searchResults){
         $stateParams.searchSet = null;
       })
     }
