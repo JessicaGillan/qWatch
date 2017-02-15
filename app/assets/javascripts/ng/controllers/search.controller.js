@@ -1,6 +1,7 @@
 qWatch.controller('SearchCtrl',[
   '$scope', '$rootScope', '$timeout', '$window',
-  function($scope, $rootScope, $timeout, $window){
+  function($scope, $root, $timeout, $window){
+    console.log('init search')
     var _handler, searchBar,
         searchEl = angular.element('#search-panel'),
         searchElFiller = angular.element('#search-panel-filler'),
@@ -17,9 +18,9 @@ qWatch.controller('SearchCtrl',[
 
         _handler = $timeout(function(){
           if(term.length === 0){
-            $rootScope.$emit('searchClear')
+            $root.$emit('searchClear')
           } else if(term.length > 2) {
-            $rootScope.$emit('searchSet', term)
+            $root.$emit('searchSet', term)
           }
         }, 300)
       }
@@ -68,11 +69,11 @@ qWatch.controller('SearchCtrl',[
 
     $scope.$watch('search.term', searchFor)
 
-    $rootScope.$on('searchSet', _slideUp);
-    $rootScope.$on('showItem', _slideUpFixed);
+    $root.$on('searchSet', _slideUp);
+    $root.$on('showItem', _slideUpFixed);
 
-    $rootScope.$on('searchClear', _slideDown);
-    $rootScope.$on('hideItem', _slideDown);
+    $root.$on('searchClear', _slideDown);
+    $root.$on('hideItem', _slideDown);
 
     angular.element(document).on('scroll', function (e) {
 
