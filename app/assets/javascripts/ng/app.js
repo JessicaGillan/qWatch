@@ -1,5 +1,5 @@
 var qWatch = angular
-    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise'])
+    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare'])
     .constant('_', window._)
     .config([
       'RestangularProvider',
