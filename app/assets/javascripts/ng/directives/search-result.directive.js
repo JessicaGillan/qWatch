@@ -1,6 +1,6 @@
 qWatch.directive('searchResult', [
-  '$rootScope', '$timeout', '$window',
-  function($root, $timeout, $window){
+  '$rootScope', '$timeout', '$window', '$state',
+  function($root, $timeout, $window, $state){
 
     var _setPosition = function _setPosition(el){
       var rect = el.get(0).getBoundingClientRect();
@@ -15,6 +15,7 @@ qWatch.directive('searchResult', [
       _setPosition(el);
 
       $timeout(function(){
+        $state.go('show', {id: scope.item.id}, {notify: false})
         scope.current.id = scope.item.id;
         el.addClass("expanded");
         $root.$emit("showItem")
@@ -25,6 +26,7 @@ qWatch.directive('searchResult', [
       el.removeClass("expanded");
 
       $timeout(function(){
+        $state.go('list', {}, {notify: false});
         scope.current.id = void(0);
         scope.current.div = void(0)
         el.css({position: "", left: "", top: "", width: ""})

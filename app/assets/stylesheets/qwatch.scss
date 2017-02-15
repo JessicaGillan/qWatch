@@ -159,11 +159,14 @@ body {
 
   .filler, search-result {
     display: block;
-    height: 500px;
     background-color: $base;
+    height: 300px;
     padding: 0;
     margin-bottom: 30px;
     width: 100%;
+    @media screen and (min-width: 1024px) {
+      height: 500px;
+    }
   }
 
   search-result {
@@ -234,9 +237,8 @@ body {
         }
       }
 
-      p.title {
+      .watchable-show, .title {
         position: relative;
-        font-size: 3em;
         top: 200px;
       }
     }
