@@ -1,7 +1,7 @@
-<div class="mini" style="background-image: url(http://image.tmdb.org/t/p/w300{{ item.poster }})" ng-click="show($event, item)">
+<div class="mini" style="background-image: url({{ images.small + item.poster }})" ng-click="show($event, item)">
   <p class="title">{{ item.title }}</p>
 </div>
-<div class="full" style="background-image: url(http://image.tmdb.org/t/p/w1280{{ item.poster }})" ng-if="current.id === item.id">
+<div class="full" style="background-image: url({{ images.large + item.poster }})" ng-if="current.id === item.id">
   <a class="exit" ng-click="hide($event, item)" ng-if="current.id === item.id">X</a>
   <p class="title">{{ item.title }}</p>
 </div>

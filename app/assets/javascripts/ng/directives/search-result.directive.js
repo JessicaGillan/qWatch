@@ -2,16 +2,28 @@ qWatch.directive('searchResult', [
   '$rootScope', '$timeout', '$window',
   function($root, $timeout, $window){
 
-    var _slideUp = function _slideUp(el){
+    var _setPosition = function _setPosition(el){
       var rect = el.get(0).getBoundingClientRect();
-      el.css({position: "fixed", left: rect.left, top: rect.top, width: rect.width})
+      el.css({transitionDuration: "0s", left: rect.left, top: rect.top, width: rect.width, position: "fixed", })
       $timeout(function(){
+        el.css({transitionDuration: ""})
+      },1)
+    }
+
+    var _slideUp = function _slideUp(scope, el){
+      scope.current.div = el;
+      _setPosition(el);
+
+      $timeout(function(){
+        scope.current.id = scope.item.id;
         el.addClass("expanded");
+        $root.$emit("showItem")
       })
     }
 
     var _slideDown = function _slideDown(scope, el){
       el.removeClass("expanded");
+
       $timeout(function(){
         scope.current.id = void(0);
         scope.current.div = void(0)
@@ -24,10 +36,7 @@ qWatch.directive('searchResult', [
         if(scope.current.id !== scope.item.id){
           e.stopPropagation();
           watchable.show().then(function(){
-            scope.current.div = el;
-            _slideUp(el);
-            scope.current.id = scope.item.id;
-            $root.$emit("showItem")
+            _slideUp(scope, el);
           })
         }
       }
@@ -41,7 +50,8 @@ qWatch.directive('searchResult', [
     return {
       scope: {
         item: '=',
-        current: '='
+        current: '=',
+        images: '='
       },
       restrict: 'E',
       link: link,
