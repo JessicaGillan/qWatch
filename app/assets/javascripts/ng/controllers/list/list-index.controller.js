@@ -1,6 +1,7 @@
 qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, watchable, tmdbConfig){
+    $root.showPage = false;
 
     var el = angular.element('#watchable-search'),
         scroll = 0,
