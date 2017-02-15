@@ -4,7 +4,6 @@ qWatch.controller('ListIndexCtrl',[
     $scope.searchResultTracker = {};
 
     $root.showPage = false;
-
     var el = angular.element('#watchable-search'),
         scroll = 0,
         angWindow = angular.element($window),
