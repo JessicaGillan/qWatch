@@ -19,15 +19,14 @@
         </p>
       </div>
       <div class="share-wrapper">
-        <share-buttons ng-show="showShare" id="share-buttons"
+        <div class="share-button">
+          Share qWatch Link on...
+          <share-buttons id="share-buttons"
           title="{{ item.title }}"
-          share-url="https://qwatch.me/#!/watch/" + "{{ item.id }}"
-          share-img="{{ images.large + item.poster }}">
-        </share-buttons>
-        <button type="button" class="btn btn-default share-button"
-                ng-click="toggleShareIcons()">
-          Share qWatch Link
-        </button>
+            share-url="https://qwatch.me/#!/watch/" + "{{ item.id }}"
+            share-img="{{ images.large + item.poster }}">
+          </share-buttons>
+        </div>
         <button type="button" class="btn btn-default share-button" copy-link>Copy Link to Clipboard</button>
       </div>
     </div>
