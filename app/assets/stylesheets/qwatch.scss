@@ -323,3 +323,28 @@ body {
     margin: 10px;
   }
 }
+
+// Social Share Buttons
+.btn-social {
+  height: 34px;
+  border-radius: 0;
+  color: white;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.btn-social:hover {
+  color: white;
+  box-shadow: 4px 4px 2px #aaa;
+}
+
+#btn-twitter {
+  background-color: #55acee;
+}
+#btn-facebook {
+  background-color: #3b5998;
+}
+#btn-email {
+  background-color: #ffbd00;
+}
