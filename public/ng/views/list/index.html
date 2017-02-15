@@ -1,6 +1,6 @@
 <div class="container watchable-search" id="watchable-search">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="item in list | limitTo:100:offset.begin">
+    <div class="col-xs-4 search-result-wrapper" ng-repeat="item in list | limitTo:100:offset.begin">
       <search-result item="item" current="currentItem" images="imageSizes"></search-result>
       <div class="filler" ng-if="currentItem.id === item.id"></div>
     </div>

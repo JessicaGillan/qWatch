@@ -2,10 +2,10 @@ qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, watchable, tmdbConfig){
 
-    var el = document.getElementById('watchable-search'),
-        rowHeight = 530,
+    var el = angular.element('#watchable-search'),
         scroll = 0,
-        angWindow = angular.element($window);
+        angWindow = angular.element($window),
+        rowHeight = 530;
 
     $scope.currentItem = {};
 
@@ -13,9 +13,8 @@ qWatch.controller('ListIndexCtrl',[
       new: 0,
       last: 0,
       begin: 0,
-      firstEl: angular.element(el).offset().top
+      firstEl: el.offset().top
     }
-    console.log($scope.offset)
 
     var _resetOffset = function _resetOffset(){
       angular.copy({
@@ -23,6 +22,12 @@ qWatch.controller('ListIndexCtrl',[
         last: 0,
         begin: 0
       }, $scope.offset)
+    }
+
+    var _onResize = function _onResize(){
+      $timeout(function(){
+        rowHeight = angular.element('.search-result-wrapper').outerHeight(true);
+      })
     }
 
     var _calcFirst = function _calcFirst(scroll){
@@ -48,9 +53,9 @@ qWatch.controller('ListIndexCtrl',[
         if(Math.floor(($scope.list.length - $scope.offset.begin)/3) - _calcFirst() < 5){
           watchable.index(true);
         }
-        $timeout(function(){
-          if(_checkScrollDown()) _scrollDown(true);
-        })
+        // $timeout(function(){
+        //   if(_checkScrollDown()) _scrollDown(true);
+        // })
       }
     }
 
@@ -62,9 +67,9 @@ qWatch.controller('ListIndexCtrl',[
       if(bypass || _checkScrollUp()){
         angWindow.scrollTop(angWindow.scrollTop() + (5 * rowHeight));
         $scope.offset.begin -= 15;
-        $timeout(function(){
-          if(_checkScrollUp()) _scrollUp(true);
-        })
+        // $timeout(function(){
+        //   if(_checkScrollUp()) _scrollUp(true);
+        // })
       }
     }
 
@@ -109,6 +114,7 @@ qWatch.controller('ListIndexCtrl',[
 
     watchable.index().then(function setWatchable(watchables) {
       $scope.watchables = watchables;
+      _onResize();
       setToIndex();
     });
 
@@ -132,6 +138,8 @@ qWatch.controller('ListIndexCtrl',[
     });
 
     $root.$on('searchClear', setToIndex);
+
+    angular.element($window).on('resize', _onResize);
 
   }
 ])
