@@ -1,6 +1,6 @@
 qWatch.factory('watchableService', [
-  'Restangular', 'showItemService',
-  function(restangular, showItem){
+  '$q', 'Restangular', 'showItemService',
+  function($q, restangular, showItem){
     var _watchables = [],
         _watchable = {},
         _searchResults = [],
@@ -20,6 +20,7 @@ qWatch.factory('watchableService', [
       showItem.combineUrls(watchable);
       watchable.complete = true;
 
+      watchable.show = _show;
       angular.copy(watchable, _watchable);
       return _watchable;
     }
@@ -46,7 +47,6 @@ qWatch.factory('watchableService', [
     }
 
     var _show = function _show(){
-      console.log(this)
       var self = this;
       if(!self.complete){
         return restangular

@@ -1,14 +1,8 @@
 <div class="container watchable-search">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="item in list | limitTo:100:offset.begin">
-      <div class="watchable-search-result expandable" ng-click="show($event, item)">
-        <div class="mini" style="background-image: url(http://image.tmdb.org/t/p/w300{{ item.poster }})">
-          <p class="title">{{ item.title }}</p>
-        </div>
-        <div class="full" style="background-image: url(http://image.tmdb.org/t/p/w1280{{ item.poster }})" ng-if="currentItem === item.id">
-          <p class="title">{{ item.title }}</p>
-        </div>
-      </div>
+      <search-result item="item" current="currentItem" class="result expandable"></search-result>
+      <div class="filler" ng-if="currentItem.id === item.id"></div>
     </div>
   </div>
   <div class="row">

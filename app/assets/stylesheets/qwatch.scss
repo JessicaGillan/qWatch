@@ -156,53 +156,75 @@ body {
 // Search results
 .watchable-search {
   margin-top: $search-bar-height;
-}
-.watchable-search-result {
-  background-color: #fff;
-  padding: 0;
-  border: $base solid 3px;
-  height: 500px;
-  margin: 15px 0;
-  .mini, .full {
+  .filler, search-result {
+    display: block;
+    height: 500px;
+    background-color: $base;
+    padding: 0;
+    margin-bottom: 30px;
     width: 100%;
-    height: 100%;
-    max-width: 1140px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    p.title {
-      background-color: $base;
-      border-color: $base;
-      padding: 0;
-      margin: 0;
+  }
+  search-result {
+    .mini, .full {
       width: 100%;
-      text-align: center;
-      color: white;
-      font-family: 'Roboto Condensed', sans-serif;
-    }
-  }
-  .mini {
-    margin: auto;
-    position: relative;
-    p.title {
-      position: absolute;
-      bottom:0;
-      font-size: 1.7em;
-    }
-  }
-  .full {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    p.title {
+      height: 100%;
+      max-width: 1140px;
+      border: $accent solid 3px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
       position: relative;
-      font-size: 3em;
-      top: 25px;
+      p.title {
+        background-color: $base;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-family: 'Roboto Condensed', sans-serif;
+      }
     }
-  }
+    .mini {
+      margin: auto;
+      position: relative;
+      p.title {
+        position: absolute;
+        bottom:0;
+        font-size: 1.7em;
+      }
+    }
+    .full {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      a.exit {
+        display: block;
+        position: absolute;
+        top:-3px;
+        right:-3px;
+        background: $base;
+        border: $accent solid 3px;
+        font-size: 3em;
+        color: #fff;
+        text-align: center;
+        z-index:2;
+        cursor: pointer;
+        margin: 0;
+        padding: 0 15px;
+        &:hover {
+          text-decoration: none;
+        }
+      }
 
+      p.title {
+        position: relative;
+        font-size: 3em;
+        top: 200px;
+      }
+    }
+
+  }
 }
 .page-nav {
   text-align: center;
