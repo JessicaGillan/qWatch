@@ -20,7 +20,7 @@ $facebook: #3b5998;
 $email: #ffbd00;
 
 // Properties
-$share-button-width: 250px;
+$share-button-width: 280px;
 $show-opacity: 0.95;
 $search-bar-height: 60px;
 // $search-bar-max-width: 740px;
@@ -286,13 +286,12 @@ body {
         }
         .service-empty {
           text-align: center;
-          // border: 3px solid $base;
-          background-color: white;
-          color: $base;
-          font-size: 16px;
+          background: none;
+          color: white;
+          font-size: 20px;
           font-style: italic;
           padding: 10px;
-          max-width: 350px;
+          letter-spacing: .1em;
           margin: 0 auto;
           font-family: 'Roboto', sans-serif;
         }
@@ -301,15 +300,16 @@ body {
           margin: 0 auto;
         }
         .share-button {
+          display: inline-block;
           background-color: $accent;
           color: white;
           border: none;
           border-radius: 0;
           display: black;
           width: $share-button-width;
-          height: 50px;
           font-size: 20px;
           margin: 10px;
+          padding: 10px;
         }
       }
     }
@@ -354,7 +354,7 @@ body {
 
 .btn-social:hover {
   color: white;
-  box-shadow: 3px 3px 2px #bbb;
+  box-shadow: 4px 4px 4px #555;
 }
 
 .btn-social:focus {
