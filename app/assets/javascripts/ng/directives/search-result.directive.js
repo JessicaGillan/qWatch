@@ -1,7 +1,6 @@
 qWatch.directive('searchResult', [
   '$rootScope', '$timeout', '$window', '$state',
   function($root, $timeout, $window, $state){
-
     var _setPosition = function _setPosition(el){
       var rect = el.get(0).getBoundingClientRect();
       el.css({transitionDuration: "0s", left: rect.left, top: rect.top, width: rect.width, position: "fixed", })
@@ -35,10 +34,10 @@ qWatch.directive('searchResult', [
 
     var link = function link(scope, el){
 
-      scope.show = function show(e, watchable) {
+      scope.show = function show(e) {
         if(scope.current.id !== scope.item.id){
-          e.stopPropagation();
-          watchable.show().then(function(){
+          if(e) e.stopPropagation();
+          scope.item.show().then(function(){
             _slideUp(scope, el);
           })
         }
@@ -51,6 +50,8 @@ qWatch.directive('searchResult', [
 
       if(scope.prefetched){
         _slideUp(scope, el);
+      } else {
+        scope.tracker[scope.item.id] = scope.show
       }
     }
 
@@ -59,7 +60,8 @@ qWatch.directive('searchResult', [
         item: '=',
         current: '=',
         images: '=',
-        prefetched: '@'
+        prefetched: '@',
+        tracker: '=',
       },
       restrict: 'E',
       link: link,

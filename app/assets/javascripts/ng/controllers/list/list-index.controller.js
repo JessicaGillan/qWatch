@@ -1,7 +1,7 @@
 qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
-    console.log("init list-index")
+    $scope.searchResultTracker = {};
 
     $root.showPage = false;
 
@@ -136,17 +136,25 @@ qWatch.controller('ListIndexCtrl',[
       $scope.currentItem.div = void(0)
     }
 
+    var _setSearch = function _setSearch(term) {
+      return watchable.search(term).then(function(searchResults){
+        $scope.list = searchResults
+        if(searchResults[0].title.toLowerCase() === term.toLowerCase()){
+          $timeout(function(){
+            console.log($scope.searchResultTracker[searchResults[0].id](void(0)))
+          })
+        }
+      })
+    }
+
 
     $root.$on('searchSet', function(event, term){
       if($scope.currentItem.id) _slideDown();
-      watchable.search(term).then(function(searchResults){
-        $scope.list = searchResults
-      })
+      _setSearch(term)
     });
 
     if($stateParams.searchSet){
-      watchable.search($stateParams.searchSet).then(function(searchResults){
-        $scope.list = searchResults;
+      _setSearch($stateParams.searchSet).then(function(searchResults){
         $stateParams.searchSet = null;
       })
     }

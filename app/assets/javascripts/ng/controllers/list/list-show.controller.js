@@ -17,6 +17,5 @@ qWatch.controller('ListShowCtrl',[
       _onHandler();
       $state.go('list', {searchSet: term}, {inherit: false})
     })
-
   }
 ])
