@@ -5,7 +5,7 @@ qWatch.factory('watchableService', [
         _watchable = {},
         _searchResults = [],
         _page = 1,
-        _limit = 100;
+        _limit = 10;
 
     var _denormalize = function _denormalize(arr, newArr, offset){
       offset = offset || 0;

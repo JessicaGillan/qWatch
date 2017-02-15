@@ -9,5 +9,10 @@ FactoryGirl.define do
 
   end
 
+  factory :tmdb_config do
+
+    url "http://image.tmdb.org/t/p/"
+
+  end
 
 end

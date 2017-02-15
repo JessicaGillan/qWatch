@@ -1,0 +1,2 @@
+module TmdbConfigHelper
+end
