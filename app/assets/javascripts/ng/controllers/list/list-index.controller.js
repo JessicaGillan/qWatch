@@ -1,6 +1,6 @@
 qWatch.controller('ListIndexCtrl',[
-  '$scope', '$rootScope', '$timeout', '$window', 'watchableService', "tmdbConfigService",
-  function($scope, $root, $timeout, $window, watchable, tmdbConfig){
+  '$scope', '$state', '$rootScope', '$timeout', '$window', 'watchableService', "tmdbConfigService",
+  function($scope, $state, $root, $timeout, $window, watchable, tmdbConfig){
 
     var el = angular.element('#watchable-search'),
         scroll = 0,
@@ -134,6 +134,9 @@ qWatch.controller('ListIndexCtrl',[
       if($scope.currentItem.id) _slideDown();
       watchable.search(term).then(function(searchResults){
         $scope.list = searchResults
+        if (searchResults.length === 1) {
+          $scope.currentItem.id = searchResults[0].id;
+        }
       })
     });
 
