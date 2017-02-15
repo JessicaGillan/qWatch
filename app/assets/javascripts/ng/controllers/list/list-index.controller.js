@@ -1,7 +1,6 @@
 qWatch.controller('ListIndexCtrl',[
   '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
   function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
-    console.log("init")
 
     $root.showPage = false;
 
