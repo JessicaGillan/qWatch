@@ -339,6 +339,10 @@ body {
   box-shadow: 4px 4px 2px #aaa;
 }
 
+.btn-social:focus {
+  color: white;
+}
+
 #btn-twitter {
   background-color: #55acee;
 }
