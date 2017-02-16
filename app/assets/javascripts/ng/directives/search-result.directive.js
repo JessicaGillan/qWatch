@@ -33,6 +33,9 @@ qWatch.directive('searchResult', [
     }
 
     var link = function link(scope, el){
+      $timeout(function(){
+        scope.svg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100%' width='100%'><text x='0' y='15' fill='white' font-size='50'>" + scope.item.title + "</text></svg>";
+      })
 
       scope.show = function show(e) {
         if(scope.current.id !== scope.item.id){

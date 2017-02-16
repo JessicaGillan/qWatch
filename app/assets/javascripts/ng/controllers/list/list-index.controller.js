@@ -113,15 +113,22 @@ qWatch.controller('ListIndexCtrl',[
     //   // $scope.offset.begin -= 100;
     // }
 
+    var _resetUrl = function _resetUrl(){
+      $state.go('list', {}, {notify: false})
+    }
 
-    var setToIndex = function setToIndex(){
+    var _setToIndex = function _setToIndex(){
+      $scope.transitioning = true;
+      $root.$emit('hideItem');
       $scope.list = $scope.watchables;
+      _resetUrl();
+      $scope.transitioning = false;
     }
 
     watchable.index().then(function setWatchable(watchables) {
       $scope.watchables = watchables;
       _onResize();
-      setToIndex();
+      _setToIndex();
     });
 
     tmdbConfig().then(function(sizes){
@@ -135,14 +142,24 @@ qWatch.controller('ListIndexCtrl',[
       $scope.currentItem.div = void(0)
     }
 
+    var _instantShowItem = function _instantShowItem(item){
+      $timeout(function(){
+        if(!$scope.searchResultTracker[item.id]){
+          return _instantShowItem(item)
+        }
+        $scope.searchResultTracker[item.id](void(0))
+      })
+    }
+
     var _setSearch = function _setSearch(term) {
+      $scope.transitioning = true;
       return watchable.search(term).then(function(searchResults){
+        _resetUrl();
         $scope.list = searchResults
         if(searchResults[0].title.toLowerCase() === term.toLowerCase()){
-          $timeout(function(){
-            console.log($scope.searchResultTracker[searchResults[0].id](void(0)))
-          })
+          _instantShowItem(searchResults[0]);
         }
+        $scope.transitioning = false;
       })
     }
 
@@ -158,7 +175,7 @@ qWatch.controller('ListIndexCtrl',[
       })
     }
 
-    $root.$on('searchClear', setToIndex);
+    $root.$on('searchClear', _setToIndex);
 
     angular.element($window).on('resize', _onResize);
 

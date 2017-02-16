@@ -35,6 +35,10 @@ body {
   padding-top: 51px;
 }
 
+a, search-result {
+  cursor: pointer;
+}
+
 .no-animate {
   transition: all 0s !important;
 }
@@ -50,17 +54,24 @@ body {
   background-color: $base;
 }
 .navbar-brand.logo {
-  background: $accent;
-  border-radius: 100%;
-  font-size: 50px;
-  letter-spacing: -8px;
-  color: #fff;
-  position: relative;
-  width: 50px;
-  font-family: 'Rationale', sans-serif;
-  span {
-    position: absolute;
-    left:0;
+  &, &:hover {
+    &, a, a:hover, a:focus, a:visited {
+      color: #fff;
+    }
+    background: $accent;
+    border-radius: 100%;
+    font-size: 50px;
+    letter-spacing: -8px;
+    position: relative;
+    width: 50px;
+    font-family: 'Rationale', sans-serif;
+    span {
+      position: absolute;
+      left:0;
+    }
+  }
+  &:hover {
+    opacity: .9;
   }
 }
 
@@ -92,7 +103,6 @@ body {
 .title-search {
   margin-top: 100px;
   position: relative;
-  z-index: 750;
   &, * {
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -142,22 +152,48 @@ body {
 }
 
 // Search bar
-#search-panel {
+// Search bar
+#search-panel, #search-panel-filler {
   width: 100%;
   // max-width: $search-bar-max-width;
   margin: 0 auto;
+  bottom: 0;
+  height: $search-bar-height;
+}
+#search-panel {
+  z-index: 750;
+  position: absolute;
+  width: 100vw;
+  @media screen and (min-width: 768px){
+    width: 720px;
+  }
+  @media screen and (min-width: 992px){
+    width: 940px;
+  }
+  @media screen and (min-width: 1200px){
+    width: 1140px;
+  }
+  &.stick-top {
+    position: fixed;
+    top: 51px;
+  }
+  &.showing, &.permanent-showing {
+    position: fixed;
+    top: 150px !important;
+
+  }
 
   .search-box {
     border: 5px solid $base;
     border-radius: 0;
-    height: $search-bar-height;
+    height: 100%;
     font-size: 1.5em;
     font-family: 'Roboto', sans-serif;
   }
   .fa-search {
     background-color: $base;
     color: white;
-    height: $search-bar-height;
+    height: 100%;
     width: $search-bar-height;
     text-align: center;
     font-size: 2.3em;
