@@ -3,7 +3,8 @@ qWatch.controller('NavCtrl', [
   function($scope, $state, $root, $timeout) {
 
     $scope.goToIndex = function goToIndex(){
-      $state.go('list', {}, {reload: true})
+      // $state.go('list', {}, {reload: true})
+      location.href = "/"
     }
 
   }
