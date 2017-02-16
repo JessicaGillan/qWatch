@@ -1,6 +1,8 @@
 qWatch.factory('tmdbConfigService', [
   '$q', '_', 'Restangular',
   function($q, _, restangular) {
+    "use strict";
+    
     var _config = {}, _sizes = {};
 
     var _extract = function _extract(config){

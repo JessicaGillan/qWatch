@@ -1,6 +1,8 @@
 qWatch.controller('ListShowCtrl',[
   '$scope', '$state', '$stateParams', '$rootScope', 'watchableService', 'tmdbConfigService',
   function($scope, $state, $stateParams, $root, watchableService, tmdbConfig){
+    "use strict";
+    
     $root.showPage = true;
 
     $scope.currentItem = {};

@@ -1,6 +1,8 @@
 qWatch.factory('showItemService', [
   'Restangular',
   function(restangular){
+    "use strict";
+    
     var SERVICES = [
                     "hulu", "amazon", "netflix", "xfinity", "amazon_buy",
                     "google_play", "itunes"
