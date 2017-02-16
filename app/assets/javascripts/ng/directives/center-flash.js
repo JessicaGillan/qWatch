@@ -16,7 +16,7 @@ qWatch.directive('centerFlash', function () {
 
       var content = document.getElementById('flash-content');
 
-      element[0].addEventListener('flashSet', function() {
+      element.on('flashSet', function() {
         element[0].classList.add('flash-show');
 
         setTimeout(function(){ fade(content); }, 1000);

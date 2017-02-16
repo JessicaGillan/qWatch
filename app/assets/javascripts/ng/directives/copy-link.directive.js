@@ -89,7 +89,7 @@ qWatch.directive('copyLink', function ($compile) {
         scope.type = msg.type;
         scope.text = msg.text;
 
-        document.getElementById('center-flash').dispatchEvent(qWatch.flashSet);
+        element.children('#center-flash').first().trigger('flashSet');
       }
     }
   };

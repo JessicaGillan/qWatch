@@ -70,5 +70,3 @@ var qWatch = angular
 
       }
     ]);
-
-qWatch.flashSet = new Event('flashSet');
