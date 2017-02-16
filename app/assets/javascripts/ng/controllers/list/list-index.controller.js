@@ -179,6 +179,8 @@ qWatch.controller('ListIndexCtrl',[
 
     // set the ng-repeat list to be the full index of watchables
     var _setToIndex = function _setToIndex(){
+      // _slide down if there is an item being shown
+      if($scope.currentItem.id) _slideDown();
 
       // scroll to top of page and show first item
       _resetOffset();
