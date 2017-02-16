@@ -14,7 +14,7 @@
           <div class="logo-wrapper" ng-repeat="service in item.services">
             <a href="{{ service.link }}">
               <img ng-src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
-              <p class="logo-name">{{ service.name | titleizeService }}</p>
+              <p class="logo-name">{{ service.name | titleizeBrand }}</p>
             </a>
           </div>
         </div>

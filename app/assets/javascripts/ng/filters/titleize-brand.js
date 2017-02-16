@@ -1,4 +1,4 @@
-qWatch.filter('titleizeService', function() {
+qWatch.filter('titleizeBrand', function() {
   var serviceTitles = {
     "hulu": "Hulu",
     "amazon": "Amazon",
@@ -10,10 +10,7 @@ qWatch.filter('titleizeService', function() {
   }
 
   return function(name) {
-    if (serviceTitles[name]) {
-      return serviceTitles[name]
-    } else {
-      return name;
-    }
+    if (serviceTitles[name])  return serviceTitles[name];
+    return name
   }
 });
