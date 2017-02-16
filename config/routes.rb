@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :watch, only: [:index, :show]
       resources :tmdb_config, only: [:index]
 
-      devise for :users
+      # devise_for :users
     end
   end
 end
