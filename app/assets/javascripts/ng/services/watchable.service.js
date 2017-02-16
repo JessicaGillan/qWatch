@@ -1,6 +1,8 @@
 qWatch.factory('watchableService', [
   '$q', 'Restangular', 'showItemService',
   function($q, restangular, showItem){
+    "use strict";
+    
     var _watchables = [],
         _watchable = {},
         _searchResults = [],
