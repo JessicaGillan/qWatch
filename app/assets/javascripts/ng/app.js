@@ -14,10 +14,10 @@ var qWatch = angular
     .config([
       'AuthProvider',
       function(AuthProvider) {
-        // AuthProvider.loginPath('/api/v1/users/sign_in.json');
-        // AuthProvider.logoutPath('/api/v1/users/sign_out.json');
-        // AuthProvider.registerPath('/api/v1/users/sign_up.json');
-        // AuthInterceptProvider.interceptAuth(true);
+        AuthProvider.loginPath('/api/v1/users/sign_in.json');
+        AuthProvider.logoutPath('/api/v1/users/sign_out.json');
+        AuthProvider.registerPath('/api/v1/users/sign_up.json');
+        AuthInterceptProvider.interceptAuth(true);
 
         AuthProvider.resourceName('user');
       }
