@@ -1,4 +1,6 @@
 qWatch.directive('copyLink', function () {
+  "use strict";
+
   //  A work around to copy text to the clipboard without displaying
   // an input / textarea element.
   // (basically insert element, copy to clipboard, remove element):

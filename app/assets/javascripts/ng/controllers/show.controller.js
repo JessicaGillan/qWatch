@@ -1,6 +1,7 @@
 qWatch.controller('ShowCtrl',[
   '$scope',
   function($scope){
+    "use strict";
 
     $scope.$on('showItem', function(event, el){
       var div = angular.element(el);

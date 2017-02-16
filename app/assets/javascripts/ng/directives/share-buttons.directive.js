@@ -1,4 +1,5 @@
 qWatch.directive('shareButtons', function() {
+  "use strict";
 
   return {
     restrict: 'E',
