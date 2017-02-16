@@ -1,15 +1,4 @@
-qWatch.directive('copyLink', function ($compile) {
-
-  var flash = function flash(msg, scope) {
-    var flash = document.createElement("center-flash");
-    flash.setAttribute('msg-type', msg.type);
-    flash.setAttribute('msg-text', msg.text);
-
-    flash = $compile(flash)(scope);
-    console.log(flash)
-    document.body.appendChild(flash[0]);
-  }
-
+qWatch.directive('copyLink', function () {
   //  A work around to copy text to the clipboard without displaying
   // an input / textarea element.
   // (basically insert element, copy to clipboard, remove element):
