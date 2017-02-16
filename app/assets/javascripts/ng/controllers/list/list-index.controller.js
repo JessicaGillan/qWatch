@@ -22,7 +22,8 @@ qWatch.controller('ListIndexCtrl',[
       angular.copy({
         new: 0,
         last: 0,
-        begin: 0
+        begin: 0,
+        firstEl: el.offset().top
       }, $scope.offset)
     }
 
@@ -119,6 +120,7 @@ qWatch.controller('ListIndexCtrl',[
 
     var _setToIndex = function _setToIndex(){
       $scope.transitioning = true;
+      _resetOffset();
       $root.$emit('hideItem');
       $scope.list = $scope.watchables;
       _resetUrl();
@@ -152,11 +154,12 @@ qWatch.controller('ListIndexCtrl',[
     }
 
     var _setSearch = function _setSearch(term) {
+      _resetOffset();
       $scope.transitioning = true;
       return watchable.search(term).then(function(searchResults){
         _resetUrl();
-        $scope.list = searchResults
-        if(searchResults[0].title.toLowerCase() === term.toLowerCase()){
+        $scope.list = searchResults;
+        if(searchResults[0] && searchResults[0].title.toLowerCase() === term.toLowerCase()){
           _instantShowItem(searchResults[0]);
         }
         $scope.transitioning = false;
