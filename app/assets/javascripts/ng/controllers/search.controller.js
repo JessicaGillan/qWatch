@@ -1,16 +1,33 @@
 qWatch.controller('SearchCtrl',[
-  '$scope', '$rootScope', '$timeout', '$window',
-  function($scope, $root, $timeout, $window){
+  '$scope', '$rootScope', '$timeout',
+  function($scope, $root, $timeout){
     console.log('init search')
-    var _handler, searchBar,
-        searchEl = angular.element('#search-panel'),
+    var _handler, searchWrapper, navBar, searchEl, gotten,
         searchElFiller = angular.element('#search-panel-filler'),
-        rect = searchEl.get(0).getBoundingClientRect(),
-        offset = searchEl.offset().top - rect.height,
+        sBarRect;
         showing = false,
         initial = true;
 
     $scope.search = {term: ""};
+
+    var _getSearchWrapper = function _getSearchWrapper(){
+      return searchWrapper = searchWrapper || angular.element('.title-search');
+    }
+    var _getNavBar = function _getSearchWrapper(){
+      return navBar = navBar || angular.element('#main-nav');
+    }
+    var _getSearchEl = function _getSearchEl(){
+      searchEl = searchEl || angular.element('#search-panel');
+      return searchEl;
+    }
+
+    var _getPageElements = function _getPageElements(){
+      if(!gotten){
+        _getSearchWrapper();
+        _getNavBar();
+        _getSearchEl();
+      }
+    }
 
     var searchFor = function searchFor(term){
       if(!initial){
@@ -28,59 +45,82 @@ qWatch.controller('SearchCtrl',[
     };
 
     var _resetSearchEl = function _resetSearchEl(){
-      $scope.showFiller = false
-      searchEl.css({position: "", top: "", width: ""})
+      $scope.showFiller = false;
+      searchEl.removeClass("stick-top")
+      searchEl.css({position: "", top: ""})
     }
 
     var _checkSearchElPosition = function _checkSearchElPosition(){
-      return (angular.element($window).scrollTop() >= offset - 60 && !showing)
+      if(!gotten) _getPageElements();
+      var sWrapRect = searchWrapper.get(0).getBoundingClientRect();
+      var navRect = navBar.get(0).getBoundingClientRect();
+      sBarRect = sBarRect || searchEl.get(0).getBoundingClientRect();
+      return !showing && sWrapRect.top + sWrapRect.height <= (navRect.height + sBarRect.height)
     }
 
     var _setSearchElFixed = function _setSearchElFixed(){
-      searchEl.css({transitionDuration: "0s", position: "fixed", top: "51px", width: rect.width})
-      $scope.showFiller = true;
+      if(!$scope.showFiller){
+        _getSearchEl();
+        searchEl.css({transitionDuration: "0s"});
+        searchEl.addClass('stick-top');
+        $timeout(function(){
+          searchEl.css({transitionDuration: ""});
+        })
+        $scope.showFiller = true;
+      }
     }
 
-    var _slideUp = function _slideUp(){
-      _slideDown();
+    // var _slideUp = function _slideUp(){
+    //   _slideDown();
+    //   _resetSearchEl();
+    //   angular.element('#header-wrapper').css({"max-height": 0, padding: 0});
+    // }
+
+    var _moveToShow = function _moveToShow(){
       showing = true;
-      _resetSearchEl();
-      angular.element('#header-wrapper').css({"max-height": 0, padding: 0});
-    }
 
-    var _slideUpFixed = function _slideUpFixed(){
-      _slideUp();
-      searchBar = searchBar || angular.element('.title-search');
-      var srect = searchBar.get(0).getBoundingClientRect();
+      _getSearchEl();
+      var srect = searchEl.get(0).getBoundingClientRect();
+      searchEl.css({transitionDuration: "0s", position: "fixed", top: srect.top})
 
-      searchBar.css({position: "fixed", top: srect.top, width: srect.width})
       $timeout(function(){
-        searchBar.css({top: "51px"})
-      })
+        searchEl.css({transitionDuration: ""})
+        searchEl.addClass('showing')
+      }, 10)
     }
 
-    var _slideDown = function _slideDown(){
+    var _moveFromShow = function _moveToShow(){
       showing = false;
-      angular.element('#header-wrapper').css({"max-height": "", padding: ""});
-      searchBar = searchBar || angular.element('.title-search');
-      searchBar.css({position: "", left: "", top: "", width: ""})
+      _getSearchEl();
+      searchEl.removeClass('showing');
+      $timeout(function(){
+        searchEl.css({position: "", top: ""})
+      },500)
       if(_checkSearchElPosition()) _setSearchElFixed();
     }
 
+    // var _slideDown = function _slideDown(){
+    //   _moveFromShow();
+    //   angular.element('#header-wrapper').css({"max-height": "", padding: ""});
+    //   _getSearchWrapper();
+    //   searchWrapper.css({position: "", left: "", top: "", width: ""})
+    //   if(_checkSearchElPosition()) _setSearchElFixed();
+    // }
+
     $scope.$watch('search.term', searchFor)
 
-    $root.$on('searchSet', _slideUp);
-    $root.$on('showItem', _slideUpFixed);
+    $root.$on('searchSet', _moveFromShow);
+    $root.$on('showItem', _moveToShow);
 
-    $root.$on('searchClear', _slideDown);
-    $root.$on('hideItem', _slideDown);
+    // $root.$on('searchClear', _moveFromShow);
+    $root.$on('hideItem', _moveFromShow);
 
     angular.element(document).on('scroll', function (e) {
-
       if(_checkSearchElPosition()){
         _setSearchElFixed();
-      } else {
-        _resetSearchEl();
+      }
+      else {
+        if(!showing) _resetSearchEl();
       }
     });
   }

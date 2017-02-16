@@ -1,6 +1,10 @@
 qWatch.controller('NavCtrl', [
-  '$scope', '$state',
-  function($scope, $state) {
+  '$scope', '$state', '$rootScope', '$timeout',
+  function($scope, $state, $root, $timeout) {
+
+    $scope.goToIndex = function goToIndex(){
+      $state.go('list', {}, {reload: true})
+    }
 
   }
 ]);

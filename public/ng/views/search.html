@@ -2,13 +2,13 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="title-search" ng-class="{'no-animate': showPage}">
-        <div id="header-wrapper" ng-class="{ 'no-height': search.term.length}" ng-if="!showPage">
+        <div id="header-wrapper" ng-class="{ 'no-height': search.term.length}">
           <h1 class="header-title">qWatch<span class="navbar-brand logo"><span>qW</span></span></h1>
           <h2 class="header-slogan">All of your movie and TV streams, right in one place.</h2>
           <div class="clearfix"></div>
         </div>
-        <div style="width: 1px; height: 60px;" ng-if="showFiller"></div>
-        <form name="titleSearch" class="form-flex" id="search-panel" ng-class="{'no-animate': showPage}">
+        <div id="search-panel-filler"></div>
+        <form name="titleSearch" class="form-flex" id="search-panel" ng-class="{'no-animate': showPage, 'permanent-showing': showPage}">
           <input type="text" class="form-control search-box flex-10" placeholder="Find a movie or TV show..." ng-model="search.term">
           <i class="fa fa-search" aria-hidden="true"></i>
         </form>
