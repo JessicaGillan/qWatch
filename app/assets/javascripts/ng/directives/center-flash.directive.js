@@ -1,5 +1,6 @@
 qWatch.directive('centerFlash', function () {
-
+  "use strict";
+  
   function fade(element) {
     element.classList.add('flash-fade');
   }
