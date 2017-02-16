@@ -1,26 +1,13 @@
-qWatch.directive('copyLink', function () {
+qWatch.directive('copyLink', function ($compile) {
 
-  var flash = function flash(msg) {
-    var flash = document.createElement("DIV")
-    flash.classList.add("flash", msg.type);
-    flash.textContent = msg.text;
+  var flash = function flash(msg, scope) {
+    var flash = document.createElement("center-flash");
+    flash.setAttribute('msg-type', msg.type);
+    flash.setAttribute('msg-text', msg.text);
 
-    document.body.appendChild(flash);
-
-    setTimeout(function(){ fade(flash); }, 500)
-  }
-
-  function fade(element) {
-    var op = 1;  // initial opacity
-    var timer = setInterval(function () {
-        if (op <= 0.1){
-            clearInterval(timer);
-            element.style.display = 'none';
-        }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.1;
-    }, 50);
+    flash = $compile(flash)(scope);
+    console.log(flash)
+    document.body.appendChild(flash[0]);
   }
 
   //  A work around to copy text to the clipboard without displaying
@@ -65,36 +52,45 @@ qWatch.directive('copyLink', function () {
 
     textArea.select();
 
+    var msg;
     try {
       var successful = document.execCommand('copy');
-      var msg = successful ? 'successful' : 'unsuccessful';
+      msg = successful ? 'successful' : 'unsuccessful';
       console.log('Copying text command was ' + msg);
-      flash({ type: "success", text: "✓ Copied to clipboard"})
+      msg = { type: "success", text: "✓ Copied to clipboard"};
     } catch (err) {
       console.log('Oops, unable to copy');
-      flash({ type: "error", text: "Oops, unable to copy"})
+      msg = { type: "error", text: "Oops, unable to copy"};
     }
 
     document.body.removeChild(textArea);
+
+    return msg
   }
 
   var copyLink = function copyLink(text) {
     text = text || location.href;
 
-    copyTextToClipboard(text);
+    return copyTextToClipboard(text);
   }
 
   return {
-    restrict: 'A',
+    restrict: 'E',
     scope: {
       linkUrl: '@'
     },
+    templateUrl: 'ng/directives/copy-link.html',
     link: function(scope, element, attrs) {
-      element.on('click', function (e) {
+      scope.copyLinkAction = function (e) {
         e.preventDefault();
 
-        copyLink(scope.linkUrl);
-      })
+        var msg = copyLink(scope.linkUrl);
+
+        scope.type = msg.type;
+        scope.text = msg.text;
+
+        element.children('#center-flash').first().trigger('flashSet');
+      }
     }
   };
 });

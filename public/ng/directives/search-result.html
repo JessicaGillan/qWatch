@@ -14,7 +14,7 @@
           <div class="logo-wrapper" ng-repeat="service in item.services">
             <a href="{{ service.link }}">
               <img ng-src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
-              <p class="logo-name">{{ service.name }}</p>
+              <p class="logo-name">{{ service.name | titleizeBrand }}</p>
             </a>
           </div>
         </div>
@@ -35,7 +35,7 @@
           </share-buttons>
         </div>
 
-        <button type="button" class="btn btn-default share-button" copy-link>Copy Link to Clipboard</button>
+        <copy-link></copy-link>
       </div>
     </div>
   </div>
