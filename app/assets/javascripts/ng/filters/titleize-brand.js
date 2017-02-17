@@ -1,4 +1,6 @@
 qWatch.filter('titleizeBrand', function() {
+  "use strict";
+  
   var serviceTitles = {
     "hulu": "Hulu",
     "amazon": "Amazon",

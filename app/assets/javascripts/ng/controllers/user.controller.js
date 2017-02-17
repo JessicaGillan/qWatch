@@ -1,6 +1,8 @@
 qWatch.controller('UserCtrl', [
   '$scope', '$state', 'Auth', '$timeout',
   function($scope, $state, Auth, $timeout) {
+    "use strict";
+    
     // var test = function(){
     //   Auth.currentUser().then((user) => {
     //

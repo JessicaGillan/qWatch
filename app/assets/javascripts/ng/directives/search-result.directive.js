@@ -1,6 +1,8 @@
 qWatch.directive('searchResult', [
   '$rootScope', '$timeout', '$window', '$state',
   function($root, $timeout, $window, $state){
+    "use strict";
+
     var _setPosition = function _setPosition(el){
       var rect = el.get(0).getBoundingClientRect();
       el.css({transitionDuration: "0s", left: rect.left, top: rect.top, width: rect.width, position: "fixed", })
