@@ -40,6 +40,10 @@ var qWatch = angular
                 templateUrl: 'ng/views/nav.html',
                 controller: 'NavCtrl'
               },
+              'signUp': {
+                template: '<sign-up-modal sign-up="signUp"></sign-up-modal>',
+                controller: 'SignUpCtrl'
+              },
               '': {
                 template: '<ui-view/>'
               }

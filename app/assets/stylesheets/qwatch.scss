@@ -476,3 +476,11 @@ center-flash {
 .error {
   color: red;
 }
+
+// SIGNUP MODAL
+sign-up-modal {
+  z-index: 1000;
+}
+#signUpModal {
+  display: block;
+}
