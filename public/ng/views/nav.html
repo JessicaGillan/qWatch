@@ -13,11 +13,27 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-right" >
         <!-- <li><a>Movies</a></li> -->
-        <!-- <li><a>Shows</a></li>
+        <!-- <li><a>Shows</a></li> -->
+        <li>
+          <form name="logInForm"
+                ng-if="!signedInUser()"
+                ng-submit="signIn(logInForm.$valid)"
+                class="form-inline navbar-form">
+            <input class="form-control mr-sm-2"
+                   type="email"
+                   placeholder="Email" ng-model="userData.email"
+                   required minlength="6">
+            <input class="form-control mr-sm-2" type="password"
+                   placeholder="Password" ng-model="userData.password"
+                   required minlength="6">
+            <button class="btn btn-outline my-2 my-sm-0" type="submit">Login</button>
+          </form>
+        </li>
         <li ng-if="!signedInUser()"><a>Join</a></li>
-        <li ng-if="!signedInUser()"><a>Login</a></li>
-        <li ng-if="signedInUser()"><a ng-click="signOut()">Sign Out</a></li> -->
+        <li ng-if="signedInUser()" class="navbar-text welcome-text">Welcome, {{ currentUser.name }}</li>
+        <li ng-if="signedInUser()"><a ng-click="signOut()">Log Out</a></li>
       </ul>
+
     </div>
   </div>
 </nav>
