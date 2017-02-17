@@ -10,14 +10,17 @@ qWatch.factory('userService',
         $root.currentUser = _user;
       }
 
-      Auth.currentUser()
-      .then(function(user) {
-        _setUser(user);
-      })
-      .catch(function(err) {
-        console.log("no current user found")
-        console.error(err);
-      });
+      var _setCurrentUser = function _setCurrentUser() {
+        Auth.currentUser()
+        .then(function(user) {
+          _setUser(user);
+        })
+        .catch(function(err) {
+          console.log("no current user found")
+          console.error(err);
+        });
+      }
+      _setCurrentUser();
 
       //----- Access Methods ------------//
 
@@ -49,10 +52,12 @@ qWatch.factory('userService',
         Auth.register({
           email: data.email,
           password: data.password,
-          password_confirmation: data.password_confirmation
+          password_confirmation: data.password_confirmation,
+          name: data.name
         })
         .then(function(user){
           console.log("created user", user)
+          _setCurrentUser();
         })
         .catch(function(err){
           var errStr = "";

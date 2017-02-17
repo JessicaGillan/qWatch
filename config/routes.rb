@@ -8,7 +8,10 @@ Rails.application.routes.draw do
       resources :watch, only: [:index, :show]
       resources :tmdb_config, only: [:index]
 
-      devise_for :users
+      devise_for :users, controllers: {
+        sessions: 'users/sessions',
+        registrations: 'users/registrations'
+      }
     end
   end
 end

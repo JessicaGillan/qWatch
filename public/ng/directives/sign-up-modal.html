@@ -16,6 +16,12 @@
 
         <form name="signUpForm">
           <div class="form-group">
+            <input type="text" class="form-control"
+                   placeholder="Name" ng-model="userData.name"
+                   name="name">
+          </div>
+
+          <div class="form-group">
             <input autofocus="autofocus" type="email"
                    class="form-control" placeholder="Email"
                    name="email" ng-model="userData.email"
