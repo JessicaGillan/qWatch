@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require angular
 //= require angular-devise
@@ -19,4 +20,5 @@
 //= require angular-socialshare
 //= require lodash
 //= require restangular
+//= require angular-messages
 //= require_tree .

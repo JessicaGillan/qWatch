@@ -46,8 +46,6 @@ qWatch.factory('userService',
       }
 
       var signUp = function signUp(data){
-        console.log(data)
-
         Auth.register({
           email: data.email,
           password: data.password,

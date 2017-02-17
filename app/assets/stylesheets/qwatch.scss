@@ -477,10 +477,8 @@ center-flash {
   color: red;
 }
 
-// SIGNUP MODAL
-sign-up-modal {
-  z-index: 1000;
-}
-#signUpModal {
-  display: block;
+// Form inputs
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+  border-radius: 4px
 }

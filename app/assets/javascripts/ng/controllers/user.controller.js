@@ -3,14 +3,7 @@ qWatch.controller('UserCtrl', [
   function($scope, $state, Auth, $timeout) {
     "use strict";
 
-    //
-    // $scope.passwordMatch = function passwordMatch(data, form){
-    //   if(data.password !== data.password_confirmation){
-    //     form.password_confirmation.$setValidity('pwdmatch', false)
-    //   } else {
-    //     form.password_confirmation.$setValidity('pwdmatch', true)
-    //   }
-    // }
+
 
     $scope.login = function(loginForm, loginData) {
       // user service
