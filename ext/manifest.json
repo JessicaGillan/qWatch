@@ -1,0 +1,45 @@
+{
+
+  "name": "qWatch",
+  "description": "share links to streamable movies and tv shows with your friends",
+  "version": "1.0",
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": "src/logo.png",
+    "default_popup": "src/popup.html",
+    "default_title": "share on qWatch!"
+  },
+  "permissions" : [
+    "tabs",
+    "activeTab",
+    "declarativeContent",
+    "https://*.netflix.com/*",
+    "https://*.hulu.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.netflix.com/browse*"
+      ],
+      "css": ["src/inject/css/netflix.css"],
+      "js": ["src/inject/js/netflix.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://*.netflix.com/watch*"
+      ],
+      "css": ["src/inject/css/netflix.css"],
+      "js": ["src/inject/js/netflix-watch.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+   "src/fonts/*"
+ ],
+
+  "manifest_version": 2
+}

@@ -3,11 +3,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// Bootstrap - remove gutter
-.no-gutter > [class*='col-'] {
-  padding-right: 0;
-  padding-left: 0;
-}
 
 // Font Awesome
 @import "font-awesome";
@@ -37,6 +32,21 @@ body {
 
 a, search-result {
   cursor: pointer;
+}
+
+// Bootstrap - remove gutter
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.tmdb-logo {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  display: block;
+  width: 100px;
+  height: 100px;
 }
 
 .no-animate {
