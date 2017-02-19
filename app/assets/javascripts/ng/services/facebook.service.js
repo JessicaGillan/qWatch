@@ -12,7 +12,7 @@ qWatch.factory('facebookService', [
           _getUserInfo();
 
           /*
-           create a session for the current user.
+           create a session for the current user. - if they signed up with qWatch
            use the data inside the res.authResponse object.
           */
         }
@@ -44,16 +44,48 @@ qWatch.factory('facebookService', [
       return deferred.promise;
     }
 
-    var logout = function() {
+    var logout = function login() {
       FB.logout(function(response) {
         console.log("logged out", response)
         angular.copy({}, _user)
       });
     }
 
+    var login = function login() {
+      FB.login(function(response) {
+        console.log("login response", response);
+
+        // if (response.status === 'connected') {
+        //   // Logged into your app and Facebook.
+        // } else if (response.status === 'not_authorized') {
+        //   // The person is logged into Facebook, but not your app.
+        // } else {
+        //   // The person is not logged into Facebook, so we're not sure if
+        //   // they are logged into this app or not.
+        // }
+
+        if (response.authResponse) {
+          console.log('Connected! Hitting OmniAuth callback (GET /auth/facebook/callback)...');
+          _getUserInfo().then( function (response) {
+            console.log("user info response", response)
+          })
+          // since we have cookies enabled, this request will allow omniauth to parse
+          // out the auth code from the signed request in the fbsr_XXX cookie
+          // $.getJSON('/api/v1/users/auth/facebook/callback',  { code: response.authResponse.signedRequest },
+          // $.getJSON('/api/v1/users/auth/facebook/callback',
+          // { auth: response.authResponse },
+          // function(json) {
+          //   console.log('Connected! Callback complete.');
+          //   console.log("results", JSON.stringify(json));
+          // });
+        }
+      }, {scope: 'email', info_fields: 'id,name,email'});
+    }
+
     return {
       watchAuthenticationStatusChange: watchLoginChange,
-      logout: logout
+      logout: logout,
+      login: login
     }
 
   }

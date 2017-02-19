@@ -244,10 +244,11 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 
-  # ==> OmniAuth
-  config.omniauth :facebook, Rails.application.secrets.fb_app_id, Rails.application.secrets.fb_app_secret,
-                  info_fields: 'name,id,email',
-                  callback_url: "https://localhost:3000/api/v1/users/auth/facebook/callback"
+  # ==> OmniAuth //TODO change to qwatch.me
+  # Initializeing from client side, do NOT do twice, leave this commented out
+  # config.omniauth :facebook, Rails.application.secrets.fb_app_id, Rails.application.secrets.fb_app_secret
+  #                 callback_url: "https://localhost:3000/api/v1/users/auth/facebook/callback",
+  #                 info_fields: 'name,id,email', scope: 'email'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

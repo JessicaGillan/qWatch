@@ -1,13 +1,27 @@
 qWatch.controller('UserCtrl', [
-  '$scope', '$state', 'Auth', '$timeout',
-  function($scope, $state, Auth, $timeout) {
+  '$scope', '$state', 'Auth', '$timeout', 'facebookService',
+  function($scope, $state, Auth, $timeout, facebook) {
     "use strict";
 
+    console.log('user ctrl')
 
+    $scope.login = function(e) {
+      e.preventDefault();
 
-    $scope.login = function(loginForm, loginData) {
-      // user service
+      console.log("ctrl login")
+      facebook.login();
     }
+    $scope.logout = function(e) {
+      e.preventDefault();
+
+      console.log("ctrl logout")
+      facebook.logout();
+    }
+
+
+    // $scope.login = function(loginForm, loginData) {
+    //   // user service
+    // }
 
     $scope.newSignUp = function signup(data, form){
       console.log(form)

@@ -10,15 +10,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def facebook
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    puts "facebook callback ///////////////////////////////////////////"
+    p params
 
-    if @user.persisted?
-      sign_in @user, :event => :authentication #this will throw if @user is not activated
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
-    else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
-    end
+    puts ";////////////////////"
+    # MultiJson.encode(request.env)
+
+    # @user = User.from_omniauth(request.env["omniauth.auth"])
+    #
+    # if @user.persisted?
+    #   puts "user persisted"
+    #   sign_in @user, :event => :authentication #this will throw if @user is not activated
+    #   set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+    #
+    #   render json: @user
+    # else
+    #   puts "user not persisted"
+    #   session["devise.facebook_data"] = request.env["omniauth.auth"]
+    #   redirect_to new_user_registration_url
+    # end
   end
 
   # protected
@@ -28,3 +38,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #   super(scope)
   # end
 end
+
+
+# https://localhost:3000/api/v1/users/auth/facebook/callback?code=AQDGN528xbiDpSgGCXda_kuNBMXXK67bsV1TYiZuodMypuz7411DrBazmT9rBjbFJWW6p2DOVLkUNgG6ZU0mGrXnL3b_Ykr_oelGcjjuAG18vpPuA8OuwAq-h1jnPfOGExY3vudsBRLPtWLJtiYBwZdJ-62V61Cld-isv3tDjhHF6MYlmV6-_5U9lX1qWqHwpNNt6ix0yi094Qym8R-USyZN3u-S_NZwnM-S6qujGXug7h8hKtIHTJkwCceZGOU4B79t16HUPyEB7ekm1aZNG23YvqAkEafTmSgeaMDwKhLEXzflmHXQnC27sPTajSvg8TMhZfzvCwxL83LVUgZW_fHxKWPaAQQ2qoec2GgNXM1XZg&state=d84b0033874e8932d4eee7596c85c825832dbc0c61a94a8d#_=_

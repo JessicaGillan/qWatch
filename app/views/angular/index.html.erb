@@ -3,8 +3,6 @@
 <% end %>
 
 <ui-view name="nav"></ui-view>
-<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
-
 <ui-view name="search"></ui-view>
 <ui-view></ui-view>
 <div id="main-show" class="expandable" ng-class="{expand: expanded}" ui-view="show"></div>
