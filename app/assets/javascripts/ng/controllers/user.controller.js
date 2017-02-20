@@ -11,6 +11,7 @@ qWatch.controller('UserCtrl', [
       console.log("ctrl login")
       facebook.login();
     }
+    
     $scope.logout = function(e) {
       e.preventDefault();
 

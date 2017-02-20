@@ -6,7 +6,6 @@ qWatch.factory('userService',
       var _user = {};
 
       var _setUser = function _setUser(user) {
-        console.log("setting user", user)
         angular.copy(user, _user);
         $root.currentUser = _user;
       }
@@ -77,17 +76,15 @@ qWatch.factory('userService',
 
                   if (res.status === 'connected') {
 
-                    //  The user is already logged in, retrieve personal info
+                    //  The user is logged in, retrieve personal info
                     facebook.getUserInfo()
                     .then(function (userInfo) {
 
-                      /*
-                       create a session for the current user. - if they signed up with qWatch
-                       use the data inside the res.authResponse object.
-                      */
                       facebook.backendLogIn(res.authResponse, userInfo)
                       .then(function (user) {
-                        _setCurrentUser(user) 
+                        $root.$apply(function() {
+                          _setUser(user);
+                        });
                       });
                     });
                   }

@@ -6,16 +6,22 @@ qWatch.factory('facebookService', [
         console.log("FB login change")
 
         if (res.status === 'connected') {
+          // TODO: update logic flow
+          // This will sign in user, but not make 'devise:login' event,
+          // and not run digest loop, so user looks signed out until refresh
+          // Also - what happens if this automatically runs for user not
+          // signed up with qWatch but signed in to FB?
 
           //  The user is already logged in, retrieve personal info
-          getUserInfo()
-          .then( function (userInfo) {
+          // getUserInfo()
+          // .then( function (userInfo) {
             /*
              create a session for the current user. - if they signed up with qWatch
              use the data inside the res.authResponse object.
             */
-            backendLogIn(res.authResponse, userInfo)
-          })
+
+            // backendLogIn(res.authResponse, userInfo)
+          // })
 
         }
         else {
