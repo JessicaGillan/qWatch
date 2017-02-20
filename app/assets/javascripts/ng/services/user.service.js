@@ -1,11 +1,12 @@
 qWatch.factory('userService',
-  ['$rootScope', 'Restangular', 'Auth',
-    function($root, Restangular, Auth) {
+  ['$rootScope', 'Restangular', 'Auth', 'facebookService',
+    function($root, Restangular, Auth, facebook) {
       "use strict";
 
       var _user = {};
 
       var _setUser = function _setUser(user) {
+        console.log("setting user", user)
         angular.copy(user, _user);
         $root.currentUser = _user;
       }
@@ -56,7 +57,6 @@ qWatch.factory('userService',
           name: data.name
         })
         .then(function(user){
-          console.log("created user", user)
           _setCurrentUser();
         })
         .catch(function(err){
@@ -71,12 +71,36 @@ qWatch.factory('userService',
         });
       }
 
+      var fbSignUp = function fbSignUp() {
+        return facebook.login()
+                .then(function(res) {
+
+                  if (res.status === 'connected') {
+
+                    //  The user is already logged in, retrieve personal info
+                    facebook.getUserInfo()
+                    .then(function (userInfo) {
+
+                      /*
+                       create a session for the current user. - if they signed up with qWatch
+                       use the data inside the res.authResponse object.
+                      */
+                      facebook.backendLogIn(res.authResponse, userInfo)
+                      .then(function (user) {
+                        _setCurrentUser(user) 
+                      });
+                    });
+                  }
+                });
+      }
+
       return {
         currentUser: getCurrentUser,
         signedInUser: signedIn,
         signIn: logIn,
         signUp: signUp,
-        signOut: logOut
+        signOut: logOut,
+        fbSignUp: fbSignUp
       };
     }
   ]

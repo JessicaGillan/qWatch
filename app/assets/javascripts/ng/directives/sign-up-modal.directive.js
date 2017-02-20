@@ -3,6 +3,10 @@ qWatch.directive('signUpModal',
     function(user) {
       "use strict";
 
+      var fbSignUp = function fbSignUp () {
+        user.fbSignUp()
+      }
+
       var submit = function submit(form, formData) {
         if (form.$valid) {
           user.signUp(formData);
@@ -28,12 +32,19 @@ qWatch.directive('signUpModal',
           scope.userData = {};
 
           scope.submit = function (form, formData) {
-            if (submit(form, formData)){
-              angular.element(element).children('#signUpModal').modal('hide');
-            }
+            if (submit(form, formData)) dismissModal();
           };
 
           scope.passwordMatch = passwordMatch;
+
+          scope.fbSignUp = function (form, formData) {
+            fbSignUp();
+            dismissModal();
+          };
+
+          var dismissModal = function () {
+            angular.element(element).children('#signUpModal').modal('hide');
+          }
         }
       };
 }]);

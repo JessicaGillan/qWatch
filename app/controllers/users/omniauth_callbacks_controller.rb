@@ -10,25 +10,23 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def facebook
-    puts "facebook callback ///////////////////////////////////////////"
-    p params
+    @user = User.from_omniauth(request.env["omniauth.auth"] || params["auth"])
 
-    puts ";////////////////////"
-    # MultiJson.encode(request.env)
+    if @user.persisted?
+      puts "user persisted"
+      sign_in @user, :event => :authentication #this will throw if @user is not activated
 
-    # @user = User.from_omniauth(request.env["omniauth.auth"])
-    #
-    # if @user.persisted?
-    #   puts "user persisted"
-    #   sign_in @user, :event => :authentication #this will throw if @user is not activated
-    #   set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
-    #
-    #   render json: @user
-    # else
-    #   puts "user not persisted"
-    #   session["devise.facebook_data"] = request.env["omniauth.auth"]
-    #   redirect_to new_user_registration_url
-    # end
+      puts "current user:"
+      p current_user
+
+      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+
+      render json: @user
+    else
+      puts "user not persisted"
+      session["devise.facebook_data"] = request.env["omniauth.auth"] || params["auth"]
+      redirect_to new_user_registration_url
+    end
   end
 
   # protected

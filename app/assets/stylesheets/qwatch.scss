@@ -9,6 +9,11 @@
   padding-left: 0;
 }
 
+.no-gutter {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 // Font Awesome
 @import "font-awesome";
 
@@ -484,7 +489,7 @@ input.ng-invalid.ng-dirty {
 }
 
 // Facebook Signup/in Buttons
-#facebook-sign-up {
+.facebook-sign-up {
   background-color: $facebook;
   color: white;
 }

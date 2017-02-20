@@ -31,7 +31,11 @@ qWatch.controller('UserCtrl', [
     }
 
     $scope.$on('devise:login', function(){
-      console.log("devis login!")
+      console.log("devise login!")
+    })
+
+    $scope.$on('devise:logout', function(){
+      console.log("devise logout!")
     })
 
     $scope.$on('devise:new-session', function(){
