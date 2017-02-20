@@ -4,6 +4,7 @@ qWatch.controller('NavCtrl', [
     "use strict";
 
     $scope.userData = {};
+    $scope.toggled = false;
 
     $scope.goToIndex = function goToIndex(){
       // $state.go('list', {}, {reload: true})
@@ -29,6 +30,13 @@ qWatch.controller('NavCtrl', [
     $scope.fbSignIn = function () {
       user.fbSignUp();
       $scope.userData = {};
+    }
+
+    $scope.toggleSideBar = function (e) {
+      e.preventDefault();
+
+      angular.element("#wrapper").toggleClass("toggled");
+      $scope.toggled = !$scope.toggled;
     }
 
   }

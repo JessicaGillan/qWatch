@@ -10,6 +10,8 @@ class ViewingsController < ApplicationController
   end
 
   def index
-    render json: current_user.viewed_items
+    items = current_user.viewed_items.order(created_at: :desc).limit(30)
+
+    render json: items
   end
 end

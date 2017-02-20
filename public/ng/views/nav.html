@@ -11,7 +11,13 @@
     </div>
 
     <div class="collapse navbar-collapse" id="navbar">
-      <ul class="nav navbar-nav navbar-right" >
+      <ul class="nav navbar-nav navbar-left">
+        <li ng-if="signedInUser()">
+          <a ng-click="toggleSideBar($event)">{{ toggled ? "Hide" : "Show" }} Viewed Items</a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
         <!-- <li><a>Movies</a></li> -->
         <!-- <li><a>Shows</a></li> -->
         <li>
