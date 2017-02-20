@@ -5,6 +5,27 @@ qWatch.factory('viewedItemsService', [
 
     var _viewedItems = [];
 
+    var getAll = function getAll() {
+      if (user.signedInUser()) {
+        restangular
+        .all('viewings')
+        .getList()
+        .then(
+          function (response) {
+            angular.copy(response, _viewedItems);
+            console.log("viewid items", _viewedItems);
+          },
+          function (response) {
+            console.error("Could not retrieve Viewed Items", response.message);
+          }
+        );
+      }
+    }
+
+    var getViewedItems = function getViewedItems() {
+      return _viewedItems
+    }
+
     var create = function create(viewed_id) {
       if (user.signedInUser()) {
         restangular
@@ -25,6 +46,8 @@ qWatch.factory('viewedItemsService', [
 
     return {
       create: create,
+      getViewedItems: getViewedItems,
+      fetchViewedItems: getAll
     }
   }
 ]);
