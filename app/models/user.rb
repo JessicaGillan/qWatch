@@ -4,6 +4,12 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable,
           :omniauthable, :omniauth_providers => [:facebook]
 
+  has_many :viewings, :foreign_key => :viewer_id,
+                      :class_name => "Viewing"
+  has_many :viewed_items, :through => :viewings,
+                          :source => :viewed
+
+
   def self.from_omniauth(auth)
 
     # TODO: Edit this to not create new if user with same email exists

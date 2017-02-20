@@ -1,4 +1,9 @@
 class Watchable < ApplicationRecord
+  has_many :viewings, :foreign_key => :viewed_id,
+                      :class_name => "Viewing"
+  has_many :viewers, :through => :viewings,
+                     :source => :viewer
+
   def self.title_search(query)
     self.where("title ilike ?", "%#{query}%").order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
