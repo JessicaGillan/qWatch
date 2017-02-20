@@ -159,7 +159,7 @@ a, search-result {
 }
 
 // Search bar
-// Search bar
+
 #search-panel, #search-panel-filler {
   width: 100%;
   // max-width: $search-bar-max-width;
@@ -481,4 +481,10 @@ center-flash {
 input.ng-invalid.ng-dirty {
   border: 1px solid red;
   border-radius: 4px
+}
+
+// Facebook Signup/in Buttons
+#facebook-sign-up {
+  background-color: $facebook;
+  color: white;
 }

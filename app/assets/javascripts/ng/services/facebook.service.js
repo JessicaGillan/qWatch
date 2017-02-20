@@ -28,11 +28,11 @@ qWatch.factory('facebookService', [
     var _getUserInfo = function _getUserInfo() {
       var deferred = $q.defer();
 
-      FB.api('/me', { fields: 'id,name,email' },function(response) {
+      FB.api('/me', { fields: 'id,name,email,friends' },function(response) {
+        console.log("user info response", response)
         if (!response || response.error) {
-          deferred.reject('Error occured');
+          deferred.reject('Error occured: ' + response.error.message);
         } else {
-          console.log("got user info", response)
           angular.copy(response, _user)
 
           $rootScope.$apply(function() { $rootScope.user = _user; });
@@ -79,7 +79,7 @@ qWatch.factory('facebookService', [
           //   console.log("results", JSON.stringify(json));
           // });
         }
-      }, {scope: 'email', info_fields: 'id,name,email'});
+      }, {scope: 'email, user_friends', info_fields: 'id,name,email,user_friends'});
     }
 
     return {
