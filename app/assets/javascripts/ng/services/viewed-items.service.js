@@ -6,15 +6,20 @@ qWatch.factory('viewedItemsService', [
     var _viewedItems = [];
 
     var create = function create(viewed_id) {
-      if (user.signedInUser) {
+      if (user.signedInUser()) {
         restangular
         .one('watch', viewed_id)
         .all('viewings')
         .post()
-        .then( function (viewedItem) {
-          console.log("created viewing,", viewedItem)
-          _viewedItems.push(viewedItem);
-        })
+        .then(
+          function (viewedItem) {
+            console.log("created viewing,", viewedItem)
+            _viewedItems.push(viewedItem);
+          },
+          function (response) {
+            console.log("Viewing Already exists");
+          }
+        );
       }
     };
 
