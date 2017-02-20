@@ -1,10 +1,11 @@
 qWatch.controller('NavCtrl', [
-  '$scope', '$state', '$rootScope', '$timeout', 'userService',
-  function($scope, $state, $root, $timeout, user) {
+  '$scope', '$state', '$rootScope', '$timeout', 'userService', 'viewedItemsService',
+  function($scope, $state, $root, $timeout, user, viewedItems) {
     "use strict";
 
     $scope.userData = {};
-    $scope.toggled = false;
+    $scope.toggled = true;
+    $scope.wrapper = angular.element("#wrapper");
 
     $scope.goToIndex = function goToIndex(){
       // $state.go('list', {}, {reload: true})
@@ -35,7 +36,7 @@ qWatch.controller('NavCtrl', [
     $scope.toggleSideBar = function (e) {
       e.preventDefault();
 
-      angular.element("#wrapper").toggleClass("toggled");
+      $scope.wrapper.toggleClass("toggled");
       $scope.toggled = !$scope.toggled;
     }
 
