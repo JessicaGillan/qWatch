@@ -36,9 +36,19 @@ qWatch.controller('NavCtrl', [
     $scope.toggleSideBar = function (e) {
       e.preventDefault();
 
+      viewedItems.fetchAll();
+
       $scope.wrapper.toggleClass("toggled");
       $scope.toggled = !$scope.toggled;
     }
+
+    $scope.$on('devise:login', function(){
+      console.log("devise login!")
+    })
+
+    $scope.$on('devise:logout', function(){
+      console.log("devise logout!")
+    })
 
   }
 ]);

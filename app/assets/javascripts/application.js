@@ -21,4 +21,5 @@
 //= require lodash
 //= require restangular
 //= require angular-messages
+//= require ngtimeago
 //= require_tree .

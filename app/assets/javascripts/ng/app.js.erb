@@ -1,5 +1,5 @@
 var qWatch = angular
-    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages'])
+    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages', 'ngtimeago'])
     .constant('_', window._)
     .config([
       'RestangularProvider',
@@ -43,6 +43,10 @@ var qWatch = angular
               'signUp': {
                 template: '<sign-up-modal></sign-up-modal>',
                 controller: 'SignUpCtrl'
+              },
+              'recentlyViewed': {
+                template: '<side-bar></sidebar>',
+                condtroller: 'RecentlyViewedCtrl'
               },
               '': {
                 template: '<ui-view/>'

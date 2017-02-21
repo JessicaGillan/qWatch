@@ -1,14 +1,15 @@
 qWatch.factory('userService',
-  ['$rootScope', 'Restangular', 'Auth', 'facebookService',
+  ['$rootScope', 'Restangular', 'Auth', 'facebookService', 
     function($root, Restangular, Auth, facebook) {
       "use strict";
 
       var _user = {};
 
-      var _setUser = function _setUser(user) {
-        console.log(user)
+      var _setUser = function _setUser(user, callback) {
         angular.copy(user, _user);
         $root.currentUser = _user;
+
+        if (callback) callback(_user);
       }
 
       var _setCurrentUser = function _setCurrentUser() {

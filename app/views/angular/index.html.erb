@@ -8,13 +8,7 @@
 
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
-        viewed: {{ viewed }}
-          <ul class="sidebar-nav">
-              <li class="sidebar-brand"
-                  ng-repeat="item in viewed">
-                  {{ item.title }}
-              </li>
-          </ul>
+        <ui-view name="recentlyViewed"></ui-view>
       </div>
       <!-- /#sidebar-wrapper -->
 

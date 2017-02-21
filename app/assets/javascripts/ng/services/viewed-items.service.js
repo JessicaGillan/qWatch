@@ -5,6 +5,10 @@ qWatch.factory('viewedItemsService', [
 
     var _viewedItems = [];
 
+    var clear = function clear() {
+      angular.copy([], _viewedItems);
+    }
+
     var getAll = function getAll() {
       if (user.signedInUser()) {
         console.log("fetching items")
@@ -23,6 +27,7 @@ qWatch.factory('viewedItemsService', [
           );
         }
       }
+      console.log("user not signed in")
     }
 
     var getViewedItems = function getViewedItems() {
@@ -49,8 +54,9 @@ qWatch.factory('viewedItemsService', [
 
     return {
       create: create,
-      getViewedItems: getViewedItems,
-      fetchAll: getAll
+      getAll: getViewedItems,
+      fetchAll: getAll,
+      clear: clear
     }
   }
 ]);
