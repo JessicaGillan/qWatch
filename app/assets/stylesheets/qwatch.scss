@@ -74,6 +74,13 @@ a, search-result {
     opacity: .9;
   }
 }
+.navbar-login {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.welcome-text {
+  text-transform: capitalize;
+}
 
 // Flex form
 .form-flex {
@@ -468,4 +475,10 @@ center-flash {
 
 .error {
   color: red;
+}
+
+// Form inputs
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+  border-radius: 4px
 }
