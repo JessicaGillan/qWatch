@@ -1,6 +1,6 @@
 qWatch.factory('userService',
-  ['$rootScope', 'Restangular', 'Auth',
-    function($root, Restangular, Auth) {
+  ['$rootScope', 'Restangular', 'Auth', 'facebookService',
+    function($root, Restangular, Auth, facebook) {
       "use strict";
 
       var _user = {};
@@ -56,7 +56,6 @@ qWatch.factory('userService',
           name: data.name
         })
         .then(function(user){
-          console.log("created user", user)
           _setCurrentUser();
         })
         .catch(function(err){
@@ -71,12 +70,34 @@ qWatch.factory('userService',
         });
       }
 
+      var fbSignUp = function fbSignUp() {
+        return facebook.login()
+                .then(function(res) {
+
+                  if (res.status === 'connected') {
+
+                    //  The user is logged in, retrieve personal info
+                    facebook.getUserInfo()
+                    .then(function (userInfo) {
+
+                      facebook.backendLogIn(res.authResponse, userInfo)
+                      .then(function (user) {
+                        $root.$apply(function() {
+                          _setUser(user);
+                        });
+                      });
+                    });
+                  }
+                });
+      }
+
       return {
         currentUser: getCurrentUser,
         signedInUser: signedIn,
         signIn: logIn,
         signUp: signUp,
-        signOut: logOut
+        signOut: logOut,
+        fbSignUp: fbSignUp
       };
     }
   ]

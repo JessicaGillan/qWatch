@@ -33,6 +33,11 @@
           </form>
         </li>
         <li ng-if="!signedInUser()">
+          <form class="form-inline navbar-form no-gutter">
+            <button class="btn facebook-sign-up" type="submit" ng-click="fbSignIn()">FB Login</button>
+          </form>
+        </li>
+        <li ng-if="!signedInUser()">
           <a data-toggle="modal" data-target="#signUpModal">Join</a>
         </li>
         <li ng-if="signedInUser()" class="navbar-text welcome-text">{{ currentUser.name ? "Welcome, " + currentUser.name : "Welcome!" }}</li>

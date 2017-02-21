@@ -80,40 +80,37 @@ var qWatch = angular
     .run(['$rootScope', '$window', 'facebookService',
       function($rootScope, $window, facebook) {
         $rootScope.currentUser = {};
-    //
-    //     $window.fbAsyncInit = function() {
-    //       // Executed when the SDK is loaded
-    //       FB.init({
-    //         // TODO: change to cookie set in rails angular controller
-    //         appId: <%= Rails.application.secrets.fb_app_id %>,
-    //         // improves performance of the javascript SDK with cross-domain communication in certain browsers.
-    //         channelUrl: 'ng/channel.html',
-    //         status: true, // Check auth status at the start of the app
-    //         cookie: true, // Enable cookis so server can access the session
-    //         xfbml: true, /* Parse XFBML */
-    //         version: 'v2.4'
-    //       });
-    //
-    //       facebook.watchAuthenticationStatusChange();
-    //     };
-    //
-    //     (function(d){
-    //       // load the Facebook javascript SDK
-    //       var js,
-    //       id = 'facebook-jssdk',
-    //       ref = d.getElementsByTagName('script')[0];
-    //
-    //       if (d.getElementById(id)) {
-    //         return;
-    //       }
-    //
-    //       js = d.createElement('script');
-    //       js.id = id;
-    //       js.async = true;
-    //       js.src = "//connect.facebook.net/en_US/sdk.js";
-    //
-    //       ref.parentNode.insertBefore(js, ref);
-    //
-    //     }(document));
-    //
+
+        $window.fbAsyncInit = function() {
+          // Executed when the SDK is loaded
+          FB.init({
+            // TODO: change to cookie set in rails angular controller
+            appId: <%= Rails.application.secrets.fb_app_id %>,
+            status: true, // Check auth status at the start of the app
+            cookie: true, // Enable cookis so server can access the session
+            version: 'v2.6'
+          });
+
+          facebook.watchAuthenticationStatusChange();
+        };
+
+        (function(d){
+          // load the Facebook javascript SDK
+          var js,
+          id = 'facebook-jssdk',
+          ref = d.getElementsByTagName('script')[0];
+
+          if (d.getElementById(id)) {
+            return;
+          }
+
+          js = d.createElement('script');
+          js.id = id;
+          js.async = true;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+
+          ref.parentNode.insertBefore(js, ref);
+
+        }(document));
+
       }]);

@@ -26,5 +26,10 @@ qWatch.controller('NavCtrl', [
       user.signOut();
     }
 
+    $scope.fbSignIn = function () {
+      user.fbSignUp();
+      $scope.userData = {};
+    }
+
   }
 ]);
