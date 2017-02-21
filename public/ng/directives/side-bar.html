@@ -7,7 +7,7 @@
   </li>
   <li class="sidebar-brand"
       ng-repeat="item in viewedItems | orderBy:'-created_at'">
-    <a href="https://qwatch.me/#!/watch/" + "{{ item.id }}">
+    <a ui-sref="show({ id: item.viewed.id })">
       {{ item.viewed.title }}
     </a>
     <p>viewed {{ item.created_at | timeago }}</p>

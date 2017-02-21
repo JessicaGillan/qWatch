@@ -5,7 +5,7 @@ class Viewing < ApplicationRecord
   belongs_to :viewed, :foreign_key => :viewed_id,
                       :class_name => "Watchable"
 
-  # Validate the uniqueness to avoid duplicate viewings.  
+  # Validate the uniqueness to avoid duplicate viewings.
   # This reflects the SQL uniqueness constraint
   validates :viewer_id, :uniqueness => { :scope => :viewed_id }
 
