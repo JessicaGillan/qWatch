@@ -1,6 +1,8 @@
 class SearchController < ApplicationController
   def index
     terms = params[:search]
-    render json: Watchable.title_search(terms)
+    strict = false
+    strict = true if(params[:strict] != "false")
+    render json: Watchable.title_search(terms, strict)
   end
 end

@@ -4,6 +4,11 @@
 @import "bootstrap";
 
 
+.no-gutter {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 // Font Awesome
 @import "font-awesome";
 
@@ -84,6 +89,13 @@ a, search-result {
     opacity: .9;
   }
 }
+.navbar-login {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.welcome-text {
+  text-transform: capitalize;
+}
 
 // Flex form
 .form-flex {
@@ -162,7 +174,7 @@ a, search-result {
 }
 
 // Search bar
-// Search bar
+
 #search-panel, #search-panel-filler {
   width: 100%;
   // max-width: $search-bar-max-width;
@@ -478,4 +490,16 @@ center-flash {
 
 .error {
   color: red;
+}
+
+// Form inputs
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+  border-radius: 4px
+}
+
+// Facebook Signup/in Buttons
+.facebook-sign-up {
+  background-color: $facebook;
+  color: white;
 }

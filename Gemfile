@@ -50,7 +50,11 @@ gem 'httparty'
 # Font Awesome
 gem 'font-awesome-rails'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
   gem 'rails-assets-angular'
   gem 'rails-assets-ui-router'
   gem 'rails-assets-lodash'

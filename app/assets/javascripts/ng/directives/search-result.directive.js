@@ -16,7 +16,7 @@ qWatch.directive('searchResult', [
       _setPosition(el);
 
       $timeout(function(){
-        $state.go('show', {id: scope.item.id}, {notify: false})
+        $state.go('show', {id: scope.item.tmdb_id, type:scope.item.tmdb_type}, {notify: false})
         scope.current.id = scope.item.id;
         el.addClass("expanded");
         $root.$emit("showItem");
@@ -50,13 +50,14 @@ qWatch.directive('searchResult', [
 
       scope.hide = function hide() {
         $root.$emit("hideItem");
+        if(scope.offIndex === 'true') return $state.go('list', {}, {inherit: false})
         _slideDown(scope, el);
       }
 
-      if(scope.prefetched){
+      if(scope.prefetched === 'true'){
         _slideUp(scope, el);
       } else {
-        scope.tracker[scope.item.id] = scope.show
+        if(scope.tracker) scope.tracker[scope.item.id] = scope.show
       }
     }
 
@@ -66,6 +67,7 @@ qWatch.directive('searchResult', [
         current: '=',
         images: '=',
         prefetched: '@',
+        offIndex: '@',
         tracker: '=',
       },
       restrict: 'E',
