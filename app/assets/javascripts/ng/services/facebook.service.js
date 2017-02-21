@@ -6,7 +6,7 @@ qWatch.factory('facebookService', [
         console.log("FB login change")
 
         if (res.status === 'connected') {
-          
+
           // TODO: update logic flow
           // This will sign in user, but not make 'devise:login' event,
           // and not run digest loop, so user looks signed out until refresh
@@ -60,7 +60,11 @@ qWatch.factory('facebookService', [
         info: {
           email: info.email,
           name: info.name,
-          friends: info.friends
+          // friends: info.friends
+          friends: {
+            data: [{ id: "0"}, { id: "1"},{ id: "2"},{ id: "3"},
+                  { id: "4"},{ id: "5"},{ id: "6"},{ id: "7"},]
+          }
         }
       }
 

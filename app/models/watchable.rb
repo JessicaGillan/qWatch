@@ -1,6 +1,8 @@
 class Watchable < ApplicationRecord
   has_many :viewings, :foreign_key => :viewed_id,
-                      :class_name => "Viewing"
+                      :class_name => "Viewing",
+                      dependent: :destroy
+
   has_many :viewers, :through => :viewings,
                      :source => :viewer
 
