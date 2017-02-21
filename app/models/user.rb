@@ -68,6 +68,6 @@ class User < ApplicationRecord
     .select('viewings.created_at AS created_at',
             'users.name AS friend',
             'watchables.title AS title',
-            'watchables.id AS viewed_id')
+            'watchables.tmdb_id AS tmdb_id')
   end
 end

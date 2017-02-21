@@ -9,7 +9,7 @@
   <li ng-if="showing === 'mine'"
       class="sidebar-brand"
       ng-repeat="item in viewedItems | orderBy:'-created_at'">
-    <a ui-sref="show({ id: item.viewed.id })">
+    <a ui-sref="show({ type: 'movie', id: item.viewed.tmdb_id })">
       {{ item.viewed.title }}
     </a>
     <p>{{ item.created_at | timeago }}</p>
@@ -18,7 +18,7 @@
   <li ng-if="showing === 'friends'"
       class="sidebar-brand"
       ng-repeat="item in friendsViewed | orderBy:'-created_at'">
-    <a ui-sref="show({ id: item.viewed_id })">
+    <a ui-sref="show({ type: 'movie', id: item.tmdb_id })">
       {{ item.title }}
     </a>
     <p>{{ item.created_at | timeago }} by {{ item.friend }}</p>

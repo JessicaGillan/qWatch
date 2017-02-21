@@ -17,7 +17,7 @@ class ViewingsController < ApplicationController
     else
       @viewings = current_user.viewings
 
-      render json: @viewings.to_json(include: [viewed: { only: [:title, :id] }])
+      render json: @viewings.to_json(include: [viewed: { only: [:title, :tmdb_id] }])
     end
   end
 end

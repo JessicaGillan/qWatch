@@ -95,7 +95,6 @@ var qWatch = angular
           // Executed when the SDK is loaded
           // console.log("fb_app_id:", $cookies.get("fb_app_id") || 0)
           FB.init({
-            // TODO: change to cookie set in rails angular controller
             appId: $cookies.get("fb_app_id") || 0,
             status: true, // Check auth status at the start of the app
             cookie: true, // Enable cookis so server can access the session
@@ -108,7 +107,7 @@ var qWatch = angular
         (function(d){
           // load the Facebook javascript SDK
           var js,
-          id = 'facebook-jssdk',
+          id = 'facebook-jssdk';
 
           if (d.getElementById(id)) {
             return;
