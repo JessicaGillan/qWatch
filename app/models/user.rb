@@ -54,9 +54,20 @@ class User < ApplicationRecord
       user_friend = User.find_by(provider: "facebook", uid: friend["id"].to_i)
 
       if user_friend && !(friend_ids.include? user_friend.id)
-        puts "Adding friend!"
         self.friended_users << user_friend
       end
     end
+  end
+
+  def friends_viewings
+    Viewing
+    .joins("JOIN users ON viewings.viewer_id = users.id")
+    .joins("JOIN watchables ON viewings.viewed_id = watchables.id")
+    .where(viewer_id: self.friends.pluck(:id))
+    .order('viewings.created_at DESC')
+    .select('viewings.created_at AS created_at',
+            'users.name AS friend',
+            'watchables.title AS title',
+            'watchables.id AS viewed_id')
   end
 end

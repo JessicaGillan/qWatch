@@ -3,7 +3,6 @@ qWatch.factory('facebookService', [
   function ($q, $rootScope, Auth) {
     var watchLoginChange = function() {
       FB.Event.subscribe('auth.authResponseChange', function(res) {
-        console.log("FB login change")
 
         if (res.status === 'connected') {
 

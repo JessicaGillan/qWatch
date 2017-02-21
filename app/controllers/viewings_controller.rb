@@ -10,8 +10,14 @@ class ViewingsController < ApplicationController
   end
 
   def index
-    @viewings = current_user.viewings
+    if params[:friends_viewings]
+      @friends_viewings = current_user.friends_viewings
 
-    render json: @viewings.to_json(include: [:viewed])
+      render json: @friends_viewings.to_json
+    else
+      @viewings = current_user.viewings
+
+      render json: @viewings.to_json(include: [viewed: { only: [:title, :id] }])
+    end
   end
 end

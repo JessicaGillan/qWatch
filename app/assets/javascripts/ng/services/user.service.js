@@ -1,5 +1,5 @@
 qWatch.factory('userService',
-  ['$rootScope', 'Restangular', 'Auth', 'facebookService', 
+  ['$rootScope', 'Restangular', 'Auth', 'facebookService',
     function($root, Restangular, Auth, facebook) {
       "use strict";
 
@@ -31,7 +31,7 @@ qWatch.factory('userService',
       }
 
       var signedIn = function signedIn () {
-        return !!Object.keys(_user).length
+        return !!Object.keys($root.currentUser).length
       }
 
       var logIn = function logIn(loginData) {

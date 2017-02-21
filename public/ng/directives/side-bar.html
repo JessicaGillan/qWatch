@@ -2,14 +2,25 @@
 <ul class="sidebar-nav">
   <li class="sidebar-title text-left">
     <h4>
-      <a href="#" class="selected">Mine </a> | <a href="#"> Friends</a>
+      <a ng-click="tabSelect($event)" id="mine" class="selected">Mine </a> | <a id="friends" ng-click="tabSelect($event)"> Friends</a>
     </h4>
   </li>
-  <li class="sidebar-brand"
+
+  <li ng-if="showing === 'mine'"
+      class="sidebar-brand"
       ng-repeat="item in viewedItems | orderBy:'-created_at'">
     <a ui-sref="show({ id: item.viewed.id })">
       {{ item.viewed.title }}
     </a>
-    <p>viewed {{ item.created_at | timeago }}</p>
+    <p>{{ item.created_at | timeago }}</p>
+  </li>
+
+  <li ng-if="showing === 'friends'"
+      class="sidebar-brand"
+      ng-repeat="item in friendsViewed | orderBy:'-created_at'">
+    <a ui-sref="show({ id: item.viewed_id })">
+      {{ item.title }}
+    </a>
+    <p>{{ item.created_at | timeago }} by {{ item.friend }}</p>
   </li>
 </ul>

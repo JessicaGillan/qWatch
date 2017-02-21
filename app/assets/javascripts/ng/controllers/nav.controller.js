@@ -37,6 +37,7 @@ qWatch.controller('NavCtrl', [
       e.preventDefault();
 
       viewedItems.fetchAll();
+      viewedItems.fetchFriends();
 
       $scope.wrapper.toggleClass("toggled");
       $scope.toggled = !$scope.toggled;
