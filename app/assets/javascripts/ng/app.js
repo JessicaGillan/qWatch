@@ -105,12 +105,12 @@ var qWatch = angular
           // load the Facebook javascript SDK
           var js,
           id = 'facebook-jssdk',
-          ref = d.getElementsByTagName('script')[0];
 
           if (d.getElementById(id)) {
             return;
           }
 
+          ref = d.getElementsByTagName('script')[0];
           js = d.createElement('script');
           js.id = id;
           js.async = true;
