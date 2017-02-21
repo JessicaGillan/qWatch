@@ -1,4 +1,5 @@
 class Watchable < ApplicationRecord
+
   has_many :viewings, :foreign_key => :viewed_id,
                       :class_name => "Viewing",
                       dependent: :destroy
@@ -6,7 +7,16 @@ class Watchable < ApplicationRecord
   has_many :viewers, :through => :viewings,
                      :source => :viewer
 
-  def self.title_search(query)
+  def self.collect(service, watchables)
+    watchables.each do |watchable|
+      p "#{watchable["title"]}: #{watchable["url"]}"
+    end
+    puts service
+  end
+
+  def self.title_search(query, strict)
+    return self.where("title ilike ?", query) if strict
+
     self.where("title ilike ?", "%#{query}%").order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 

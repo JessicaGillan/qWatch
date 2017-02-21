@@ -22,4 +22,5 @@
 //= require restangular
 //= require angular-messages
 //= require ngtimeago
+//= require angular-cookies
 //= require_tree .

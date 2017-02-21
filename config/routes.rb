@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :search, only: [:index]
       resources :tmdb_config, only: [:index]
+      resources :data, only: [:index, :options, :create]
+      match 'data' => 'data#options', via: [:options]
 
       resources :watch, only: [:index, :show] do
         resources :viewings, only: [:create]

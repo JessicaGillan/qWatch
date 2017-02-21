@@ -1,8 +1,8 @@
-<div class="mini" style="background-image: url({{ item.poster ? images.small + item.poster : svg }})" ng-click="show($event)">
+<div class="mini" style="background-image: url({{ item.poster && images.small ? images.small + item.poster : svg }})" ng-click="show($event)">
   <p class="title">{{ item.title }}</p>
 </div>
-<div class="full" style="background-image: url({{ item.poster ? images.large + item.poster : svg }})" ng-if="current.id === item.id">
-  <a class="exit" ng-click="hide($event)" ng-if="prefetched !== 'true' && current.id === item.id ">X</a>
+<div class="full" style="background-image: url({{ item.poster && images.large ? images.large + item.poster : svg }})" ng-if="current.id === item.id">
+  <a class="exit" ng-click="hide($event)">X</a>
   <h1 class="title">{{ item.title }}</h1>
 
   <div class="watchable-show">
