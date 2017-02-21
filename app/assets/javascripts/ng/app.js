@@ -1,5 +1,5 @@
 var qWatch = angular
-    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages'])
+    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages', 'ngCookies'])
     .constant('_', window._)
     .config([
       'RestangularProvider',
@@ -56,7 +56,7 @@ var qWatch = angular
             controller: 'UserCtrl'
           })
           .state('show', {
-            url: 'watch/:id',
+            url: 'watch/:type/:id',
             parent: 'main',
             templateUrl: 'ng/views/list/show.html',
             controller: 'ListShowCtrl'
@@ -70,6 +70,12 @@ var qWatch = angular
             templateUrl: 'ng/views/list/index.html',
             controller: 'ListIndexCtrl'
           })
+          .state('share', {
+            url: 'share?title',
+            parent: 'main',
+            templateUrl: 'ng/views/share.html',
+            controller: 'ShareCtrl'
+          })
 
 
       }
@@ -77,15 +83,16 @@ var qWatch = angular
 
     //----------- LOAD AND INIT FACEBOOK JAVASCRIPT SDK -------------------//
 
-    .run(['$rootScope', '$window', 'facebookService',
-      function($rootScope, $window, facebook) {
+    .run(['$rootScope', '$window', '$cookies', 'facebookService',
+      function($rootScope, $window, $cookies, facebook) {
         $rootScope.currentUser = {};
 
         $window.fbAsyncInit = function() {
           // Executed when the SDK is loaded
+          // console.log("fb_app_id:", $cookies.get("fb_app_id") || 0)
           FB.init({
             // TODO: change to cookie set in rails angular controller
-            appId: <%= Rails.application.secrets.fb_app_id %>,
+            appId: $cookies.get("fb_app_id") || 0,
             status: true, // Check auth status at the start of the app
             cookie: true, // Enable cookis so server can access the session
             version: 'v2.6'
@@ -98,12 +105,12 @@ var qWatch = angular
           // load the Facebook javascript SDK
           var js,
           id = 'facebook-jssdk',
-          ref = d.getElementsByTagName('script')[0];
 
           if (d.getElementById(id)) {
             return;
           }
 
+          ref = d.getElementsByTagName('script')[0];
           js = d.createElement('script');
           js.id = id;
           js.async = true;

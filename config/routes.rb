@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :search, only: [:index]
       resources :watch, only: [:index, :show]
       resources :tmdb_config, only: [:index]
+      resources :data, only: [:index, :options, :create]
+      match 'data' => 'data#options', via: [:options]
 
       devise_for :users, controllers: {
         sessions: 'users/sessions',

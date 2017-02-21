@@ -1,0 +1,12 @@
+<div class="container watchable-search">
+  <div class="row">
+    <div class="col-xs-4 search-result-wrapper" ng-repeat="result in results">
+      <search-result item="result" current="currentItem" images="imageSizes" tracker="searchResultTracker" off-index="{{ results.length === 1 }}"></search-result>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12" ng-show="!results.length">
+      <p class="watchable-search-empty">Sorry, no results were found!</p>
+    </div>
+  </div>
+</div>

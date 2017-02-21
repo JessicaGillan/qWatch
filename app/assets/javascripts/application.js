@@ -21,4 +21,5 @@
 //= require lodash
 //= require restangular
 //= require angular-messages
+//= require angular-cookies
 //= require_tree .

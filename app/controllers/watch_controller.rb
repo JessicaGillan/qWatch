@@ -11,7 +11,8 @@ class WatchController < ApplicationController
   end
 
   def show
-    watch = Watchable.find_by(id: params[:id])
+    puts params
+    watch = Watchable.find_by(tmdb_id: params[:id], tmdb_type: params[:type])
     watch.full_details
     render json: watch
   end
