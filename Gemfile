@@ -40,6 +40,7 @@ gem 'angular_rails_csrf'
 
 # Devise
 gem 'devise'
+gem 'domp'
 
 # Figaro
 gem 'figaro'
@@ -52,6 +53,8 @@ gem 'font-awesome-rails'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'

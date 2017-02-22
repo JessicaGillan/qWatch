@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-left">
         <li ng-if="signedInUser()">
-          <a ng-click="toggleSideBar($event)">{{ toggled ? "Show" : "Hide" }} Viewed Items</a>
+          <a ng-click="toggleSideBar($event)">{{ showSideBar ? "Hide" : "Show" }} Viewed Items</a>
         </li>
       </ul>
 
@@ -70,6 +70,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>My Account</b> <span class="caret"></span></a>
     			<ul id="login-dp" class="dropdown-menu">
+            <li ng-if="!facebookConnected()"><a ng-click="fbSignIn()">Connect With Facebook</a></li>
             <li><a data-toggle="modal" data-target="#deleteAccountModal"><b>Delete Account</b></a></li>
             <li><a ng-click="signOut()">Log Out</a></li>
     			</ul>

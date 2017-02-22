@@ -1,11 +1,14 @@
 class User < ApplicationRecord
+
+  has_many :authentications, class_name: 'UserAuthentication', dependent: :destroy
   # Include devise modules
   devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable,
-          :omniauthable, :omniauth_providers => [:facebook]
+          :recoverable, :rememberable, :validatable, :trackable,
+          :omniauthable, :omniauth_providers => [:facebook, :twitter, :google]
 
   has_many :viewings, foreign_key: :viewer_id,
                       dependent: :destroy
+
   has_many :viewed_items, through: :viewings,
                           source: :viewed,
                           class_name: 'Watchable'
@@ -24,23 +27,22 @@ class User < ApplicationRecord
   has_many :users_friended_by,    :through => :received_friendings,
                                   :source => :friend_initiator
 
-  def self.from_omniauth(auth)
+  default_scope {
+    includes :authentications
+  }
 
-    where(email: auth["info"]["email"]).first_or_create do |user|
-      user.provider = auth["provider"]
-      user.uid = auth["uid"]
-      user.email = auth["info"]["email"]
-      user.password = Devise.friendly_token[0,20]
-      user.name = auth["info"]["name"]
-    end
+  def self.create_from_omniauth(auth)
+    attributes = {
+      email: auth['info']['email'],
+      name: auth["info"]["name"],
+      password: Devise.friendly_token
+    }
+
+    create(attributes)
   end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
+  def to_json(arg)
+    self.as_json(include: [:authentications]).to_json
   end
 
   def friends
@@ -52,7 +54,7 @@ class User < ApplicationRecord
 
     fb_user_info.each do |index, friend|
 
-      user_friend = User.find_by(provider: "facebook", uid: friend["id"].to_i)
+      user_friend = UserAuthentication.find_by(provider: "facebook", uid: friend["id"].to_i).user
 
       if user_friend && !(friend_ids.include? user_friend.id)
         self.friended_users << user_friend
