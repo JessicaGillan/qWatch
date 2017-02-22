@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221173621) do
+ActiveRecord::Schema.define(version: 20170222021556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20170221173621) do
   end
 
   create_table "viewings", force: :cascade do |t|
-    t.integer  "viewed_id",  null: false
     t.integer  "viewer_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "viewed_id",  null: false
     t.index ["viewer_id", "viewed_id"], name: "index_viewings_on_viewer_id_and_viewed_id", unique: true, using: :btree
   end
 

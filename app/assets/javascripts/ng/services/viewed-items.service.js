@@ -37,19 +37,19 @@ qWatch.factory('viewedItemsService', [
       return _viewedItems
     }
 
-    var create = function create(viewed_id) {
+    var create = function create(tmdb_id, tmdb_type) {
       if (user.signedInUser()) {
 
         if (!_itemsSet) getAll();
 
-        if (!includedInViewed(viewed_id)) {
+        if (!includedInViewed(tmdb_id, tmdb_type)) {
           restangular
-          .one('watch', viewed_id)
+          .one('watch', tmdb_id)
           .all('viewings')
-          .post()
+          .post({ tmdb_type: tmdb_type })
           .then(
             function (viewedItem) {
-              _viewedItems.push(viewedItem);
+              if (viewedItem) _viewedItems.unshift(viewedItem);
             },
             function (response) {
               console.log("Viewing Already exists");
@@ -59,10 +59,13 @@ qWatch.factory('viewedItemsService', [
       }
     };
 
-    // TODO debug, still making post request
-    var includedInViewed = function includedInViewed(viewed_id) {
+    // Avoid making unnecessary post request for already viewed items,
+    // will still try to make a request while viewed items are loading
+    var includedInViewed = function includedInViewed(tmdb_id, tmdb_type) {
       for (var i = 0; i < _viewedItems.length; i++) {
-        if (_viewedItems[i].id === parseInt(viewed_id)) {
+        console.log(_viewedItems[i].tmdb_id, tmdb_id)
+        if (_viewedItems[i].tmdb_id === parseInt(tmdb_id) &&
+            _viewedItems[i].tmdb_type === tmdb_type) {
           return true;
         }
       }

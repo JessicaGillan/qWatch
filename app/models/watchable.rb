@@ -1,11 +1,14 @@
 class Watchable < ApplicationRecord
 
-  has_many :viewings, :foreign_key => :viewed_id,
-                      :class_name => "Viewing",
+  # TODO: Associations need to be made polymorphic if TV shows are added
+
+  has_many :viewings, foreign_key: :viewed_id,
+                      primary_key: :tmdb_id,
                       dependent: :destroy
 
   has_many :viewers, :through => :viewings,
-                     :source => :viewer
+                     :source => :viewer,
+                     class_name: "User"
 
   def self.collect(service, watchables)
     watchables.each do |watchable|

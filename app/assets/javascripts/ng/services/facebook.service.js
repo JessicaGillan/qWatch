@@ -59,6 +59,7 @@ qWatch.factory('facebookService', [
         info: {
           email: info.email,
           name: info.name,
+          // TODO: Remove hard coded Friends
           // friends: info.friends
           friends: {
             data: [{ id: "0"}, { id: "1"},{ id: "2"},{ id: "3"},

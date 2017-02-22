@@ -4,11 +4,11 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable,
           :omniauthable, :omniauth_providers => [:facebook]
 
-  has_many :viewings, :foreign_key => :viewer_id,
-                      :class_name => "Viewing",
+  has_many :viewings, foreign_key: :viewer_id,
                       dependent: :destroy
-  has_many :viewed_items, :through => :viewings,
-                          :source => :viewed
+  has_many :viewed_items, through: :viewings,
+                          source: :viewed,
+                          class_name: 'Watchable'
 
   # When acting as the initiator of the friending
   has_many :initiated_friendings, :foreign_key => :friender_id,
@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
 
-    # TODO: Edit this to not create new if user with same email exists
+    # TODO: Edit this to not create new if user with same email address exists
     where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
       user.email = auth["info"]["email"]
       user.password = Devise.friendly_token[0,20]
@@ -62,12 +62,23 @@ class User < ApplicationRecord
   def friends_viewings
     Viewing
     .joins("JOIN users ON viewings.viewer_id = users.id")
-    .joins("JOIN watchables ON viewings.viewed_id = watchables.id")
+    .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
     .where(viewer_id: self.friends.pluck(:id))
     .order('viewings.created_at DESC')
-    .select('viewings.created_at AS created_at',
+    .select('viewings.created_at AS viewed_at',
             'users.name AS friend',
             'watchables.title AS title',
             'watchables.tmdb_id AS tmdb_id')
+  end
+
+  def viewed_items_slim
+    Viewing
+    .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
+    .where(viewer_id: self.id)
+    .order('viewings.created_at DESC')
+    .select('viewings.created_at AS viewed_at',
+            'watchables.title AS title',
+            'watchables.tmdb_id AS tmdb_id',
+            'watchables.tmdb_type AS tmdb_type')
   end
 end

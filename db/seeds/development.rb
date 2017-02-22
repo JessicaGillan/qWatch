@@ -7,9 +7,10 @@
 # puts "Done"
 
 
-puts "destroying users"
+puts "destroying users and Viewings"
 
 User.destroy_all
+Viewing.destroy_all
 
 puts "adding users"
 
