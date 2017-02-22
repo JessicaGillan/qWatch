@@ -17,10 +17,27 @@ FactoryGirl.define do
 
   end
 
-  factory :user do
+  factory :user, aliases: [:friend_initiator, :friend_recipient] do
     name  'Bobby Tables'
     sequence(:email) { |n| "test#{n}@example.com" }
     password    'password'
+
+    factory :user_with_friends do
+
+      transient do
+        friends_count 0
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:friending, evaluator.friends_count, friend_initiator: user)
+      end
+
+    end
+  end
+
+  factory :friending do
+    friend_initiator
+    friend_recipient
   end
 
 end

@@ -1,11 +1,6 @@
 module Requests
   module JsonHelpers
-    def json
-      puts "response"
-      p response
-      puts "response.body"
-      p response.body
-      
+    def json  
       JSON.parse(response.body)
     end
   end
