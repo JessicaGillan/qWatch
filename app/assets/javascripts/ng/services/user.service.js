@@ -87,22 +87,22 @@ qWatch.factory('userService',
       }
 
       var fbSignUp = function fbSignUp() {
+        var authResponse;
         return facebook.login()
                 .then(function(res) {
                   if (res.status === 'connected') {
                     //  The user is logged in, retrieve personal info
+                    authResponse = res.authResponse
                     return facebook.getUserInfo()
                   }
 
                   return $q.reject('Canceled');
                 })
                 .then(function (userInfo) {
-                  return facebook.backendLogIn(res.authResponse, userInfo)
+                  return facebook.backendLogIn(authResponse, userInfo)
                 })
                 .then(function (user) {
-                  $root.$apply(function() {
-                    _setUser(user);
-                  });
+                  _setUser(user);
                   return getCurrentUser();
                 })
       }
