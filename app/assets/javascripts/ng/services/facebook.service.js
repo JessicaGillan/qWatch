@@ -1,8 +1,24 @@
 qWatch.factory('facebookService', [
   '$q', '$rootScope', 'Auth',
   function ($q, $rootScope, Auth) {
-    var watchLoginChange = function() {
-      FB.Event.subscribe('auth.authResponseChange', function(res) {
+    var fbSdk;
+
+    var _setSdk = function _setSdk(sdk, appId){
+      fbSdk = sdk;
+      _initializeSdk(appId);
+    }
+
+    var _initializeSdk = function _initializeSdk(appId){
+      fbSdk.init({
+        appId: appId || 0,
+        status: true, // Check auth status at the start of the app
+        cookie: true, // Enable cookis so server can access the session
+        version: 'v2.6' // API version
+      });
+    }
+
+    var _watchLoginChange = function _watchLoginChange() {
+      fbSdk.Event.subscribe('auth.authResponseChange', function(res) {
         console.log("FB login change")
 
         if (res.status === 'connected') {
@@ -36,7 +52,7 @@ qWatch.factory('facebookService', [
 
 
     var logout = function login() {
-      FB.logout(function(response) {
+      fbSdk.logout(function(response) {
         console.log("FB logged out")
       });
     };
@@ -78,7 +94,7 @@ qWatch.factory('facebookService', [
     var getUserInfo = function getUserInfo() {
       var deferred = $q.defer();
 
-      FB.api('/me', { fields: 'id,name,email,friends' },function(response) {
+      fbSdk.api('/me', { fields: 'id,name,email,friends' },function(response) {
         if (!response || response.error) {
           deferred.reject('Error occured: ' + response.error.message);
         } else {
@@ -96,7 +112,7 @@ qWatch.factory('facebookService', [
     var _getLoginStatus = function _getLoginStatus() {
       var deferred = $q.defer();
 
-      FB.getLoginStatus(function(response) {
+      fbSdk.getLoginStatus(function(response) {
         if (!response || response.error) {
           deferred.reject('Error occured: ' + response.error.message);
         } else {
@@ -110,7 +126,7 @@ qWatch.factory('facebookService', [
     var _fbLogin = function _fbLogin() {
       var deferred = $q.defer();
 
-      FB.login(function(response) {
+      fbSdk.login(function(response) {
         if (!response || response.error) {
           deferred.reject('Error occured: ' + response.error.message);
         } else {
@@ -121,12 +137,31 @@ qWatch.factory('facebookService', [
       return deferred.promise;
     };
 
+    var fbDestroy = function fbDestroy(){
+      var deferred = $q.defer();
+      fbSdk.api('/me/permissions', 'DELETE', function(response) {
+        if (response.success == true) {
+            deferred.resolve();
+        } else {
+            adeferred.reject('Error revoking app');
+        }
+      });
+      return deferred.promise;
+    }
+
+
+    var init = function init(sdk, appId){
+      _setSdk(sdk, appId);
+      _watchLoginChange();
+    }
+
     return {
-      watchAuthenticationStatusChange: watchLoginChange,
+      init: init,
       logout: logout,
       login: login,
       getUserInfo: getUserInfo,
-      backendLogIn: backendLogIn
+      backendLogIn: backendLogIn,
+      destroy: fbDestroy
     }
 
   }

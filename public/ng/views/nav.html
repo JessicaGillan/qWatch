@@ -11,37 +11,63 @@
     </div>
 
     <div class="collapse navbar-collapse" id="navbar">
-      <ul class="nav navbar-nav navbar-right" >
-        <!-- <li><a>Movies</a></li> -->
-        <!-- <li><a>Shows</a></li> -->
-        <li>
-          <form name="logInForm"
-                ng-if="!signedInUser()"
-                ng-submit="signIn(logInForm.$valid)"
-                class="form-inline navbar-form">
-            <input class="form-control mr-sm-2"
-                   type="email"
-                   placeholder="Email" ng-model="userData.email"
-                   required minlength="6">
-            <input class="form-control mr-sm-2" type="password"
-                   placeholder="Password" ng-model="userData.password"
-                   required minlength="6">
-            <!-- <label class="form-check-label navbar-text">
-              <input class="form-check-input" type="checkbox"> Remember me
-            </label> -->
-            <button class="btn btn-outline my-2 my-sm-0" type="submit">Login</button>
-          </form>
+      <ul class="nav navbar-nav navbar-right" ng-if="!signedInUser()">
+        <li><a data-toggle="modal" data-target="#signUpModal"><b>Sign Up</b></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+    			<ul id="login-dp" class="dropdown-menu">
+    				<li>
+    							<div class="col-md-12">
+                    <form name="logInForm"
+                          ng-submit="signIn(logInForm.$valid)"
+                          class="form-inline navbar-form">
+                      <div class="form-group">
+                        <label for="login-dropdown-email" class='sr-only'>Email</label>
+                        <input id="login-dropdown-email"
+                              class="form-control"
+                              type="email"
+                              placeholder="Email"
+                              ng-model="userData.email"
+                              required minlength="6">
+                      </div>
+                      <div class="form-group">
+                        <label for="login-dropdown-password" class='sr-only'>Password</label>
+                        <input id="login-dropdown-password"
+                              class="form-control"
+                              type="password"
+                              placeholder="Password"
+                              ng-model="userData.password"
+                              required minlength="6">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="true" checked> Remember me
+                        </label>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="form-group">
+                        <button class="btn btn-outline" type="submit">Login</button>
+                        <button class="btn facebook-sign-up" type="button" ng-click="fbSignIn()">FB Login</button>
+                      </div>
+                    </form>
+    					 </div>
+               <div class="bottom text-center">
+    					New here? <a data-toggle="modal" data-target="#signUpModal"><b>Join Us</b></a>
+    					</div>
+    				</li>
+    			</ul>
         </li>
-        <li ng-if="!signedInUser()">
-          <form class="form-inline navbar-form no-gutter">
-            <button class="btn facebook-sign-up" type="submit" ng-click="fbSignIn()">FB Login</button>
-          </form>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-if="signedInUser()">
+        <li class="navbar-text welcome-text">{{ currentUser.name ? "Welcome, " + currentUser.name : "Welcome!" }}</li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>My Account</b> <span class="caret"></span></a>
+    			<ul id="login-dp" class="dropdown-menu">
+            <li><a data-toggle="modal" data-target="#deleteAccountModal"><b>Delete Account</b></a></li>
+            <li><a ng-click="signOut()">Log Out</a></li>
+    			</ul>
         </li>
-        <li ng-if="!signedInUser()">
-          <a data-toggle="modal" data-target="#signUpModal">Join</a>
-        </li>
-        <li ng-if="signedInUser()" class="navbar-text welcome-text">{{ currentUser.name ? "Welcome, " + currentUser.name : "Welcome!" }}</li>
-        <li ng-if="signedInUser()"><a ng-click="signOut()">Log Out</a></li>
       </ul>
 
     </div>
