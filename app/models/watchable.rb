@@ -7,7 +7,7 @@ class Watchable < ApplicationRecord
   end
 
   def self.title_search(query, strict)
-    return self.where("title ilike ?", query) if strict 
+    return self.where("title ilike ?", query) if strict
     self.where("title ilike ?", "%#{query}%").order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 
@@ -19,9 +19,7 @@ class Watchable < ApplicationRecord
       watchable.save
       i += 1
     end
-    ActiveRecord::Base.connection.tables.each do |t|
-      ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    end
+    ActiveRecord::Base.connection.reset_pk_sequence!(:watchables)
   end
 
   def full_details
