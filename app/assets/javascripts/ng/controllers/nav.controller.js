@@ -1,6 +1,6 @@
 qWatch.controller('NavCtrl', [
-  '$scope', '$state', '$rootScope', '$timeout', '_', 'userService',
-  function($scope, $state, $root, $timeout, _, user) {
+  '$scope', '$state', '$rootScope', '$timeout', '_', 'userService', 'viewedItemsService',
+  function($scope, $state, $root, $timeout, _, user, viewedItems) {
     "use strict";
 
     /*
@@ -14,6 +14,7 @@ qWatch.controller('NavCtrl', [
     *
     */
     $scope.userData = {};
+    $root.showSideBar = false;
 
     // scope function to go to the 'List' state
     $scope.goToIndex = function goToIndex(){
@@ -48,6 +49,23 @@ qWatch.controller('NavCtrl', [
       var connected = _.some($scope.currentUser.authentications, ['provider', "facebook"]);
       return connected;
     }
+
+    $scope.toggleSideBar = function (e) {
+      e.preventDefault();
+
+      viewedItems.fetchAll();
+      viewedItems.fetchFriends();
+
+      $root.showSideBar = !$root.showSideBar;
+    }
+
+    $scope.$on('devise:login', function(){
+      console.log("devise login!")
+    })
+
+    $scope.$on('devise:logout', function(){
+      console.log("devise logout!")
+    })
 
   }
 ]);

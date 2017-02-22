@@ -11,6 +11,12 @@
     </div>
 
     <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-left">
+        <li ng-if="signedInUser()">
+          <a ng-click="toggleSideBar($event)">{{ showSideBar ? "Hide" : "Show" }} Viewed Items</a>
+        </li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right" ng-if="!signedInUser()">
         <li><a data-toggle="modal" data-target="#signUpModal"><b>Sign Up</b></a></li>
         <li class="dropdown">

@@ -3,6 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
     params["auth"]['credentials']['expires_at'] = params["auth"]['credentials']['expires_in'] ? params["auth"]['credentials']['expires_in'].to_i.seconds.from_now : nil
     create
+    check_signed_in
   end
 
   def twitter
@@ -38,15 +39,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     def sign_in_with_existing_authentication(authentication)
-      sign_in(authentication.user)
-      check_signed_in
+      sign_in(authentication.user, event: :authentication)
     end
 
     def create_authentication_and_sign_in(auth_params, user)
       UserAuthentication.create_from_omniauth(auth_params, user)
+      
+      user.add_fb_friends(auth_params["info"]["friends"]["data"]) if(auth_params["provider"] == "facebook")
 
-      sign_in(user)
-      check_signed_in
+      sign_in(user, event: :authentication)
     end
 
     def create_user_and_authentication_and_sign_in(auth_params)

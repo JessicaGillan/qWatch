@@ -30,7 +30,7 @@
           Share qWatch Link on...
           <share-buttons id="share-buttons"
           title="{{ item.title }}"
-            share-url="https://qwatch.me/#!/watch/" + "{{ item.id }}"
+            share-url="{{ 'https://qwatch.me/#!/watch/movie/' + item.tmdb_id }}"
             share-img="{{ images.large + item.poster }}">
           </share-buttons>
         </div>

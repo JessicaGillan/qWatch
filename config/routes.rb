@@ -5,12 +5,15 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       resources :search, only: [:index]
-      resources :watch, only: [:index, :show]
       resources :tmdb_config, only: [:index]
       resources :data, only: [:index, :options, :create]
       match 'data' => 'data#options', via: [:options]
 
-      # match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+      resources :watch, only: [:index, :show] do
+        resources :viewings, only: [:create]
+      end
+
+      resources :viewings, only: [:index]
 
       devise_for :users, controllers: {
         sessions: 'users/sessions',
