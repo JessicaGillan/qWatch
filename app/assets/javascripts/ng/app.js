@@ -29,7 +29,7 @@
 }(document));
 
 var qWatch = angular
-    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages', 'ngCookies'])
+    .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages', 'ngtimeago', 'ngCookies'])
     .constant('_', window._)
 
     .config([
@@ -98,7 +98,15 @@ var qWatch = angular
                 template: '<sign-up-modal></sign-up-modal><deregister-modal></deregister-modal>',
                 controller: 'SignUpCtrl'
               },
+
+              // Side Bar of Viewed items
+              'recentlyViewed': {
+                template: '<side-bar></sidebar>',
+                condtroller: 'RecentlyViewedCtrl'
+              },
+
               // Main Content
+
               '': {
                 template: '<ui-view/>'
               }
@@ -138,7 +146,7 @@ var qWatch = angular
     //----------- LOAD AND INIT FACEBOOK JAVASCRIPT SDK -------------------//
 
     .run(['$rootScope', '$window', '$cookies', 'facebookService',
-      function($rootScope, $window, $cookies, facebook, FBSdk) {
+      function($rootScope, $window, $cookies, facebook) {
         $rootScope.currentUser = {};
 
         // FACEBOOK Configuration params

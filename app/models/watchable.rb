@@ -1,4 +1,15 @@
 class Watchable < ApplicationRecord
+
+  # TODO: Associations need to be made polymorphic if TV shows are added
+
+  has_many :viewings, foreign_key: :viewed_id,
+                      primary_key: :tmdb_id,
+                      dependent: :destroy
+
+  has_many :viewers, :through => :viewings,
+                     :source => :viewer,
+                     class_name: "User"
+
   def self.collect(service, watchables)
     watchables.each do |watchable|
       p "#{watchable["title"]}: #{watchable["url"]}"
@@ -8,6 +19,7 @@ class Watchable < ApplicationRecord
 
   def self.title_search(query, strict)
     return self.where("title ilike ?", query) if strict
+
     self.where("title ilike ?", "%#{query}%").order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 

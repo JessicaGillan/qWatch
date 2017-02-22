@@ -1,6 +1,6 @@
 qWatch.factory('watchableService', [
-  '$q', 'Restangular', 'showItemService',
-  function($q, restangular, showItem){
+  '$q', 'Restangular', 'showItemService', 'viewedItemsService',
+  function($q, restangular, showItem, viewed){
     "use strict";
 
     var _watchables = [],
@@ -55,6 +55,7 @@ qWatch.factory('watchableService', [
           .one('watch', self.tmdb_id)
           .get({type: self.tmdb_type})
           .then(function(result){
+            viewed.create(result.tmdb_id, result.tmdb_type)
             return _complete(self, result)
           })
       }
@@ -68,6 +69,8 @@ qWatch.factory('watchableService', [
           .one('watch', id)
           .get({type: type})
           .then(function(result){
+            viewed.create(result.tmdb_id, result.tmdb_type)
+
             showItem.combineUrls(result)
             angular.copy(result, _watchable);
             return _watchable;
