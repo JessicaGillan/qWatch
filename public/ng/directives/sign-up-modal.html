@@ -18,8 +18,9 @@
 
         <button type="button" name="facebook"
                 class="btn facebook-sign-up"
-                ng-click="fbSignUp()">
-          Sign Up With Facebook
+                ng-click="fbSignUp()"
+                ng-class="{disabled: disableButtons}">
+          {{disableButtons ? 'Submitting' : 'Sign Up With Facebook' }}
         </button>
 
         <hr>
@@ -70,8 +71,9 @@
       <div class="modal-footer">
         <button type="submit" class="btn btn-success"
                 ng-click="submit(signUpForm, userData)"
-                ng-disabled="signUpForm.$invalid">
-                Sign Up
+                ng-disabled="signUpForm.$invalid"
+                ng-class="{disabled: disableButtons}">
+                {{disableButtons ? 'Submitting' : 'Sign Up'}}
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>

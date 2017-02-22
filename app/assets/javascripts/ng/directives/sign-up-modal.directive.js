@@ -1,19 +1,18 @@
 qWatch.directive('signUpModal',
-  [ 'userService',
-    function(user) {
+  [ '$q', 'userService',
+    function($q, user) {
       "use strict";
 
-      var fbSignUp = function fbSignUp () {
-        user.fbSignUp()
+      var fbSignUp = function fbSignUp() {
+        return user.fbSignUp();
       }
 
       var submit = function submit(form, formData) {
         if (form.$valid) {
-          user.signUp(formData);
-          return true
+          return user.signUp(formData)
+        } else {
+          return $q.reject();
         }
-
-        return false
       }
 
       var passwordMatch = function passwordMatch(data, form){
@@ -32,15 +31,33 @@ qWatch.directive('signUpModal',
           scope.userData = {};
 
           scope.submit = function (form, formData) {
-            if (submit(form, formData)) dismissModal();
+            if(!scope.disableButtons){
+              scope.disableButtons = true;
+              submit(form, formData).then(function(){
+                dismissModal();
+                scope.disableButtons = false;
+              })
+              .catch(function(e){
+                scope.disableButtons = false;
+              })
+            }
           };
 
           scope.passwordMatch = passwordMatch;
 
           scope.fbSignUp = function (form, formData) {
-            fbSignUp();
-            dismissModal();
+
+            if(!scope.disableButtons){
+              scope.disableButtons = true;
+              fbSignUp().then(function(){
+                dismissModal();
+              })
+              .catch(function(){
+                scope.disableButtons = false;
+              });
+            }
           };
+
 
           var dismissModal = function () {
             angular.element(element).children('#signUpModal').modal('hide');

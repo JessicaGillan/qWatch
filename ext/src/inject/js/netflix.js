@@ -76,6 +76,61 @@ var qWatchNetflix = function qWatchNetflix(){
   return collection
 }
 
-setTimeout(function(){
-  console.log(qWatchNetflix());
-}, 10000)
+function addShareButton(){
+  var statusBar, qWatchLink, qWatchLogo;
+
+  function addqWatchLogo(){
+    qWatchLink = document.createElement("A");
+    qWatchLogo = document.createElement("SPAN");
+
+    qWatchLink.classList.add("qwatch-logo");
+    qWatchLink.classList.add("player-control-button");
+    qWatchLogo.innerHTML = "qW";
+    qWatchLink.appendChild(qWatchLogo);
+    statusBar.appendChild(qWatchLink);
+  }
+
+  function grabTitle (){
+    return statusBar.querySelector('.player-status-main-title').innerHTML
+  }
+
+  function addqWatchListener(){
+    qWatchLink.target = "_blank";
+    qWatchLink.href = "https://qwatch.me/#!/share?title=" + grabTitle();
+  }
+
+  function statusBarReady(){
+
+    if(!(statusBar = document.querySelector('.player-status'))){
+      return setTimeout(statusBarReady, 100);
+    }
+    addqWatchLogo();
+    addqWatchListener();
+  }
+
+  statusBarReady();
+
+}
+
+var indexHandler, mined, currentLocation = location.pathname;
+
+function runScript(){
+  clearTimeout(indexHandler);
+  if(currentLocation.match(/.*browse.*/)){
+    if(!mined) indexHandler = setTimeout(function(){
+      qWatchNetflix();
+      mined = true;
+    }, 10000)
+  } else if(currentLocation.match(/.*watch.*/)) {
+    addShareButton();
+  }
+}
+
+runScript()
+
+setInterval(function(){
+  if(currentLocation !== location.pathname){
+    currentLocation = location.pathname
+    runScript()
+  }
+})
