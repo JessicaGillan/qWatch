@@ -8,6 +8,7 @@ qWatch.factory('userService',
       var _setUser = function _setUser(user) {
         angular.copy(user, _user);
         $root.currentUser = _user;
+        console.log(user)
         return _user;
       }
 

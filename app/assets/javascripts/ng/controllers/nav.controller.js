@@ -1,6 +1,6 @@
 qWatch.controller('NavCtrl', [
-  '$scope', '$state', '$rootScope', '$timeout', 'userService',
-  function($scope, $state, $root, $timeout, user) {
+  '$scope', '$state', '$rootScope', '$timeout', '_', 'userService',
+  function($scope, $state, $root, $timeout, _, user) {
     "use strict";
 
     /*
@@ -42,6 +42,11 @@ qWatch.controller('NavCtrl', [
     $scope.fbSignIn = function () {
       user.fbSignUp();
       $scope.userData = {};
+    }
+
+    $scope.facebookConnected = function facebookConnected(){
+      var connected = _.some($scope.currentUser.authentications, ['provider', "facebook"]);
+      return connected;
     }
 
   }

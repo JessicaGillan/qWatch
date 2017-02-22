@@ -1,41 +1,60 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # GET|POST /resource/auth/facebook
-  def passthru
-    super
-  end
-
-  # GET|POST /users/auth/twitter/callback
-  def failure
-    redirect_to root_path
-  end
 
   def facebook
-    @user = User.from_omniauth(request.env["omniauth.auth"] || params["auth"])
-
-    if @user.persisted?
-      puts "user persisted"
-      sign_in @user, :event => :authentication #this will throw if @user is not activated
-
-      puts "current user:"
-      p current_user
-
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
-
-      render json: @user
-    else
-      puts "user not persisted"
-      session["devise.facebook_data"] = request.env["omniauth.auth"] || params["auth"]
-      redirect_to new_user_registration_url
-    end
+    params["auth"]['credentials']['expires_at'] = params["auth"]['credentials']['expires_in'] ? params["auth"]['credentials']['expires_in'].to_i.seconds.from_now : nil
+    create
   end
 
-  # protected
+  def twitter
+    create
+  end
 
-  # The path used when OmniAuth fails
-  # def after_omniauth_failure_path_for(scope)
-  #   super(scope)
-  # end
+  def google
+    create
+  end
+
+  private
+
+    def check_signed_in
+      if user_signed_in?
+        render json: current_user.as_json(include: [:authentications]), status:200
+      else
+        render json: {error: "sign in failed"}, status: 422
+      end
+    end
+
+    def create
+      auth_params = request.env["omniauth.auth"] || params["auth"]
+      authentication = UserAuthentication.find_by(provider:auth_params["provider"], uid: auth_params["uid"])
+      existing_user = current_user || User.find_by(email: auth_params['info']['email'])
+
+      if authentication
+        sign_in_with_existing_authentication(authentication)
+      elsif existing_user
+        create_authentication_and_sign_in(auth_params, existing_user)
+      else
+        create_user_and_authentication_and_sign_in(auth_params)
+      end
+    end
+
+    def sign_in_with_existing_authentication(authentication)
+      sign_in(authentication.user)
+      check_signed_in
+    end
+
+    def create_authentication_and_sign_in(auth_params, user)
+      UserAuthentication.create_from_omniauth(auth_params, user)
+
+      sign_in(user)
+      check_signed_in
+    end
+
+    def create_user_and_authentication_and_sign_in(auth_params)
+      user = User.create_from_omniauth(auth_params)
+      if user.valid?
+        create_authentication_and_sign_in(auth_params, user)
+      else
+        render json: {error: user.errors.full_messages.first}, status: 422
+      end
+    end
 end
-
-
-# https://localhost:3000/api/v1/users/auth/facebook/callback?code=AQDGN528xbiDpSgGCXda_kuNBMXXK67bsV1TYiZuodMypuz7411DrBazmT9rBjbFJWW6p2DOVLkUNgG6ZU0mGrXnL3b_Ykr_oelGcjjuAG18vpPuA8OuwAq-h1jnPfOGExY3vudsBRLPtWLJtiYBwZdJ-62V61Cld-isv3tDjhHF6MYlmV6-_5U9lX1qWqHwpNNt6ix0yi094Qym8R-USyZN3u-S_NZwnM-S6qujGXug7h8hKtIHTJkwCceZGOU4B79t16HUPyEB7ekm1aZNG23YvqAkEafTmSgeaMDwKhLEXzflmHXQnC27sPTajSvg8TMhZfzvCwxL83LVUgZW_fHxKWPaAQQ2qoec2GgNXM1XZg&state=d84b0033874e8932d4eee7596c85c825832dbc0c61a94a8d#_=_

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :data, only: [:index, :options, :create]
       match 'data' => 'data#options', via: [:options]
 
+      # match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+
       devise_for :users, controllers: {
         sessions: 'users/sessions',
         registrations: 'users/registrations',

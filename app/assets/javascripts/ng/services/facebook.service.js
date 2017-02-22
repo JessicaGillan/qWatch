@@ -69,6 +69,7 @@ qWatch.factory('facebookService', [
     };
 
     var backendLogIn = function backendLogIn(auth, info) {
+      console.log(auth, info)
       auth = {
         provider: "facebook",
         uid: auth.userID,
@@ -76,6 +77,10 @@ qWatch.factory('facebookService', [
           email: info.email,
           name: info.name,
           friends: info.friends
+        },
+        credentials: {
+          expires_in: auth.expiresIn,
+          token: auth.accessToken
         }
       }
 
@@ -84,9 +89,10 @@ qWatch.factory('facebookService', [
        out the auth code from the signed request in the fbsr_XXX cookie
       */
 
-      return $.getJSON('/api/v1/users/auth/facebook/callback',
+      return angular.element.getJSON('/api/v1/users/auth/facebook/callback',
               { auth: auth },
               function(json) {
+                console.log(json)
                 return json
               });
     };
