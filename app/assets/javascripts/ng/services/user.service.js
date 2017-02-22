@@ -34,11 +34,7 @@ qWatch.factory('userService',
       }
 
       var signedIn = function signedIn () {
-<<<<<<< HEAD
-        return !!Object.keys($root.currentUser).length
-=======
         return !(_.isEmpty(_user));
->>>>>>> dev
       }
 
       var logIn = function logIn(loginData) {

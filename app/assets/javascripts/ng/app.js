@@ -146,47 +146,13 @@ var qWatch = angular
     //----------- LOAD AND INIT FACEBOOK JAVASCRIPT SDK -------------------//
 
     .run(['$rootScope', '$window', '$cookies', 'facebookService',
-      function($rootScope, $window, $cookies, facebook, FBSdk) {
+      function($rootScope, $window, $cookies, facebook) {
         $rootScope.currentUser = {};
 
         // FACEBOOK Configuration params
         // Executed when the SDK is loaded
         $window.fbAsyncInit = function() {
-<<<<<<< HEAD
-          // Executed when the SDK is loaded
-          // console.log("fb_app_id:", $cookies.get("fb_app_id") || 0)
-          FB.init({
-            appId: $cookies.get("fb_app_id") || 0,
-            status: true, // Check auth status at the start of the app
-            cookie: true, // Enable cookis so server can access the session
-            version: 'v2.6'
-          });
-
-          facebook.watchAuthenticationStatusChange();
-        };
-
-        (function(d){
-          // load the Facebook javascript SDK
-          var js,
-          id = 'facebook-jssdk';
-
-          if (d.getElementById(id)) {
-            return;
-          }
-
-          ref = d.getElementsByTagName('script')[0];
-          js = d.createElement('script');
-          js.id = id;
-          js.async = true;
-          js.src = "//connect.facebook.net/en_US/sdk.js";
-
-          ref.parentNode.insertBefore(js, ref);
-
-        }(document));
-
-=======
           facebook.init($window.FB, $cookies.get("fb_app_id"));
         };
 
->>>>>>> dev
       }]);
