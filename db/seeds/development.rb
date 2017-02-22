@@ -20,8 +20,6 @@ puts "adding users"
     email: "u#{i}@example.com",
     password: "111111",
     password_confirmation: "111111",
-    provider: "facebook",
-    uid: i
   })
 end
 
