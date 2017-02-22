@@ -1,0 +1,22 @@
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="pointable modal-title">
+          Delete Account
+        </div>
+      </div>
+
+      <div class="modal-body">
+        Are You Sure You Want to Delete Your Account?? (this cannot be undone, and all data and app permissions will be deleted)
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" ng-click="submit()" ng-class="{disabled:  disableButtons }">{{ disableButtons ? 'Deleting...' :  'Delete Account' }}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-class="{disabled:  disableButtons }">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

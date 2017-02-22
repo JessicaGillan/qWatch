@@ -503,3 +503,40 @@ input.ng-invalid.ng-dirty {
   background-color: $facebook;
   color: white;
 }
+
+ul.nav li.dropdown:hover{
+  color: #fff;
+  background-color: #080808;
+  & > ul.dropdown-menu {
+    display: block;
+    background-color: #2b78e4;
+  }
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px;
+    overflow:hidden;
+    background-color:rgba(240,248,255,.8);
+    &, a {
+      color: #333;
+    }
+    .help-block{
+      font-size:12px
+    }
+    .bottom{
+      background-color:rgba(240,248,255,.8);
+      border-top:1px solid #ddd;
+      clear:both;
+      padding:14px;
+    }
+    .social-buttons{
+      margin:12px 0
+    }
+    .social-buttons a{
+      width: 49%;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+  }

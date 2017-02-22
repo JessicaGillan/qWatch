@@ -1,6 +1,6 @@
 qWatch.factory('userService',
-  ['$rootScope', 'Restangular', 'Auth', 'facebookService',
-    function($root, Restangular, Auth, facebook) {
+  ['$rootScope', '$q', '_', 'Auth', 'facebookService',
+    function($root, $q, _, Auth, facebook) {
       "use strict";
 
       var _user = {};
@@ -8,16 +8,18 @@ qWatch.factory('userService',
       var _setUser = function _setUser(user) {
         angular.copy(user, _user);
         $root.currentUser = _user;
+        return _user;
       }
 
       var _setCurrentUser = function _setCurrentUser() {
-        Auth.currentUser()
+        return Auth.currentUser()
         .then(function(user) {
-          _setUser(user);
+          return _setUser(user);
         })
         .catch(function(err) {
           console.log("no current user found")
           console.error(err);
+          $q.reject("Not Logged In");
         });
       }
       _setCurrentUser();
@@ -29,27 +31,45 @@ qWatch.factory('userService',
       }
 
       var signedIn = function signedIn () {
-        return !!Object.keys(_user).length
+        return !(_.isEmpty(_user));
       }
 
       var logIn = function logIn(loginData) {
-        Auth.login(loginData)
+        return Auth.login(loginData)
           .then( function (user) {
-            _setUser(user);
+            return _setUser(user);
           })
-          .catch( function (e) { alert("Invalid Credentials:", e) });
+          .catch(function(e) {
+            alert("Invalid Credentials:", e);
+            return $q.reject("Invalid Credentials")
+          });
       }
 
       var logOut = function logOut() {
         Auth.logout()
           .then( function (r) {
             _setUser({});
+            return true;
           })
-          .catch( function (e) { console.error(e) });
+          .catch(function (e){
+            console.error(e);
+            return $q.reject(e);
+          });
+      }
+
+      var _stringifyErrors = function _stringifyErrors(errors){
+        var errStr = "";
+        for(var e in errors){
+          var error = errors[e]
+          for(var i = 0, length = error.length; i < length; i++){
+            errStr += e + " " + error[i] + "; ";
+          }
+        }
+        return errStr;
       }
 
       var signUp = function signUp(data){
-        Auth.register({
+        return Auth.register({
           email: data.email,
           password: data.password,
           password_confirmation: data.password_confirmation,
@@ -57,39 +77,56 @@ qWatch.factory('userService',
         })
         .then(function(user){
           _setCurrentUser();
+          return getCurrentUser();
         })
         .catch(function(err){
-          var errStr = "";
-          for(var e in err.data.errors){
-            var error = err.data.errors[e]
-            for(var i = 0; i < error.length; i++){
-              errStr += e + " " + error[i] + "; "
-            }
-          }
+          var errStr = _stringifyErrors(err.data.errors)
           alert("Registration Failed: " + errStr)
+          return $q.reject(errStr);
         });
       }
 
       var fbSignUp = function fbSignUp() {
         return facebook.login()
                 .then(function(res) {
-
                   if (res.status === 'connected') {
-
                     //  The user is logged in, retrieve personal info
-                    facebook.getUserInfo()
-                    .then(function (userInfo) {
-
-                      facebook.backendLogIn(res.authResponse, userInfo)
-                      .then(function (user) {
-                        $root.$apply(function() {
-                          _setUser(user);
-                        });
-                      });
-                    });
+                    return facebook.getUserInfo()
                   }
-                });
+
+                  return $q.reject('Canceled');
+                })
+                .then(function (userInfo) {
+                  return facebook.backendLogIn(res.authResponse, userInfo)
+                })
+                .then(function (user) {
+                  $root.$apply(function() {
+                    _setUser(user);
+                  });
+                  return getCurrentUser();
+                })
       }
+
+      var _deleteAccount = function _deleteAccount(){
+        var currentUser = getCurrentUser();
+        if(currentUser.provider === "facebook"){
+          return facebook.destroy().then(function(){
+            return Auth.register({}, {method: 'DELETE'})
+          })
+        } else {
+          return Auth.register({}, {method: 'DELETE'})
+        }
+      }
+
+      var destroyAccount = function destroyAccount(){
+        return _deleteAccount().then(function(){
+          _setUser({});
+          return true;
+        })
+        .catch(function(e){
+          $q.reject(e);
+        })
+      };
 
       return {
         currentUser: getCurrentUser,
@@ -97,7 +134,8 @@ qWatch.factory('userService',
         signIn: logIn,
         signUp: signUp,
         signOut: logOut,
-        fbSignUp: fbSignUp
+        fbSignUp: fbSignUp,
+        destroy: destroyAccount
       };
     }
   ]
