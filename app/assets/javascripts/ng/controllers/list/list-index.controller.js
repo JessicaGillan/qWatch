@@ -1,6 +1,6 @@
 qWatch.controller('ListIndexCtrl',[
-  '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService",
-  function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig){
+  '$scope', '$rootScope', '$timeout', '$window', '$state', '$stateParams', 'watchableService', "tmdbConfigService", 'listenerService',
+  function($scope, $root, $timeout, $window, $state, $stateParams, watchable, tmdbConfig, listeners){
     "use strict";
 
     /*
@@ -30,8 +30,7 @@ qWatch.controller('ListIndexCtrl',[
         angWindow = angular.element($window),
         _rowHeight,
         _searchDebounce,
-        _initialLoaded,
-        _handlers = {root: [], element: []};
+        _initialLoaded;
 
     // NOT currently on SHOW page
     $root.showPage = false;
@@ -77,8 +76,11 @@ qWatch.controller('ListIndexCtrl',[
 
     // event listener wrapper to also setup deregistration
     var _setListener = function _setListener(el, ev, f){
-      el.on(ev, f);
-      _handlers.element.push({el: el, ev: ev, f: f})
+      listeners.element('controller', 'listIndex', el, ev, f);
+    }
+
+    var _setRootListener = function _setRootListener(ev, f){
+      listeners.root('controller', 'listIndex', ev, f);
     }
 
     // on resize (e.g. phone rotated or page zoomed) recalculate row height for debounce
@@ -323,12 +325,12 @@ qWatch.controller('ListIndexCtrl',[
     }
 
     // on there being a new search set, run the search
-    _handlers.root.push($root.$on('searchSet', function(event, term){
+    _setRootListener('searchSet', function(event, term){
       _setSearch(term)
-    }));
+    });
 
     //on clearing out the search terms, switch back to full index
-    _handlers.root.push($root.$on('searchClear', _setToIndex));
+    _setRootListener('searchClear', _setToIndex);
 
     // scroll listener
     _setListener(angular.element(document), 'scroll', _onScroll);
@@ -337,17 +339,7 @@ qWatch.controller('ListIndexCtrl',[
     _setListener(angular.element($window), 'resize', _onResize);
 
     $scope.$on("$destroy", function() {
-      var rootHandlers = _handlers.root,
-          elementHandlers = _handlers.element;
-
-      for(var i = 0, length = rootHandlers.length; i < length; i++){
-        rootHandlers[i]();
-      }
-
-      for(var i = 0, length = elementHandlers.length; i < length; i++){
-        var item = elementHandlers[i];
-        item.el.off(item.ev, item.f);
-      }
+      listeners.destroy('controller', 'listIndex')
     });
   }
 ])

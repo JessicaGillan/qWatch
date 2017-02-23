@@ -39,39 +39,20 @@ qWatch.factory('viewedItemsService', [
 
     var create = function create(tmdb_id, tmdb_type) {
       if (user.signedInUser()) {
-
-        if (!_itemsSet) getAll();
-
-        if (!includedInViewed(tmdb_id, tmdb_type)) {
-          restangular
-          .one('watch', tmdb_id)
-          .all('viewings')
-          .post({ tmdb_type: tmdb_type })
-          .then(
-            function (viewedItem) {
-              if (viewedItem) _viewedItems.unshift(viewedItem);
-            },
-            function (response) {
-              console.log("Viewing Already exists");
-            }
-          );
-        }
+        restangular
+        .one('watch', tmdb_id)
+        .all('viewings')
+        .post({ tmdb_type: tmdb_type })
+        .then(
+          function (viewedItem) {
+            if (viewedItem) _viewedItems.unshift(viewedItem);
+          },
+          function (response) {
+            console.log("Viewing Already exists");
+          }
+        );
       }
     };
-
-    // Avoid making unnecessary post request for already viewed items,
-    // will still try to make a request while viewed items are loading
-    var includedInViewed = function includedInViewed(tmdb_id, tmdb_type) {
-      for (var i = 0; i < _viewedItems.length; i++) {
-        console.log(_viewedItems[i].tmdb_id, tmdb_id)
-        if (_viewedItems[i].tmdb_id === parseInt(tmdb_id) &&
-            _viewedItems[i].tmdb_type === tmdb_type) {
-          return true;
-        }
-      }
-
-      return false
-    }
 
     var fetchFriends = function fetchFriends() {
       if (user.signedInUser()) {

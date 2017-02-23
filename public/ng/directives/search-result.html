@@ -12,7 +12,7 @@
         <div ng-hide="item.services.length === 0">
           <h2>Watch on...</h2>
           <div class="logo-wrapper" ng-repeat="service in item.services">
-            <a href="{{ service.link }}">
+            <a ng-click="view(service.link)">
               <img ng-src="service_logos/{{ service.name }}.png" alt="{{ service.name }} logo">
               <p class="logo-name">{{ service.name | titleizeBrand }}</p>
             </a>
@@ -29,13 +29,14 @@
         <div class="share-button">
           Share qWatch Link on...
           <share-buttons id="share-buttons"
-          title="{{ item.title }}"
-            share-url="{{ 'https://qwatch.me/#!/watch/movie/' + item.tmdb_id }}"
-            share-img="{{ images.large + item.poster }}">
+            title="{{ item.title }}"
+            share-url="{{ 'https://qwatch.me/#!/watch/' + item.tmdb_type + '/' + item.tmdb_id }}"
+            share-img="{{ images.large + item.poster }}"
+            watchable="item">
           </share-buttons>
         </div>
 
-        <copy-link></copy-link>
+        <copy-link watchable="item"></copy-link>
       </div>
     </div>
   </div>

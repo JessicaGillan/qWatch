@@ -13,14 +13,23 @@ class ViewingsController < ApplicationController
 
     # if the item is found, and they haven't already viewed it before
     # TODO: discuss multiple viewing of the same title
-    if viewed_item && !(current_user.viewed_items.include? viewed_item)
+    if viewed_item
+      if !(current_user.viewed_items.include? viewed_item)
 
-      # associate the new viewed movie
-      current_user.viewed_items << viewed_item
+        # associate the new viewed movie
+        current_user.viewed_items << viewed_item
+
+      else
+        # update the last activity from the viewing
+        view = current_user.viewings.find_by(viewed_id: viewed_item.tmdb_id)
+        view.touch
+      end
 
       # return the current time, the title, and the TMDB info
       render json: { viewed_at: Time.now, title: viewed_item.title,
-                     tmdb_id: viewed_item.tmdb_id, tmdb_type: viewed_item.tmdb_type }
+        tmdb_id: viewed_item.tmdb_id, tmdb_type: viewed_item.tmdb_type }
+    else
+      render json: {error: "Watchable not found"}, status: 404
     end
   end
 
