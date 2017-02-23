@@ -11,10 +11,10 @@ describe 'NavController', ->
       $timeout: @timeout,
       _: @_
 
-    user = @model('userService')
+    @user = @model('userService')
 
     @http
-      .whenGET '/api/v1/users'
+      .whenGET '/api/v1/users/sign_in'
       .respond 200,
         authentications:
           created_at: "2017-02-22T18:56:30.392Z"
@@ -77,12 +77,6 @@ describe 'NavController', ->
       expect @scope.toggleSideBar
         .toEqual jasmine.any Function
 
-    it 'sets devise listeners', ->
-      expect @scope.$$listeners["devise:login"]
-        .toEqual jasmine.any Array
-      expect @scope.$$listeners["devise:logout"]
-        .toEqual jasmine.any Array
-
   describe 'goToIndex', ->
     it 'does a full redirect to the index', ->
       @scope.goToIndex()
@@ -92,4 +86,54 @@ describe 'NavController', ->
   describe 'signedInUser', ->
     it 'returns a boolean of whether the user is signed in', ->
       expect @scope.signedInUser()
+        .toBeA('boolean')
+
+  describe 'signIn', ->
+    describe 'with a valid form', ->
+      it 'signs in a user with data from a valid form', ->
+        spyOn(@user, 'signIn')
+        @scope.signIn(true)
+        expect @user.signIn
+          .toHaveBeenCalled();
+
+      it 'clears $scope.userData', ->
+        @scope.userData = { "email": "test@example.com", "password": "111111" }
+        spyOn(@user, 'signIn')
+
+        @scope.signIn(true)
+        expect @scope.userData
+          .toEqual {}
+
+    describe 'with an invalid form', ->
+      it 'does not sign in a user', ->
+        spyOn(@user, 'signIn')
+        @scope.signIn(false)
+        expect @user.signIn
+          .not.toHaveBeenCalled();
+
+  describe 'signOut', ->
+    it 'calls user.signOut', ->
+      spyOn(@user, 'signOut')
+      @scope.signOut()
+      expect @user.signOut
+        .toHaveBeenCalled();
+
+  describe 'fbSignIn', ->
+    it 'calls user.fbSignUp', ->
+      spyOn(@user, 'fbSignUp')
+      @scope.fbSignIn()
+      expect @user.fbSignUp
+        .toHaveBeenCalled();
+
+    it 'clears $scope.userData', ->
+      spyOn(@user, 'fbSignUp')
+      @scope.userData = { "email": "test@example.com", "password": "111111" }
+
+      @scope.fbSignIn()
+      expect @scope.userData
+        .toEqual {}
+
+  describe 'facebookConnected', ->
+    it 'returns a boolean of whether the user has a connected FB account', ->
+      expect @scope.facebookConnected()
         .toBeA('boolean')

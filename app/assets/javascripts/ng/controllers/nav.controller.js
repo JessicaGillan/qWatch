@@ -46,7 +46,7 @@ qWatch.controller('NavCtrl', [
     }
 
     $scope.facebookConnected = function facebookConnected(){
-      var connected = _.some($scope.currentUser.authentications, ['provider', "facebook"]);
+      var connected = _.some($root.currentUser.authentications, ['provider', "facebook"]);
       return connected;
     }
 
@@ -58,14 +58,5 @@ qWatch.controller('NavCtrl', [
 
       $root.showSideBar = !$root.showSideBar;
     }
-
-    $scope.$on('devise:login', function(){
-      console.log("devise login!")
-    })
-
-    $scope.$on('devise:logout', function(){
-      console.log("devise logout!")
-    })
-
   }
 ]);
