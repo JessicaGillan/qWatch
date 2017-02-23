@@ -11,7 +11,7 @@ qWatch.factory('userService',
         console.log(user)
 
         if (callback) callback(_user);
-        
+
         return _user;
       }
 
@@ -23,10 +23,10 @@ qWatch.factory('userService',
         .catch(function(err) {
           console.log("no current user found")
           console.error(err);
-          $q.reject("Not Logged In");
+          return $q.reject("Not Logged In");
         });
       }
-      _setCurrentUser();
+      _setCurrentUser().catch(function(){});
 
       //----- Access Methods ------------//
 
@@ -80,7 +80,9 @@ qWatch.factory('userService',
           name: data.name
         })
         .then(function(user){
-          _setCurrentUser();
+          return _setCurrentUser()
+        })
+        .then(function(user){
           return getCurrentUser();
         })
         .catch(function(err){

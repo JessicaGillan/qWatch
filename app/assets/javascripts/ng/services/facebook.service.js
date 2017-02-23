@@ -20,7 +20,7 @@ qWatch.factory('facebookService', [
 
     var _watchLoginChange = function _watchLoginChange() {
       fbSdk.Event.subscribe('auth.authResponseChange', function(res) {
-        console.log("FB login change")
+        console.log("FB login change", res.status)
 
         if (res.status === 'connected') {
 
