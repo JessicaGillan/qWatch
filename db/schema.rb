@@ -25,13 +25,6 @@ ActiveRecord::Schema.define(version: 20170222175947) do
     t.index ["friend_id", "friender_id"], name: "index_friendings_on_friend_id_and_friender_id", unique: true, using: :btree
   end
 
-  create_table "identities", force: :cascade do |t|
-    t.string  "uid"
-    t.string  "provider"
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_identities_on_user_id", using: :btree
-  end
-
   create_table "tmdb_configs", force: :cascade do |t|
     t.string   "url",                     null: false
     t.datetime "created_at",              null: false
@@ -99,5 +92,4 @@ ActiveRecord::Schema.define(version: 20170222175947) do
     t.index ["tmdb_type"], name: "index_watchables_on_tmdb_type", using: :btree
   end
 
-  add_foreign_key "identities", "users"
 end
