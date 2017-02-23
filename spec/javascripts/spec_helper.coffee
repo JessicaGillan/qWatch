@@ -9,9 +9,15 @@ customMatchers =
       pass: angular.equals(actual, expected);
     negativeCompare: (actual, expected) ->
       pass: !angular.equals(actual, expected);
+  toBeA: (expected) ->
+    compare: (actual, expected) ->
+      pass: (typeof actual == expected)
+    negativeCompare: (actual, expected) ->
+      pass: (typeof actual != expected)
 
 
 beforeEach(module('qWatch'))
+
 beforeEach ->
   jasmine.addMatchers(customMatchers);
 
@@ -21,7 +27,7 @@ beforeEach inject (_$httpBackend_, _$compile_, $window, $rootScope, $controller,
   @windowStub =
     location:
       href: "something"
-  
+
   @scope = $rootScope.$new()
   @root = $rootScope
   @state = $state
