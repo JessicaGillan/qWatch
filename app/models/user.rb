@@ -45,7 +45,7 @@ class User < ApplicationRecord
   def self.create_from_omniauth(auth)
     attributes = {
       email: auth['info']['email'],
-      name: auth["info"]["name"],
+      name: auth['info']['name'],
       password: Devise.friendly_token
     }
 
@@ -56,7 +56,7 @@ class User < ApplicationRecord
   #
   # arg - any: field from devise, unused
   #
-  def to_json(arg)
+  def to_json
     self.as_json(include: [:authentications]).to_json
   end
 
@@ -74,8 +74,7 @@ class User < ApplicationRecord
     friend_ids = self.friends.pluck(:id)
 
     fb_user_info.each do |index, friend|
-
-      user_friend = UserAuthentication.find_by(provider: "facebook", uid: friend["id"].to_i).user
+      user_friend = UserAuthentication.find_by(provider: "facebook", uid: friend['id'].to_i).user
 
       if user_friend && !(friend_ids.include? user_friend.id)
         self.friended_users << user_friend
@@ -94,12 +93,13 @@ class User < ApplicationRecord
     .select('viewings.created_at AS viewed_at',
             'users.name AS friend',
             'watchables.title AS title',
-            'watchables.tmdb_id AS tmdb_id')
+            'watchables.tmdb_id AS tmdb_id',
+            'watchables.tmdb_type AS tmdb_type')
   end
 
   # Public: View the recently viewed item for a user
   #
-  def viewed_items_slim
+  def viewed_items_with_viewing_date
     Viewing
     .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
     .where(viewer_id: self.id)

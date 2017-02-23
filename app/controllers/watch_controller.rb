@@ -24,9 +24,14 @@ class WatchController < ApplicationController
 
   # get individual Movie/TV show
   def show
+
+    # default to type = 'movie'
+    type = params[:type] ? params[:type] : 'movie'
+
     # find polymorphic by indexed tmdb info
     # since primary key is reindexed for pagination, this key does not change
-    watch = Watchable.find_by(tmdb_id: params[:id], tmdb_type: params[:type])
+    watch = Watchable.find_by(tmdb_id: params[:id], tmdb_type: type)
+    
     # grab all details including guidebox info.
     # this will affect API limits
     watch.full_details

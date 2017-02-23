@@ -9,7 +9,7 @@ class ViewingsController < ApplicationController
     # Note: until the guidebox api clears, view tracking is currently only set for Movies
 
     # find the movie in question
-    viewed_item = Watchable.find_by(tmdb_id: params[:watch_id], tmdb_type: 'movie')
+    viewed_item = Watchable.find_by(tmdb_id: params[:watch_id].to_i, tmdb_type: 'movie')
 
     # if the item is found, and they haven't already viewed it before
     # TODO: discuss multiple viewing of the same title
@@ -33,7 +33,7 @@ class ViewingsController < ApplicationController
 
     # otherwise show the user's history
     else
-      @viewed_items = current_user.viewed_items_slim
+      @viewed_items = current_user.viewed_items_with_viewing_date
 
       render json: @viewed_items.to_json
     end
