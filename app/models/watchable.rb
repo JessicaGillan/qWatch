@@ -29,7 +29,7 @@ class Watchable < ApplicationRecord
   # query - String: string to match against
   # strict - boolean: Whether to only return exact matches
   #
-  def self.title_search(query, strict)
+  def self.title_search(query, strict = false)
 
     return self.where("title ilike ?", query) if strict
     self.where("title ilike ?", "%#{query}%").order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
