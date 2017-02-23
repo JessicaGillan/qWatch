@@ -33,7 +33,7 @@ class ViewingsController < ApplicationController
 
     # otherwise show the user's history
     else
-      @viewed_items = current_user.viewed_items_slim
+      @viewed_items = current_user.viewed_items_with_viewing_date
 
       render json: @viewed_items.to_json
     end
