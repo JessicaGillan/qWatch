@@ -56,7 +56,7 @@ class User < ApplicationRecord
   #
   # arg - any: field from devise, unused
   #
-  def to_json
+  def to_json(arg = nil)
     self.as_json(include: [:authentications]).to_json
   end
 
@@ -74,7 +74,7 @@ class User < ApplicationRecord
     friend_ids = self.friends.pluck(:id)
 
     fb_user_info.each do |index, friend|
-      user_friend = UserAuthentication.find_by(provider: "facebook", uid: friend['id'].to_i).user
+      user_friend = UserAuthentication.find_by(provider: "facebook", uid: friend['id']).user
 
       if user_friend && !(friend_ids.include? user_friend.id)
         self.friended_users << user_friend
