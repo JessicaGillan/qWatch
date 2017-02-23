@@ -53,11 +53,14 @@ class User < ApplicationRecord
     friend_ids = self.friends.pluck(:id)
 
     fb_user_info.each do |index, friend|
-
       user_friend = UserAuthentication.find_by(provider: "facebook", uid: friend["id"].to_i).user
 
       if user_friend && !(friend_ids.include? user_friend.id)
+        puts "adding friend"
+
         self.friended_users << user_friend
+
+        p Friending.count
       end
     end
   end

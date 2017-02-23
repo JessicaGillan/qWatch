@@ -33,6 +33,12 @@ FactoryGirl.define do
       end
 
     end
+
+    factory :user_with_fb_account do
+      after(:create) do |user|
+        create(:user_authentication, user: user)
+      end
+    end
   end
 
   factory :friending do
@@ -40,4 +46,10 @@ FactoryGirl.define do
     friend_recipient
   end
 
+  factory :user_authentication do
+    user
+
+    provider "facebook"
+    sequence(:uid){ |n| n }
+  end
 end
