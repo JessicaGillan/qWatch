@@ -63,6 +63,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-lodash'
   gem 'rails-assets-restangular'
   gem 'rails-assets-angular-devise'
+  gem 'rails-assets-angular-mocks'
 end
 
 group :test do
@@ -79,6 +80,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'jazz_fingers'
   gem 'faker'
+  gem 'jasmine-rails'
+  gem 'guard-jasmine'
 end
 
 group :development do

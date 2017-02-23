@@ -20,7 +20,7 @@ class Guidebox
     #
     # options - Hash: additional query string parameters
     #
-    method pull_movies(options = {})
+    def pull_movies(options = {})
     # Get all movies - /*https://api-public.guidebox.com/v2/movies?api_key=*/
 
       response = HTTParty.get(build_url('movies', options))
@@ -32,7 +32,7 @@ class Guidebox
     # id - integer: the guidebox id of the movie
     # options - Hash: guidebox parameters for the movie details
     #
-    method pull_movie_data(id, options = {})
+    def pull_movie_data(id, options = {})
     # Get Single Movie - /* https://api-public.guidebox.com/v2/movies/:GuideboxID?api_key= */
 
       response = HTTParty.get(build_url("movies/#{id}", options))
@@ -43,7 +43,7 @@ class Guidebox
     #
     # options - Hash: options hash for url params, keys are the url key, values are the url value
     #
-    method search_for_movie(options)
+    def search_for_movie(options)
     # GET /v2/search?type=movie&field=id&id_type=themoviedb&query=328111
 
       response = HTTParty.get(build_url("search", options))
@@ -56,7 +56,7 @@ class Guidebox
       # product - String: Guidbox API endpoint
       # options - Hash: params hash to be mapped to URL
       #
-      method build_url(product, options = nil)
+      def build_url(product, options = nil)
 
         "#{BASE_URL}#{product}#{API_KEY}#{build_query_string(options)}"
       end
@@ -65,7 +65,7 @@ class Guidebox
       #
       # options - Hash: a hash of parameters to map
       #
-      method build_query_string(options)
+      def build_query_string(options)
 
         return "" if !options || options.empty?
         q_str = ""
