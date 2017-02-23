@@ -1,6 +1,7 @@
 <div class="share-button-wrapper">
 
   <button class="btn btn-social font-bold" id="btn-twitter"
+    ng-click="view()"
     data-toggle="tooltip" title="Twitter"
     socialshare
     socialshare-provider="twitter"
@@ -12,6 +13,7 @@
 
   <button class="btn btn-social font-bold" id="btn-facebook"
     data-toggle="tooltip" title="Facebook"
+    ng-click="view()"
     socialshare
     socialshare-provider="facebook"
     socialshare-type="share"
@@ -31,6 +33,7 @@
 
   <button class="btn btn-social font-bold" id="btn-email"
     data-toggle="tooltip" title="Email"
+    ng-click="view()"
     socialshare
     socialshare-provider="email"
     socialshare-subject="Watch {{ title }} with qWatch.me: {{ shareUrl }}"

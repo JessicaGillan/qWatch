@@ -89,8 +89,8 @@ class User < ApplicationRecord
     .joins("JOIN users ON viewings.viewer_id = users.id")
     .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
     .where(viewer_id: self.friends.pluck(:id))
-    .order('viewings.created_at DESC')
-    .select('viewings.created_at AS viewed_at',
+    .order('viewings.updated_at DESC')
+    .select('viewings.updated_at AS viewed_at',
             'users.name AS friend',
             'watchables.title AS title',
             'watchables.tmdb_id AS tmdb_id',
@@ -103,8 +103,8 @@ class User < ApplicationRecord
     Viewing
     .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
     .where(viewer_id: self.id)
-    .order('viewings.created_at DESC')
-    .select('viewings.created_at AS viewed_at',
+    .order('viewings.updated_at DESC')
+    .select('viewings.updated_at AS viewed_at',
             'watchables.title AS title',
             'watchables.tmdb_id AS tmdb_id',
             'watchables.tmdb_type AS tmdb_type')
