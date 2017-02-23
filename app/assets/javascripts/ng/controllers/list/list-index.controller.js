@@ -22,13 +22,16 @@ qWatch.controller('ListIndexCtrl',[
     * _initialLoaded:   placeholder for initial load of full index.
     *                   used to make sure search from show page is shown if result is returned before index;
     *
+    * _handlers:        object to hold all listener handlers for destruction on navigation
+    *
     */
     var el = angular.element('#watchable-search'),
         scroll = 0,
         angWindow = angular.element($window),
         _rowHeight,
         _searchDebounce,
-        _initialLoaded;
+        _initialLoaded,
+        _handlers = {root: [], element: []};
 
     // NOT currently on SHOW page
     $root.showPage = false;
@@ -70,6 +73,12 @@ qWatch.controller('ListIndexCtrl',[
         firstEl: el.offset().top
       }, $scope.offset)
       angWindow.scrollTop(0);
+    }
+
+    // event listener wrapper to also setup deregistration
+    var _setListener = function _setListener(el, ev, f){
+      el.on(ev, f);
+      _handlers.element.push({el: el, ev: ev, f: f})
     }
 
     // on resize (e.g. phone rotated or page zoomed) recalculate row height for debounce
@@ -291,21 +300,12 @@ qWatch.controller('ListIndexCtrl',[
         })
     }
 
-    // on there being a new search set, run the search
-    $root.$on('searchSet', function(event, term){
-      _setSearch(term)
-    });
-
-    //on clearing out the search terms, switch back to full index
-    $root.$on('searchClear', _setToIndex);
-
-    // scroll listener
-    angular.element(document).on('scroll', function (e) {
+    var _onScroll = function _onScroll(e){
       // if there is currently a result being shown keep setting window scroll top to be where it was before
       if($scope.currentItem.id){
         angWindow.scrollTop(scroll);
 
-      // else run the debouncer
+        // else run the debouncer
       } else {
 
         // set the new scroll position to be the current scroll position minus the offset of where the list starts on the page
@@ -315,14 +315,39 @@ qWatch.controller('ListIndexCtrl',[
         if(_rowHeight){
           _debouncer();
 
-        // else run the resize function to grab row heights for the next scroll
+          // else run the resize function to grab row heights for the next scroll
         } else {
           _onResize();
         }
       }
-    });
+    }
+
+    // on there being a new search set, run the search
+    _handlers.root.push($root.$on('searchSet', function(event, term){
+      _setSearch(term)
+    }));
+
+    //on clearing out the search terms, switch back to full index
+    _handlers.root.push($root.$on('searchClear', _setToIndex));
+
+    // scroll listener
+    _setListener(angular.element(document), 'scroll', _onScroll);
 
     // on window resize recalculate row size for scroll debouncer
-    angular.element($window).on('resize', _onResize);
+    _setListener(angular.element($window), 'resize', _onResize);
+
+    $scope.$on("$destroy", function() {
+      var rootHandlers = _handlers.root,
+          elementHandlers = _handlers.element;
+
+      for(var i = 0, length = rootHandlers.length; i < length; i++){
+        rootHandlers[i]();
+      }
+
+      for(var i = 0, length = elementHandlers.length; i < length; i++){
+        var item = elementHandlers[i];
+        item.el.off(item.ev, item.f);
+      }
+    });
   }
 ])

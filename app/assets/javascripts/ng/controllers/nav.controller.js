@@ -1,6 +1,6 @@
 qWatch.controller('NavCtrl', [
-  '$scope', '$state', '$rootScope', '$timeout', '_', 'userService', 'viewedItemsService',
-  function($scope, $state, $root, $timeout, _, user, viewedItems) {
+  '$scope', '$state', '$window', '$rootScope', '$timeout', '_', 'userService', 'viewedItemsService',
+  function($scope, $state, $window, $root, $timeout, _, user, viewedItems) {
     "use strict";
 
     /*
@@ -19,7 +19,7 @@ qWatch.controller('NavCtrl', [
     // scope function to go to the 'List' state
     $scope.goToIndex = function goToIndex(){
       // Ensure normalization by doing a full page load
-      location.href = "/"
+      $window.location.href = "/";
     }
 
     $scope.signedInUser = function signedInUser() {
