@@ -1,10 +1,16 @@
+# Public: DB Model for users table
+#
 class User < ApplicationRecord
 
-  has_many :authentications, class_name: 'UserAuthentication', dependent: :destroy
-  # Include devise modules
+
+  ##### DEVISE ASSOCIATIONS #####
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable, :trackable,
           :omniauthable, :omniauth_providers => [:facebook, :twitter, :google]
+
+  ##### DB ASSOCIATIONS #####
+
+  has_many :authentications, class_name: 'UserAuthentication', dependent: :destroy
 
   has_many :viewings, foreign_key: :viewer_id,
                       dependent: :destroy
@@ -27,10 +33,15 @@ class User < ApplicationRecord
   has_many :users_friended_by,    :through => :received_friendings,
                                   :source => :friend_initiator
 
+  # Avoid n+1 queries, grab all authenticables
   default_scope {
     includes :authentications
   }
 
+  # Public: Create a new user from OAuth Login
+  #
+  # auth - Hash: Authentication data returned from omniAuth
+  #
   def self.create_from_omniauth(auth)
     attributes = {
       email: auth['info']['email'],
@@ -41,14 +52,24 @@ class User < ApplicationRecord
     create(attributes)
   end
 
+  # Public: Overwrite default to_json to User Model, so that devise includes OAuth Joins
+  #
+  # arg - any: field from devise, unused
+  #
   def to_json(arg)
     self.as_json(include: [:authentications]).to_json
   end
 
+  # Public: All of a user's friends
+  #
   def friends
     self.friended_users + self.users_friended_by
   end
 
+  # Public: import user's friends from facebook
+  #
+  # fb_user_info - Hash: OAuth Facebook data
+  #
   def add_fb_friends(fb_user_info)
     friend_ids = self.friends.pluck(:id)
 
@@ -61,6 +82,8 @@ class User < ApplicationRecord
     end
   end
 
+  # Public: View the recently viewed item for all of a user's friends
+  #
   def friends_viewings
     Viewing
     .joins("JOIN users ON viewings.viewer_id = users.id")
@@ -73,6 +96,8 @@ class User < ApplicationRecord
             'watchables.tmdb_id AS tmdb_id')
   end
 
+  # Public: View the recently viewed item for a user
+  #
   def viewed_items_slim
     Viewing
     .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
