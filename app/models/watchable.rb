@@ -2,13 +2,11 @@ class Watchable < ApplicationRecord
 
   # TODO: Associations need to be made polymorphic if TV shows are added
 
-  has_many :viewings, foreign_key: :viewed_id,
-                      primary_key: :tmdb_id,
-                      dependent: :destroy
+  has_many :activities, foreign_key: :tmdb_id,
+                        primary_key: :tmdb_id,
+                        dependent: :destroy
 
-  has_many :viewers, :through => :viewings,
-                     :source => :viewer,
-                     class_name: "User"
+  has_many :users, :through => :activities
 
   # Public: collect data from stream sources data mining
   #

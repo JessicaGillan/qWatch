@@ -12,11 +12,10 @@ class User < ApplicationRecord
 
   has_many :authentications, class_name: 'UserAuthentication', dependent: :destroy
 
-  has_many :viewings, foreign_key: :viewer_id,
-                      dependent: :destroy
+  has_many :activities, dependent: :destroy
 
-  has_many :viewed_items, through: :viewings,
-                          source: :viewed,
+  has_many :touched_items, through: :activities,
+                          source: :watchable,
                           class_name: 'Watchable'
 
   # When acting as the initiator of the friending
@@ -84,13 +83,13 @@ class User < ApplicationRecord
 
   # Public: View the recently viewed item for all of a user's friends
   #
-  def friends_viewings
+  def friends_activities
     Viewing
-    .joins("JOIN users ON viewings.viewer_id = users.id")
-    .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
+    .joins("JOIN users ON activities.user_id = users.id")
+    .joins("JOIN watchables ON activities.tmdb_id = watchables.tmdb_id")
     .where(viewer_id: self.friends.pluck(:id))
-    .order('viewings.updated_at DESC')
-    .select('viewings.updated_at AS viewed_at',
+    .order('activities.updated_at DESC')
+    .select('activities.updated_at AS viewed_at',
             'users.name AS friend',
             'watchables.title AS title',
             'watchables.tmdb_id AS tmdb_id',
@@ -101,10 +100,10 @@ class User < ApplicationRecord
   #
   def viewed_items_with_viewing_date
     Viewing
-    .joins("JOIN watchables ON viewings.viewed_id = watchables.tmdb_id")
+    .joins("JOIN watchables ON activities.viewed_id = watchables.tmdb_id")
     .where(viewer_id: self.id)
-    .order('viewings.updated_at DESC')
-    .select('viewings.updated_at AS viewed_at',
+    .order('activities.updated_at DESC')
+    .select('activities.updated_at AS viewed_at',
             'watchables.title AS title',
             'watchables.tmdb_id AS tmdb_id',
             'watchables.tmdb_type AS tmdb_type')

@@ -7,10 +7,10 @@
 # puts "Done"
 
 
-puts "destroying users and Viewings"
+puts "destroying users and Activities"
 
 User.destroy_all
-Viewing.destroy_all
+Activity.destroy_all
 
 puts "adding users"
 
@@ -23,12 +23,12 @@ puts "adding users"
   })
 end
 
-puts "adding viewings to users"
-
-watchables = Watchable.all.limit(100)
-
-User.all.each do |u|
-  5.times do |i|
-    u.viewed_items << watchables[u.id + i]
-  end
-end
+# puts "adding activities to users"
+#
+# watchables = Watchable.all.limit(100)
+#
+# User.all.each do |u|
+#   5.times do |i|
+#     u.touched_items << watchables[u.id + i]
+#   end
+# end
