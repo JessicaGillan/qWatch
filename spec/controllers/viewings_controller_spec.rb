@@ -51,7 +51,7 @@ RSpec.describe ViewingsController, type: :request do
           post watch_viewings_url(watch_id: watchable.tmdb_id), xhr: true
         }.to change(Viewing, :count).by 1
 
-        expect(json.keys).to eq viewed_item.keys.map{ |key| key.to_s }
+        expect(json.keys).to include("viewed_at", "title", "tmdb_id", "tmdb_type")
       end
 
       it 'should not create a viewing for an item that the user has already viewed' do
@@ -105,7 +105,7 @@ RSpec.describe ViewingsController, type: :request do
 
           expect(json.length).to eq user.friends.length
 
-          expect(json[0].keys).to eq ["id","viewed_at", "friend", "title", "tmdb_id"]
+          expect(json[0].keys).to include("viewed_at", "friend", "title", "tmdb_id")
         end
       end
 
