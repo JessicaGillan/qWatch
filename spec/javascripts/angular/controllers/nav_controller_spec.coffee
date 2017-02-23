@@ -88,3 +88,8 @@ describe 'NavController', ->
       @scope.goToIndex()
       expect @windowStub.location.href
         .toEqual '/'
+
+  describe 'signedInUser', ->
+    it 'returns a boolean of whether the user is signed in', ->
+      expect @scope.signedInUser()
+        .toBeA('boolean')
