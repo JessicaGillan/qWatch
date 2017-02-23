@@ -96,13 +96,11 @@ var qWatch = angular
               // User Modal
               'signUp': {
                 template: '<sign-up-modal></sign-up-modal><deregister-modal></deregister-modal>',
-                controller: 'SignUpCtrl'
               },
 
               // Side Bar of Viewed items
               'recentlyViewed': {
                 template: '<side-bar></sidebar>',
-                condtroller: 'RecentlyViewedCtrl'
               },
 
               // Main Content

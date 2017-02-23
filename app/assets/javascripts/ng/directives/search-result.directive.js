@@ -1,6 +1,6 @@
 qWatch.directive('searchResult', [
-  '$rootScope', '$timeout', '$window', '$state',
-  function($root, $timeout, $window, $state){
+  '$rootScope', '$timeout', '$window', '$state', 'viewedItemsService',
+  function($root, $timeout, $window, $state, viewed){
     "use strict";
 
     var _setPosition = function _setPosition(el){
@@ -46,6 +46,13 @@ qWatch.directive('searchResult', [
             _slideUp(scope, el);
           })
         }
+      }
+
+      scope.view = function view(url){
+        viewed.create(scope.item.tmdb_id, scope.item.tmdb_type)
+        $timeout(function(){
+          $window.location.href = url;
+        })
       }
 
       scope.hide = function hide() {
