@@ -48,6 +48,23 @@ var qWatch = angular
       }
     ])
 
+    //----------- HTTP CONFIGURATION ---------------------//
+    .config([
+      "$httpProvider",
+      function($httpProvider) {
+        var token = angular.element('meta[name=csrf-token]')
+          .attr('content');
+        $httpProvider
+          .defaults
+          .withCredentials = true;
+
+        $httpProvider
+          .defaults
+          .headers
+          .common['X-CSRF-Token'] = token;
+      }
+    ]);
+
     //----------- DEVISE CONFIGURATION -------------------//
     .config([
       'AuthProvider', 'AuthInterceptProvider',
