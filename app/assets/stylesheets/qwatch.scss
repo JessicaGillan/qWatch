@@ -3,10 +3,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// Bootstrap - remove gutter
-.no-gutter > [class*='col-'] {
+
+.no-gutter {
   padding-right: 0;
   padding-left: 0;
+}
+
+textarea.no-show {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  width: 2em !important;
+  height: 2em !important;
+  background: transparent !important;
 }
 
 // Font Awesome
@@ -37,6 +49,21 @@ body {
 
 a, search-result {
   cursor: pointer;
+}
+
+// Bootstrap - remove gutter
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.tmdb-logo {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  display: block;
+  width: 100px;
+  height: 100px;
 }
 
 .no-animate {
@@ -73,6 +100,13 @@ a, search-result {
   &:hover {
     opacity: .9;
   }
+}
+.navbar-login {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.welcome-text {
+  text-transform: capitalize;
 }
 
 // Flex form
@@ -152,7 +186,7 @@ a, search-result {
 }
 
 // Search bar
-// Search bar
+
 #search-panel, #search-panel-filler {
   width: 100%;
   // max-width: $search-bar-max-width;
@@ -469,3 +503,52 @@ center-flash {
 .error {
   color: red;
 }
+
+// Form inputs
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+  border-radius: 4px
+}
+
+// Facebook Signup/in Buttons
+.facebook-sign-up {
+  background-color: $facebook;
+  color: white;
+}
+
+ul.nav li.dropdown:hover{
+  color: #fff;
+  background-color: #080808;
+  & > ul.dropdown-menu {
+    display: block;
+    background-color: #2b78e4;
+  }
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px;
+    overflow:hidden;
+    background-color:rgba(240,248,255,.8);
+    &, a {
+      color: #333;
+    }
+    .help-block{
+      font-size:12px
+    }
+    .bottom{
+      background-color:rgba(240,248,255,.8);
+      border-top:1px solid #ddd;
+      clear:both;
+      padding:14px;
+    }
+    .social-buttons{
+      margin:12px 0
+    }
+    .social-buttons a{
+      width: 49%;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+  }

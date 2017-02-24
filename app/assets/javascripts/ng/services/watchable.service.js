@@ -1,8 +1,8 @@
 qWatch.factory('watchableService', [
-  '$q', 'Restangular', 'showItemService',
-  function($q, restangular, showItem){
+  '$q', 'Restangular', 'showItemService', 'viewedItemsService',
+  function($q, restangular, showItem, viewed){
     "use strict";
-    
+
     var _watchables = [],
         _watchable = {},
         _searchResults = [],
@@ -52,9 +52,10 @@ qWatch.factory('watchableService', [
       var self = this;
       if(!self.complete){
         return restangular
-          .one('watch', self.id)
-          .get()
+          .one('watch', self.tmdb_id)
+          .get({type: self.tmdb_type})
           .then(function(result){
+            // viewed.create(result.tmdb_id, result.tmdb_type)
             return _complete(self, result)
           })
       }
@@ -62,12 +63,14 @@ qWatch.factory('watchableService', [
       return $q.resolve(_watchable);
     }
 
-    var get = function get(id){
-      if(!_watchable.id || _watchable.id !== id){
+    var get = function get(type, id){
+      if(!_watchable.id || _watchable.id !== id || _watchable.type !== type){
         return restangular
           .one('watch', id)
-          .get()
+          .get({type: type})
           .then(function(result){
+            // viewed.create(result.tmdb_id, result.tmdb_type)
+
             showItem.combineUrls(result)
             angular.copy(result, _watchable);
             return _watchable;
@@ -76,11 +79,11 @@ qWatch.factory('watchableService', [
       return $q.resolve(_watchable);
     }
 
-    var search = function search(term){
+    var search = function search(term, strict){
       _searchResults.length = 0;
       return restangular
         .all('search')
-        .getList({search: term})
+        .getList({search: term, strict: strict || false})
         .then(function(results){
           _denormalize(results, _searchResults)
           return _searchResults;
