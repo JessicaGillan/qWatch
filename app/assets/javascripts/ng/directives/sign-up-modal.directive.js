@@ -3,7 +3,7 @@ qWatch.directive('signUpModal',
     function($q, user) {
       "use strict";
 
-      var fbSignUp = function fbSignUp() {
+      var user_fbSignUp = function user_fbSignUp() {
         return user.fbSignUp();
       }
 
@@ -49,7 +49,7 @@ qWatch.directive('signUpModal',
 
             if(!scope.disableButtons){
               scope.disableButtons = true;
-              fbSignUp().then(function(){
+              user_fbSignUp().then(function(){
                 dismissModal();
               })
               .catch(function(){

@@ -23,6 +23,12 @@ puts "adding users"
   })
 end
 
+puts "creating facebook accounts for users"
+
+User.all.each_with_index do |user, index|
+  user.authentications.create(provider: "facebook", uid: index)
+end
+
 puts "adding viewings to users"
 
 watchables = Watchable.all.limit(100)
