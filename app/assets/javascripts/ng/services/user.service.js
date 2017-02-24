@@ -115,7 +115,7 @@ qWatch.factory('userService',
 
       var _deleteAccount = function _deleteAccount(){
         var currentUser = getCurrentUser();
-        if(currentUser.provider === "facebook"){
+        if(currentUser.authentications && _.some(currentUser.authentications, ['provider', "facebook"])){
           return facebook.destroy().then(function(){
             return Auth.register({}, {method: 'DELETE'})
           })
