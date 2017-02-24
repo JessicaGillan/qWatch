@@ -71,20 +71,13 @@ qWatch.factory('facebookService', [
     };
 
     var backendLogIn = function backendLogIn(auth, info) {
-      console.log(auth, info)
       auth = {
         provider: "facebook",
         uid: auth.userID,
         info: {
           email: info.email,
           name: info.name,
-          // TODO: Remove hard coded Friends
-          // friends: info.friends
-          friends: {
-            data: [{ id: "0"}, { id: "1"},{ id: "2"},{ id: "3"},
-            { id: "4"},{ id: "5"},{ id: "6"},{ id: "7"},]
-          }
-          // friends: info.friends
+          friends: info.friends
         },
         credentials: {
           expires_in: auth.expiresIn,
@@ -100,7 +93,6 @@ qWatch.factory('facebookService', [
       return angular.element.getJSON('/api/v1/users/auth/facebook/callback',
               { auth: auth },
               function(json) {
-                console.log(json)
                 return json
               });
     };
