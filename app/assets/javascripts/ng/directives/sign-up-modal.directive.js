@@ -51,6 +51,7 @@ qWatch.directive('signUpModal',
               scope.disableButtons = true;
               user_fbSignUp().then(function(){
                 dismissModal();
+                scope.disableButtons = false;
               })
               .catch(function(){
                 scope.disableButtons = false;
