@@ -32,6 +32,24 @@ var qWatch = angular
     .module('qWatch', ['ui.router', 'ui.bootstrap','restangular', 'Devise', '720kb.socialshare', 'ngMessages', 'ngtimeago', 'ngCookies'])
     .constant('_', window._)
 
+    //----------- HTTP CONFIGURATION ---------------------//
+    .config([
+      "$httpProvider",
+      function($httpProvider) {
+        var token = angular.element('meta[name=csrf-token]')
+        .attr('content');
+        $httpProvider
+        .defaults
+        .withCredentials = true;
+
+        $httpProvider
+        .defaults
+        .headers
+        .common['X-CSRF-Token'] = token;
+      }
+    ])
+
+    //----------- RESTANGULAR CONFIGURATION ---------------------//
     .config([
       'RestangularProvider',
       function(RestangularProvider) {
@@ -48,22 +66,6 @@ var qWatch = angular
       }
     ])
 
-    //----------- HTTP CONFIGURATION ---------------------//
-    .config([
-      "$httpProvider",
-      function($httpProvider) {
-        var token = angular.element('meta[name=csrf-token]')
-          .attr('content');
-        $httpProvider
-          .defaults
-          .withCredentials = true;
-
-        $httpProvider
-          .defaults
-          .headers
-          .common['X-CSRF-Token'] = token;
-      }
-    ])
 
     //----------- DEVISE CONFIGURATION -------------------//
     .config([
