@@ -35,18 +35,31 @@ The goal of this project was to give people a quick way to find their favorite m
 
 ### Tools & Features
 > Ruby on Rails
+
 > Postgres - SQL Database
+
 > AngularJS - Front End Single Page App Framework
+
 > The Movie Database API
+
 > Guidebox API
+
 > Javascript and CSS animations
+
 > Search - Postgres Trigram indexing and generalized inversed indexing (GIN)
+
 > OmniAuth - Multiple Authentication methods for single account
+
 > Sharing - Modal dialogs for Twitter, Facebook, Email, and Copy-to-Clipboard sharing
+
 > Chrome Extension API - Share movies as you watch them on netflix via an In-Player link.
+
 > Client Side Authentication - Never leave the SPA
+
 > Devise - Backend Authentication management & processing
+
 > CSRF protection - Ensure your data stays secure even with a SPA
+
 > Optimized Infinite Scrolling - Combined Infinited Scrolling with Pagination ensures the browser is never overloaded with listeners
 
 ### Other Credits
