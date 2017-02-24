@@ -73,7 +73,8 @@ class User < ApplicationRecord
   def add_fb_friends(fb_user_info)
     friend_ids = self.friends.pluck(:id)
 
-    fb_user_info.each do |index, friend|
+    (fb_user_info ||= []).each do |index, friend|
+
       auth = UserAuthentication.find_by(provider: "facebook", uid: friend['id'])
       user_friend = auth.user if auth
 
