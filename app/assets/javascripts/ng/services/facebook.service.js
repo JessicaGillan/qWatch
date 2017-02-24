@@ -71,7 +71,6 @@ qWatch.factory('facebookService', [
     };
 
     var backendLogIn = function backendLogIn(auth, info) {
-      console.log(auth, info)
       auth = {
         provider: "facebook",
         uid: auth.userID,
@@ -94,7 +93,6 @@ qWatch.factory('facebookService', [
       return angular.element.getJSON('/api/v1/users/auth/facebook/callback',
               { auth: auth },
               function(json) {
-                console.log(json)
                 return json
               });
     };
