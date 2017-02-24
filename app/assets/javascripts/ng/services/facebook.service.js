@@ -57,7 +57,6 @@ qWatch.factory('facebookService', [
       var deferredLogout = $q.defer();
       fbSdk.logout(function(response) {
         console.log("FB logged out");
-        fbSdk.Auth.setAuthResponse(null, 'unknown');
         deferredLogout.resolve();
       });
       return deferredLogout.promise;
@@ -151,11 +150,10 @@ qWatch.factory('facebookService', [
       var deferred = $q.defer();
       fbSdk.api('/me/permissions', 'DELETE', function(response) {
         if (response.success == true) {
-          logout().then(function(){
-            deferred.resolve();
-          })
+          fbSdk.Auth.setAuthResponse(null, 'unknown');
+          deferred.resolve();
         } else {
-          adeferred.reject('Error revoking app');
+          deferred.reject('Error revoking app');
         }
       });
       return deferred.promise;
