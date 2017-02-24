@@ -42,74 +42,66 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
-}
+  
+  li {
+    padding: 0 20px;
+    margin-bottom: 25px;
+    color: #888;
+    a {
+      display: block;
+      text-decoration: none;
+      color: #999999;
 
-.sidebar-nav li {
-  padding-left: 20px;
-  margin-bottom: 25px;
-  color: #888;
-}
+      &:hover {
+        text-decoration: none;
+        color: #fff;
+        background: rgba(255,255,255,0.2);
+      }
 
-.sidebar-nav li a {
-  display: block;
-  text-decoration: none;
-  color: #999999;
-}
-
-.sidebar-nav li a:hover {
-  text-decoration: none;
-  color: #fff;
-  background: rgba(255,255,255,0.2);
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-  text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-  font-size: 16px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-  color: #bbb;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-  color: #fff;
-  background: none;
-}
-
-.sidebar-nav li p {
-  font-size: 14px;
-}
-
-.sidebar-nav li h4 {
-  margin-top: 10px;
-  margin-bottom: 30px;
-}
-
-.sidebar-nav > .sidebar-title a {
-  text-indent: 0;
-  display: inline-block;
-}
-
-.sidebar-nav > .sidebar-title a:hover {
-  background: inherit;
-}
-
-.sidebar-nav > .sidebar-title .selected {
-  color: #fff;
-  background: inherit;
-}
-
-
-@media(min-width:768px) {
-  #wrapper {
-    padding-left: 0;
-    &.toggled #sidebar-wrapper {
-      width: 250px;
+      &:active,
+      &:focus {
+        text-decoration: none;
+      }
+       
+    }
+    
+    p {
+      font-size: 14px;
+    }
+    
+    h4 {
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
   }
+  
+  & > .sidebar-brand {
+    font-size: 16px;
 
+    a {
+      color: #bbb;
+    }
+
+    &, & a:hover {
+      color: #fff;
+      background: none;
+    }
+
+  }
+  
+  & > .sidebar-title {
+    a {
+      text-indent: 0;
+      display: inline-block;
+
+      &:hover {
+        background: inherit;
+      }
+    }
+
+    .selected {
+      color: #fff;
+      background: inherit;
+    }
+  }
 }
