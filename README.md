@@ -43,6 +43,8 @@ The goal of this project was to give people a quick way to find their favorite m
 * Search - Postgres Trigram indexing and generalized inversed indexing (GIN)
 * OmniAuth - Multiple Authentication methods for single account
 * Sharing - Modal dialogs for Twitter, Facebook, Email, and Copy-to-Clipboard sharing
+* Activity Feed - When signed in, keep track of the movies you've watched and shared
+* Friend Activity - See your Friends' activity since your last login
 * Chrome Extension API - Share movies as you watch them on netflix via an In-Player link.
 * Client Side Authentication - Never leave the SPA
 * Devise - Backend Authentication management & processing
