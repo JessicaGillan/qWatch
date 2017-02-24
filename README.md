@@ -34,12 +34,19 @@ clicking that logo will take you to that movie on qWatch.me so you can share lin
 The goal of this project was to give people a quick way to find their favorite movies, stream them on whatever service they prefer, and share them with friends, all with a great user experience. 
 
 ### Tools utilized
-1. Rails - Authentication with Devise
-2. AngularJS - Front End Single Page App 
-3. The Movie Database API
-4. Guidebox API
-5. Javascript and CSS animations
-6. Search - Postgres Trigram indexing and generalized inversed indexing (GIN)
+1. Ruby on Rails
+2. Postgres - SQL Database
+3. AngularJS - Front End Single Page App Framework
+4. The Movie Database API
+5. Guidebox API
+6. Javascript and CSS animations
+7. Search - Postgres Trigram indexing and generalized inversed indexing (GIN)
+8. OmniAuth - Multiple Authentication methods for single account
+9. Sharing - Modal dialogs for Twitter, Facebook, Email, and Copy-to-Clipboard sharing
+10. Chrome Extension API - Share movies as you watch them on netflix via an In-Player link.
+11. Client Side Authentication - Never leave the SPA
+12. Devise - Backend Authentication management & processing
+13. CSRF protection - Ensure your data stays secure even with a SPA
 
 ### Other Credits
 [The Movie Database](https://www.themoviedb.org/?language=en)
