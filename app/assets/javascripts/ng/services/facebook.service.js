@@ -154,8 +154,10 @@ qWatch.factory('facebookService', [
           //   console.log("called")
           //   deferred.resolve();
           // });
-          getUserInfo().finally(function(){
-            deferred.resolve();
+          getUserInfo()
+            .catch(function () {})
+            .finally(function(){
+              deferred.resolve();
           })
         } else {
           deferred.reject('Error revoking app');
