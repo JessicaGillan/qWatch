@@ -42,7 +42,7 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
-  
+
   li {
     padding: 0 20px;
     margin-bottom: 25px;
@@ -62,19 +62,19 @@ body {
       &:focus {
         text-decoration: none;
       }
-       
+
     }
-    
+
     p {
       font-size: 14px;
     }
-    
+
     h4 {
       margin-top: 10px;
       margin-bottom: 30px;
     }
   }
-  
+
   & > .sidebar-brand {
     font-size: 16px;
 
@@ -82,13 +82,13 @@ body {
       color: #bbb;
     }
 
-    &, & a:hover {
+    &, a:hover {
       color: #fff;
       background: none;
     }
 
   }
-  
+
   & > .sidebar-title {
     a {
       text-indent: 0;
