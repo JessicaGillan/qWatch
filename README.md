@@ -33,14 +33,35 @@ clicking that logo will take you to that movie on qWatch.me so you can share lin
 ## Technical Overview
 The goal of this project was to give people a quick way to find their favorite movies, stream them on whatever service they prefer, and share them with friends, all with a great user experience. 
 
-### Tools utilized
-1. Rails - Authentication with Devise
-2. AngularJS - Front End Single Page App 
-3. The Movie Database API
-4. Guidebox API
-5. Javascript and CSS animations
-6. Search - Postgres Trigram indexing and generalized inversed indexing (GIN)
+### Tools & Features
+* Ruby on Rails
+* Postgres - SQL Database
+* AngularJS - Front End Single Page App Framework
+* The Movie Database API
+* Guidebox API
+* Javascript and CSS animations
+* Search - Postgres Trigram indexing and generalized inversed indexing (GIN)
+* OmniAuth - Multiple Authentication methods for single account
+* Sharing - Modal dialogs for Twitter, Facebook, Email, and Copy-to-Clipboard sharing
+* Activity Feed - When signed in, keep track of the movies you've watched and shared
+* Friend Activity - See your Friends' activity since your last login
+* Chrome Extension API - Share movies as you watch them on netflix via an In-Player link.
+* Client Side Authentication - Never leave the SPA
+* Devise - Backend Authentication management & processing
+* CSRF protection - Ensure your data stays secure even with a SPA
+* Optimized Infinite Scrolling - Combined Infinited Scrolling with Pagination ensures the browser is never overloaded with listeners
+* RSpec Ruby Testing - Ensure the API works correctly
+* Jasmine Javascript Testing - Angular Controller Tests
+
+## Contributions
+
+[Jessica Gillan](https://github.com/JessicaGillan)
+
+[Sampson Crowley](https://github.com/SampsonCrowley)
+
+[Pramod Jacob](https://github.com/domarp-j)
 
 ### Other Credits
 [The Movie Database](https://www.themoviedb.org/?language=en)
+
 [Guidebox](https://api.guidebox.com)
