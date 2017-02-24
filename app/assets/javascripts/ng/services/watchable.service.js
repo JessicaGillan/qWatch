@@ -55,7 +55,6 @@ qWatch.factory('watchableService', [
           .one('watch', self.tmdb_id)
           .get({type: self.tmdb_type})
           .then(function(result){
-            // viewed.create(result.tmdb_id, result.tmdb_type)
             return _complete(self, result)
           })
       }
@@ -69,7 +68,6 @@ qWatch.factory('watchableService', [
           .one('watch', id)
           .get({type: type})
           .then(function(result){
-            // viewed.create(result.tmdb_id, result.tmdb_type)
 
             showItem.combineUrls(result)
             angular.copy(result, _watchable);

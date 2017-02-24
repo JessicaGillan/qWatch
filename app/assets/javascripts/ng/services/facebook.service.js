@@ -150,10 +150,6 @@ qWatch.factory('facebookService', [
       var deferred = $q.defer();
       fbSdk.api('/me/permissions', 'DELETE', function(response) {
         if (response.success == true) {
-          // fbSdk.getLoginStatus(function(){
-          //   console.log("called")
-          //   deferred.resolve();
-          // });
           getUserInfo()
             .catch(function () {})
             .finally(function(){
