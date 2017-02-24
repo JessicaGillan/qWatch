@@ -53,6 +53,14 @@ The goal of this project was to give people a quick way to find their favorite m
 * RSpec Ruby Testing - Ensure the API works correctly
 * Jasmine Javascript Testing - Angular Controller Tests
 
+## Contributions
+
+[Jessica Gillan](https://github.com/JessicaGillan)
+
+[Sampson Crowley](https://github.com/SampsonCrowley)
+
+[Pramod Jacob](https://github.com/domarpj)
+
 ### Other Credits
 [The Movie Database](https://www.themoviedb.org/?language=en)
 
