@@ -150,8 +150,10 @@ qWatch.factory('facebookService', [
       var deferred = $q.defer();
       fbSdk.api('/me/permissions', 'DELETE', function(response) {
         if (response.success == true) {
-          fbSdk.Auth.setAuthResponse(null, 'unknown');
-          deferred.resolve();
+          fbSdk.getLoginStatus(function(){
+            console.log("called")
+            deferred.resolve();
+          });
         } else {
           deferred.reject('Error revoking app');
         }
