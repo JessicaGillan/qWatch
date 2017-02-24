@@ -1,6 +1,6 @@
 qWatch.controller('SearchCtrl',[
-  '$scope', '$rootScope', '$timeout',
-  function($scope, $root, $timeout){
+  '$scope', '$rootScope', '$timeout', 'listenerService',
+  function($scope, $root, $timeout, listeners){
     "use strict";
 
     /*
@@ -133,26 +133,39 @@ qWatch.controller('SearchCtrl',[
       if(_checkSearchElPosition()) _setSearchElFixed();
     }
 
+    // event listener wrapper to also setup deregistration
+    var _setListener = function _setListener(el, ev, f){
+      listeners.element('controller', 'search', el, ev, f);
+    }
+
+    var _setRootListener = function _setRootListener(ev, f){
+      listeners.root('controller', 'search', ev, f);
+    }
+
     // watch for changes in search form ngModel, run searchFor()
     $scope.$watch('search.term', searchFor)
 
     // run _moveFromShow on new search query
-    $root.$on('searchSet', _moveFromShow);
+    _setRootListener('searchSet', _moveFromShow);
 
     // run _moveToShow when a full search result is selected to be shown
-    $root.$on('showItem', _moveToShow);
+    _setRootListener('showItem', _moveToShow);
 
     // run _moveFromShow on search result collapse
-    $root.$on('hideItem', _moveFromShow);
+    _setRootListener('hideItem', _moveFromShow);
 
     // scroll listener to stick searchEl to top of page
-    angular.element(document).on('scroll', function (e) {
+    _setListener(angular.element(document), 'scroll', function (e) {
       if(_checkSearchElPosition()){
         _setSearchElFixed();
       }
       else {
         if(!showing) _resetSearchEl();
       }
+    });
+
+    $scope.$on("$destroy", function() {
+      listeners.destroy('controller', 'search')
     });
   }
 ])

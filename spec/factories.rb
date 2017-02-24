@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :watchable do
+  factory :watchable, aliases: [:viewed] do
 
     sequence(:tmdb_id) { |n| n }
 
@@ -17,4 +17,54 @@ FactoryGirl.define do
 
   end
 
+  factory :user, aliases: [:friend_initiator, :friend_recipient, :viewer] do
+    name  'Bobby Tables'
+    sequence(:email) { |n| "test#{n}@example.com" }
+    password    'password'
+
+    factory :user_with_friends do
+
+      transient do
+        friends_count 0
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:friending, evaluator.friends_count, friend_initiator: user)
+      end
+
+    end
+
+    factory :user_with_fb_account do
+      after(:create) do |user|
+        create(:user_authentication, user: user)
+      end
+    end
+
+    factory :user_with_viewed_items do
+      transient do
+        items_count 3
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:viewing, evaluator.items_count, viewer: user)
+      end
+    end
+  end
+
+  factory :friending do
+    friend_initiator
+    friend_recipient
+  end
+
+  factory :viewing do
+    viewer
+    viewed
+  end
+
+  factory :user_authentication do
+    user
+
+    provider "facebook"
+    sequence(:uid){ |n| n }
+  end
 end

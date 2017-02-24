@@ -2,12 +2,11 @@ qWatch.factory('tmdbConfigService', [
   '$q', '_', 'Restangular',
   function($q, _, restangular) {
     "use strict";
-    
+
     var _config = {}, _sizes = {};
 
     var _extract = function _extract(config){
       _config.url = config.url.replace("http://", "//");
-      console.log(_config);
       _config.sizes = {}
       for(var i = 0, length = config.sizes.length; i < length; i++){
         _config.sizes[config.sizes[i]] = config.sizes[i];

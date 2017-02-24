@@ -40,6 +40,7 @@ gem 'angular_rails_csrf'
 
 # Devise
 gem 'devise'
+gem 'domp'
 
 # Figaro
 gem 'figaro'
@@ -50,12 +51,19 @@ gem 'httparty'
 # Font Awesome
 gem 'font-awesome-rails'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google'
+
 source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
   gem 'rails-assets-angular'
   gem 'rails-assets-ui-router'
   gem 'rails-assets-lodash'
   gem 'rails-assets-restangular'
   gem 'rails-assets-angular-devise'
+  gem 'rails-assets-angular-mocks'
 end
 
 group :test do
@@ -72,6 +80,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'jazz_fingers'
   gem 'faker'
+  gem 'jasmine-rails'
+  gem 'guard-jasmine'
 end
 
 group :development do

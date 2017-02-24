@@ -3,6 +3,37 @@
 <% end %>
 
 <ui-view name="nav"></ui-view>
-<ui-view name="search"></ui-view>
-<ui-view></ui-view>
-<div id="main-show" class="expandable" ng-class="{expand: expanded}" ui-view="show"></div>
+
+
+<div id="wrapper" ng-class="{toggled: showSideBar}">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ui-view name="recentlyViewed"></ui-view>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                  <ui-view name="search"></ui-view>
+                  <ui-view></ui-view>
+                  <div id="main-show" class="expandable" ng-class="{expand: expanded}" ui-view="show"></div>
+                  <div id="fb-root"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Sign Up Modal -->
+<ui-view name="signUp"></ui-view>
+
+<a class="tmdb-logo" href="http://themoviedb.org">
+  <img src="tmdb-logo.svg" alt="">
+</a>

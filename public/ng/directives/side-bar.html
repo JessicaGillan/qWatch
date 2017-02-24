@@ -1,0 +1,26 @@
+
+<ul class="sidebar-nav">
+  <li class="sidebar-title text-left">
+    <h4>
+      <a ng-click="showing = 'mine'" id="mine" ng-class="{selected: showing === 'mine'}">Mine </a> | <a id="friends" ng-click="showing = 'friends'" ng-class="{selected: showing === 'friends'}"> Friends</a>
+    </h4>
+  </li>
+
+  <li ng-if="showing === 'mine'"
+      class="sidebar-brand"
+      ng-repeat="item in viewedItems">
+    <a ui-sref="show({ type: 'movie', id: item.tmdb_id })">
+      {{ item.title }}
+    </a>
+    <p>{{ item.viewed_at | timeago }}</p>
+  </li>
+
+  <li ng-if="showing === 'friends'"
+      class="sidebar-brand"
+      ng-repeat="item in friendsViewed | orderBy:'-viewed_at'">
+    <a ui-sref="show({ type: 'movie', id: item.tmdb_id })">
+      {{ item.title }}
+    </a>
+    <p>{{ item.viewed_at | timeago }} by {{ item.friend }}</p>
+  </li>
+</ul>
