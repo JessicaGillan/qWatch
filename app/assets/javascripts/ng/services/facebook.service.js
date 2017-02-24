@@ -53,7 +53,7 @@ qWatch.factory('facebookService', [
     };
 
 
-    var logout = function login() {
+    var logout = function logout() {
       fbSdk.logout(function(response) {
         console.log("FB logged out")
       });
@@ -147,9 +147,10 @@ qWatch.factory('facebookService', [
       var deferred = $q.defer();
       fbSdk.api('/me/permissions', 'DELETE', function(response) {
         if (response.success == true) {
-            deferred.resolve();
+          logout();
+          deferred.resolve();
         } else {
-            adeferred.reject('Error revoking app');
+          adeferred.reject('Error revoking app');
         }
       });
       return deferred.promise;
