@@ -63,7 +63,7 @@ var qWatch = angular
           .headers
           .common['X-CSRF-Token'] = token;
       }
-    ]);
+    ])
 
     //----------- DEVISE CONFIGURATION -------------------//
     .config([

@@ -79,6 +79,7 @@ a, search-result {
 // Navbar
 .navbar-inverse {
   background-color: $base;
+  box-shadow: 0px 2px 10px #222A30;
 }
 .navbar-brand.logo {
   &, &:hover {
@@ -135,6 +136,7 @@ a, search-result {
 
 // Title, logo, search bar
 .title-search {
+  box-shadow: 5px 5px 13px #222A30;
   margin-top: 100px;
   position: relative;
   &, * {
@@ -260,6 +262,7 @@ a, search-result {
     position: relative;
     color: white;
     font-family: 'Roboto', sans-serif;
+    box-shadow: 5px 5px 13px #222A30;
 
     &.expanded {
       z-index: 500 !important;
