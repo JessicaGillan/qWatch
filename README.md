@@ -59,7 +59,7 @@ The goal of this project was to give people a quick way to find their favorite m
 
 [Sampson Crowley](https://github.com/SampsonCrowley)
 
-[Pramod Jacob](https://github.com/domarpj)
+[Pramod Jacob](https://github.com/domarp-j)
 
 ### Other Credits
 [The Movie Database](https://www.themoviedb.org/?language=en)
